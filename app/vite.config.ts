@@ -13,8 +13,8 @@ export default defineConfig({
         short_name: "PhD Prep",
         description:
           "Five-week preparation system for Statistics for AI and Ethics in Responsible AI.",
-        theme_color: "#0e1117",
-        background_color: "#0e1117",
+        theme_color: "#0A0C12",
+        background_color: "#0A0C12",
         display: "standalone",
         orientation: "portrait",
         start_url: "/",
@@ -40,6 +40,21 @@ export default defineConfig({
           {
             urlPattern: /^.*\/api\/.*$/,
             handler: "NetworkOnly",
+          },
+          // Cache the webfonts so typography survives a commute with no signal.
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: "StaleWhileRevalidate",
+            options: { cacheName: "google-fonts-css" },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-files",
+              expiration: { maxEntries: 24, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
           },
         ],
       },

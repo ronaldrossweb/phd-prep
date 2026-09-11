@@ -4,6 +4,7 @@ import { DECK_LABELS, type Deck } from "../data/cards";
 import { fmt } from "../lib/fmt";
 import { cardState } from "../lib/store";
 import { type Grade, isDue, previewInterval } from "../lib/srs";
+import { IconCheckCircle, IconLayers } from "../components/Icons";
 
 const DECKS: (Deck | "all")[] = ["all", "notation", "stats", "python", "ethics"];
 
@@ -32,9 +33,13 @@ export default function Cards() {
   );
 
   const card = queue[0];
+  // Notation and statistics cards carry mathematics; Python cards carry code.
+  const isMath = card ? card.deck === "notation" || card.deck === "stats" : false;
+  // A front that is nothing but one backticked symbol should be shown large.
+  const solo = card ? /^`[^`]{1,14}`$/.test(card.front.trim()) : false;
 
   const dueByDeck = useMemo(() => {
-    const m: Record<string, number> = { all: 0 };
+    const m: Record<string, number> = {};
     for (const c of unlocked) {
       if (!isDue(progress.cards[c.id])) continue;
       m.all = (m.all ?? 0) + 1;
@@ -50,7 +55,7 @@ export default function Cards() {
     setReviewed((n) => n + 1);
   }
 
-  // Swipe: left = Again, right = Good. Only once the answer is showing.
+  /* Swipe: left = Again, right = Good. Only once the answer is showing. */
   function onTouchStart(e: React.TouchEvent) {
     const t = e.touches[0];
     touchStart.current = { x: t.clientX, y: t.clientY };
@@ -76,21 +81,27 @@ export default function Cards() {
             onClick={() => { setDeck(d); setRevealed(false); }}
           >
             {d === "all" ? "All" : DECK_LABELS[d]}
-            {dueByDeck[d] ? ` ${dueByDeck[d]}` : ""}
+            {dueByDeck[d] ? <span className="n">{dueByDeck[d]}</span> : null}
           </button>
         ))}
       </div>
 
       {!card ? (
         <div className="empty">
-          <span className="glyph">✓</span>
-          <p style={{ fontWeight: 600, color: "var(--text)" }}>
-            {reviewed > 0 ? `${reviewed} card${reviewed === 1 ? "" : "s"} reviewed` : "Nothing due"}
-          </p>
-          <p className="small">
+          <span className="glyph">
+            {unlocked.length === 0 ? <IconLayers /> : <IconCheckCircle />}
+          </span>
+          <h3>
+            {reviewed > 0
+              ? `${reviewed} card${reviewed === 1 ? "" : "s"} reviewed`
+              : unlocked.length === 0
+                ? "Deck locked"
+                : "Queue clear"}
+          </h3>
+          <p>
             {unlocked.length === 0
               ? "Cards unlock as you work through the sessions."
-              : "This queue is empty. Come back when the schedule brings them round — that gap is what makes the repetition spaced."}
+              : "Nothing is due. Come back when the schedule brings them round — that gap is what makes the repetition spaced."}
           </p>
         </div>
       ) : (
@@ -101,13 +112,20 @@ export default function Cards() {
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
-            <div className="q">{fmt(card.front, `q-${card.id}`)}</div>
-            {revealed && <div className="a">{fmt(card.back, `a-${card.id}`)}</div>}
+            <div className={`q${solo ? " solo" : ""}`}>
+              {fmt(card.front, `q-${card.id}`, { math: isMath })}
+            </div>
+            {revealed
+              ? <div className="a">{fmt(card.back, `a-${card.id}`, { math: isMath })}</div>
+              : <div className="tapcue">Tap to reveal</div>}
           </div>
 
           {!revealed ? (
-            <button className="btn primary wide" style={{ marginTop: ".7rem" }}
-              onClick={() => setRevealed(true)}>
+            <button
+              className="btn primary wide"
+              style={{ marginTop: ".75rem" }}
+              onClick={() => setRevealed(true)}
+            >
               Show answer
             </button>
           ) : (
@@ -121,14 +139,17 @@ export default function Cards() {
             </div>
           )}
 
-          <p className="tiny faint center" style={{ marginTop: ".9rem" }}>
-            {queue.length} in queue · {reviewed} done this sitting
-            <br />
-            <span className="pill" style={{ marginTop: ".4rem" }}>{DECK_LABELS[card.deck]}</span>
-          </p>
-          {revealed && (
-            <p className="tiny faint center">swipe ← Again · swipe → Good</p>
-          )}
+          <div className="center" style={{ marginTop: "1rem" }}>
+            <span className="pill">{DECK_LABELS[card.deck]}</span>
+            <p className="tiny faint num" style={{ marginTop: ".5rem" }}>
+              {queue.length} in queue · {reviewed} this sitting
+            </p>
+            {revealed && (
+              <p className="tiny faint" style={{ marginTop: ".2rem" }}>
+                swipe ← again · swipe → good
+              </p>
+            )}
+          </div>
         </>
       )}
     </>

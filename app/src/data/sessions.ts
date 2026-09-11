@@ -147,7 +147,7 @@ export const SESSIONS: Session[] = [
   },
   {
     n: 9, date: "2026-10-03", day: "Sat", start: "5:00am", hours: 3, week: 3,
-    theme: "THE CENTERPIECE — CLT, standard error, and SR 11-7",
+    theme: "The centerpiece — CLT, standard error, and SR 11-7",
     blocks: [
       { minutes: 100, track: "stats", title: "Notebook 07 — CLT and Standard Error",
         detail: "The centerpiece of all five weeks. Watch the CLT appear from a violently skewed population. Then nail σ vs SE — the most common error in applied statistics.",

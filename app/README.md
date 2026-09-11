@@ -67,7 +67,37 @@ npm run build
 netlify deploy --prod --build
 ```
 
+## Design system
+
+Ink and brass, not the default slate-blue. Tokens live at the top of `src/styles.css` with a full
+light-mode override under `prefers-color-scheme`.
+
+| Role | Value |
+|---|---|
+| Ground (dark / light) | `#0A0C12` / `#FBFAF7` warm parchment |
+| Brand accent | brass `#CEA65E` dark, `#8A6A27` light (darkened for contrast) |
+| Tracks | statistics blue, ethics terracotta, both violet |
+
+**Four typefaces, each with a job:**
+
+| Face | Used for |
+|---|---|
+| **Fraunces** | display — the wordmark, hero numerals, section headings |
+| **Inter** | the entire interface |
+| **Newsreader** | mathematics. A sigma set in serif reads as mathematics; the same sigma in a monospace face reads as a string literal. `fmt(..., { math: true })` switches inline code spans to it for the notation and statistics decks. |
+| **JetBrains Mono** | code, dates, file paths |
+
+**The mark** (`src/components/Logo.tsx`, and the PNGs in `public/`) is a normal distribution cut by a
+decision threshold with the flagged tail beyond it — statistics on one axis, the policy choice on the
+other. The React component and the generated icons share the same geometry constants, so they cannot
+drift. Regenerate the PNGs by re-running the Pillow script recorded in the session, or edit the
+constants in both places together.
+
+Two deliberate non-choices: **no `backdrop-filter`** (unsupported widely enough that the nav bars
+degraded to text bleeding through, so they are fully opaque), and **no icon font** (the icons are
+inline SVG in `src/components/Icons.tsx`).
+
 ## Stack
 
 Vite 8 · React 19 · TypeScript 6 · react-router 7 · vite-plugin-pwa · Netlify Functions + Blobs ·
-`@anthropic-ai/sdk`.
+`@anthropic-ai/sdk`. Webfonts are runtime-cached so typography survives an offline commute.

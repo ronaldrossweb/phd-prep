@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { unlockedCards, useStudy } from "../App";
 import { fmt } from "../lib/fmt";
+import { IconSend } from "../components/Icons";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -69,20 +70,19 @@ export default function Tutor() {
 
   return (
     <>
-      <h2>Tutor</h2>
-      <p className="small muted">
+      <h2 className="h-section">Tutor</h2>
+      <p className="small muted" style={{ marginTop: "-.35rem" }}>
         Knows where you are in the plan and that you want the reasoning before the recipe. Good for
         “explain that another way”, “quiz me”, or “check my answer”.
       </p>
 
       {msgs.length === 0 && (
         <div className="card">
-          <h3>Try one of these</h3>
+          <div className="eyebrow">Try one of these</div>
           {PRESETS.map((p) => (
             <button
               key={p}
-              className="btn wide"
-              style={{ marginBottom: ".45rem", textAlign: "left", justifyContent: "flex-start", height: "auto", padding: ".65rem .8rem", fontSize: ".85rem" }}
+              className="btn quiet preset"
               onClick={() => send(p)}
             >
               {p}
@@ -118,10 +118,10 @@ export default function Tutor() {
       />
       <div className="btnrow" style={{ marginTop: ".5rem" }}>
         <button className="btn primary" onClick={() => send(input)} disabled={busy || !input.trim()}>
-          Ask
+          <IconSend /> Ask
         </button>
         {msgs.length > 0 && (
-          <button className="btn" onClick={() => { setMsgs([]); setErr(""); }}>Clear</button>
+          <button className="btn quiet" onClick={() => { setMsgs([]); setErr(""); }}>Clear</button>
         )}
       </div>
       <p className="tiny faint" style={{ marginTop: ".6rem" }}>

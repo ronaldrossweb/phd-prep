@@ -1,5 +1,6 @@
 import {
   createContext, useCallback, useContext, useEffect, useMemo, useState,
+  type ReactNode,
 } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 
@@ -10,6 +11,11 @@ import {
   cardState, daysUntil, load, merge, pull, pushDebounced, save,
   type Progress, type SyncStatus, todayISO,
 } from "./lib/store";
+
+import { Brand } from "./components/Logo";
+import {
+  IconBars, IconLayers, IconRows, IconSigma, IconSpark, IconSunrise,
+} from "./components/Icons";
 
 import Dashboard from "./routes/Dashboard";
 import SessionView from "./routes/Session";
@@ -150,29 +156,26 @@ export default function App() {
       <div className="app">
         <header className="topbar">
           <div className="topbar-inner">
-            <div>
-              <h1>PhD Prep</h1>
-              <div className="sub">PhDAI 730 · 832</div>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <div className="sub">
-                {days > 0 ? `${days} days to Oct 19` : "Term has started"}
+            <Brand />
+            <div className="topmeta">
+              <div className="days">
+                {days > 0 ? <><b>{days}</b> days to Oct 19</> : "Term underway"}
               </div>
               <span className="sync">
                 <span className={`dot ${sync}`} />
-                {sync === "off" ? "local only" : sync}
+                {sync === "off" ? "on this device" : sync}
               </span>
             </div>
           </div>
         </header>
 
         <nav className="tabs">
-          <Tab to="/" glyph="◱" label="Today" />
-          <Tab to="/sessions" glyph="▤" label="Plan" />
-          <Tab to="/cards" glyph="◈" label="Cards" badge={dueCount} />
-          <Tab to="/notation" glyph="∑" label="Notation" />
-          {tutorReady && <Tab to="/tutor" glyph="✦" label="Tutor" />}
-          <Tab to="/progress" glyph="◷" label="Stats" />
+          <Tab to="/" icon={<IconSunrise />} label="Today" />
+          <Tab to="/sessions" icon={<IconRows />} label="Plan" />
+          <Tab to="/cards" icon={<IconLayers />} label="Cards" badge={dueCount} />
+          <Tab to="/notation" icon={<IconSigma />} label="Notation" />
+          {tutorReady && <Tab to="/tutor" icon={<IconSpark />} label="Tutor" />}
+          <Tab to="/progress" icon={<IconBars />} label="Stats" />
         </nav>
 
         <main className="main">
@@ -192,12 +195,16 @@ export default function App() {
   );
 }
 
-function Tab({ to, glyph, label, badge }: {
-  to: string; glyph: string; label: string; badge?: number;
+function Tab({ to, icon, label, badge }: {
+  to: string; icon: ReactNode; label: string; badge?: number;
 }) {
   return (
-    <NavLink to={to} end={to === "/"} className={({ isActive }) => `tab${isActive ? " active" : ""}`}>
-      <span className="glyph" aria-hidden="true">{glyph}</span>
+    <NavLink
+      to={to}
+      end={to === "/"}
+      className={({ isActive }) => `tab${isActive ? " active" : ""}`}
+    >
+      {icon}
       <span>{label}</span>
       {badge ? <span className="badge">{badge > 99 ? "99+" : badge}</span> : null}
     </NavLink>

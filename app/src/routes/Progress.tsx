@@ -16,16 +16,13 @@ export default function Progress() {
   const lapses = Object.values(progress.cards).reduce((a, c) => a + c.lapses, 0);
   const reviews = Object.values(progress.cards).reduce((a, c) => a + c.reps + c.lapses, 0);
 
-  const statsHours = SESSIONS.flatMap((s) => s.blocks)
-    .filter((b) => b.track === "stats").reduce((a, b) => a + b.minutes, 0) / 60;
-  const ethicsHours = SESSIONS.flatMap((s) => s.blocks)
-    .filter((b) => b.track === "ethics").reduce((a, b) => a + b.minutes, 0) / 60;
-  const bothHours = SESSIONS.flatMap((s) => s.blocks)
-    .filter((b) => b.track === "both").reduce((a, b) => a + b.minutes, 0) / 60;
+  const trackHours = (t: string) =>
+    SESSIONS.flatMap((s) => s.blocks).filter((b) => b.track === t)
+      .reduce((a, b) => a + b.minutes, 0) / 60;
 
   return (
     <>
-      <h2>Progress</h2>
+      <h2 className="h-section">Progress</h2>
 
       <div className="statgrid">
         <div className="stat"><div className="v">{sessionsDone}</div><div className="k">Sessions</div></div>
@@ -34,31 +31,32 @@ export default function Progress() {
       </div>
 
       <div className="card">
-        <h3>Time logged</h3>
-        <div className="meter">
-          <span style={{ width: `${Math.min(100, (hours / TOTAL_HOURS) * 100)}%`, background: "var(--good)" }} />
+        <div className="rowline">
+          <span className="small" style={{ fontWeight: 650 }}>Time logged</span>
+          <span className="tiny faint num">{hours.toFixed(1)} / {TOTAL_HOURS}h</span>
         </div>
-        <p className="tiny faint">{hours.toFixed(1)} of {TOTAL_HOURS} planned hours</p>
+        <div className="meter brass">
+          <span style={{ width: `${Math.min(100, (hours / TOTAL_HOURS) * 100)}%` }} />
+        </div>
       </div>
 
-      <h2>Mastery by deck</h2>
+      <h2 className="h-section">Mastery by deck</h2>
       <div className="card">
-        {DECKS.map((d) => {
+        {DECKS.map((d, i) => {
           const all = CARDS.filter((c) => c.deck === d);
           const open = unlocked.filter((c) => c.deck === d);
           const m = open.length
             ? open.reduce((a, c) => a + mastery(progress.cards[c.id]), 0) / open.length
             : 0;
           return (
-            <div key={d} style={{ marginBottom: ".9rem" }}>
-              <div className="small" style={{ display: "flex", justifyContent: "space-between" }}>
-                <strong>{DECK_LABELS[d]}</strong>
-                <span className="faint">{open.length}/{all.length} unlocked</span>
+            <div key={d} style={{ marginBottom: i === DECKS.length - 1 ? ".7rem" : "1rem" }}>
+              <div className="rowline">
+                <span className="small" style={{ fontWeight: 650 }}>{DECK_LABELS[d]}</span>
+                <span className="tiny faint num">{Math.round(m * 100)}% · {open.length}/{all.length}</span>
               </div>
-              <div className="meter">
-                <span style={{ width: `${m * 100}%`, background: "var(--accent)" }} />
+              <div className="meter brass">
+                <span style={{ width: `${m * 100}%` }} />
               </div>
-              <div className="tiny faint">{Math.round(m * 100)}% mastery</div>
             </div>
           );
         })}
@@ -67,21 +65,17 @@ export default function Progress() {
         </p>
       </div>
 
-      <h2>How the 35 hours split</h2>
+      <h2 className="h-section">How the 35 hours split</h2>
       <div className="card">
-        <div className="small" style={{ display: "flex", justifyContent: "space-between" }}>
-          <span><span className="pill stats">Statistics</span></span>
-          <span className="faint">{statsHours.toFixed(1)}h</span>
-        </div>
-        <div className="small" style={{ display: "flex", justifyContent: "space-between", marginTop: ".5rem" }}>
-          <span><span className="pill ethics">Ethics</span></span>
-          <span className="faint">{ethicsHours.toFixed(1)}h</span>
-        </div>
-        <div className="small" style={{ display: "flex", justifyContent: "space-between", marginTop: ".5rem" }}>
-          <span><span className="pill both">Both</span></span>
-          <span className="faint">{bothHours.toFixed(1)}h</span>
-        </div>
-        <p className="tiny faint" style={{ marginTop: ".7rem", marginBottom: 0 }}>
+        {([["stats", "Statistics"], ["ethics", "Ethics"], ["both", "Both"]] as const).map(
+          ([t, label]) => (
+            <div key={t} className="rowline" style={{ marginBottom: ".55rem" }}>
+              <span className={`pill ${t}`}>{label}</span>
+              <span className="tiny faint num">{trackHours(t).toFixed(1)}h</span>
+            </div>
+          ),
+        )}
+        <p className="tiny faint" style={{ marginTop: ".8rem", marginBottom: 0 }}>
           Weighted toward statistics and Python, which is the harder track from a cold start. Ethics
           builds on judgement you already have.
         </p>
@@ -89,7 +83,7 @@ export default function Progress() {
 
       {lapses > 0 && (
         <>
-          <h2>Cards you keep forgetting</h2>
+          <h2 className="h-section">Cards you keep forgetting</h2>
           <div className="card">
             {unlocked
               .map((c) => ({ c, s: progress.cards[c.id] }))
@@ -97,42 +91,46 @@ export default function Progress() {
               .sort((a, b) => b.s!.lapses - a.s!.lapses)
               .slice(0, 8)
               .map(({ c, s }) => (
-                <div key={c.id} className="small" style={{
-                  display: "flex", justifyContent: "space-between", gap: ".7rem",
-                  padding: ".4rem 0", borderBottom: "1px solid var(--border)",
+                <div key={c.id} className="rowline" style={{
+                  padding: ".45rem 0", borderBottom: "1px solid var(--border-soft)",
                 }}>
-                  <span style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  <span className="small" style={{
+                    flex: 1, minWidth: 0, overflow: "hidden",
+                    textOverflow: "ellipsis", whiteSpace: "nowrap",
+                  }}>
                     {c.front.replace(/[`*]/g, "")}
                   </span>
-                  <span className="faint tiny" style={{ flexShrink: 0 }}>×{s!.lapses}</span>
+                  <span className="tiny faint num">×{s!.lapses}</span>
                 </div>
               ))}
-            <p className="tiny faint" style={{ marginTop: ".7rem", marginBottom: 0 }}>
+            <p className="tiny faint" style={{ marginTop: ".8rem", marginBottom: 0 }}>
               Worth re-reading the underlying note rather than drilling the card.
             </p>
           </div>
         </>
       )}
 
-      <h2>Cross-device sync</h2>
+      <h2 className="h-section">Cross-device sync</h2>
       <div className="card">
         <p className="small muted" style={{ marginTop: 0 }}>
-          Progress is always saved on this device. To share it between your Mac and your phone, set
+          Progress always saves on this device. To share it between your Mac and your phone, set
           <code>STUDY_PIN</code> in the Netlify dashboard, then enter the same PIN here on each device.
         </p>
         <input
           type="password"
           defaultValue={getPin()}
           onChange={(e) => setPin(e.target.value.trim())}
-          placeholder="Study PIN (leave blank for local only)"
+          placeholder="Study PIN — blank for this device only"
           autoCapitalize="none"
           autoCorrect="off"
         />
-        <p className="tiny faint" style={{ marginBottom: 0, marginTop: ".5rem" }}>
-          Status: <strong>{sync === "off" ? "local only" : sync}</strong>. Reload after entering a PIN
-          to pull down existing progress. Until <code>STUDY_PIN</code> is set, the sync endpoint
-          refuses every request, so an unconfigured site is never left open. The PIN deters a
-          stumbled-upon URL rather than a determined attacker — keep nothing sensitive here.
+        <p className="tiny faint" style={{ marginBottom: 0, marginTop: ".6rem" }}>
+          Status <strong style={{ color: "var(--text-2)" }}>
+            {sync === "off" ? "on this device only" : sync}
+          </strong>. Reload after entering a PIN to pull down existing progress. Until{" "}
+          <code>STUDY_PIN</code> is set the sync endpoint refuses every request, so an unconfigured
+          site is never left open. The PIN deters a stumbled-upon URL rather than a determined
+          attacker — keep nothing sensitive here.
         </p>
       </div>
     </>

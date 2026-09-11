@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { NOTATION } from "../data/notation";
 import { fmt } from "../lib/fmt";
+import { IconEmptySet, IconSearch } from "../components/Icons";
 
 export default function Notation() {
   const [q, setQ] = useState("");
@@ -26,33 +27,36 @@ export default function Notation() {
 
   return (
     <>
-      <h2>Notation decoder</h2>
-      <p className="small muted">
-        When a lecture stops you, the problem is usually a symbol, not the concept. Look it up, say the
-        reading aloud, and carry on. Keep this open during your 730 lectures.
+      <h2 className="h-section">Notation decoder</h2>
+      <p className="small muted" style={{ marginTop: "-.35rem" }}>
+        When a lecture stops you, it is usually a symbol rather than the concept. Look it up, say the
+        reading aloud, carry on. Keep this open during your 730 lectures.
       </p>
 
-      <input
-        type="text"
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        placeholder="Search a symbol or a word…"
-        autoCapitalize="none"
-        autoCorrect="off"
-        spellCheck={false}
-        style={{ marginBottom: "1rem" }}
-      />
+      <div className="searchwrap">
+        <IconSearch />
+        <input
+          type="search"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search a symbol or a word…"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
+        />
+      </div>
 
       {groups.length === 0 && (
         <div className="empty">
-          <span className="glyph">∅</span>
-          <p className="small">Nothing matches “{q}”.</p>
+          <span className="glyph"><IconEmptySet /></span>
+          <h3>Nothing matches</h3>
+          <p>No entry contains “{q}”.</p>
         </div>
       )}
 
       {groups.map(([section, entries]) => (
         <div key={section}>
-          <h3 style={{ marginTop: "1.3rem", color: "var(--muted)" }}>{section}</h3>
+          <div className="eyebrow" style={{ marginTop: "1.6rem" }}>{section}</div>
           <div className="card card-tight">
             {entries.map((e) => (
               <div key={e.symbol} className="notation-item">
@@ -60,15 +64,15 @@ export default function Notation() {
                   <div className="notation-sym">{e.symbol}</div>
                   {e.readAloud && <div className="notation-read">{e.readAloud}</div>}
                 </div>
-                <div className="small">{fmt(e.meaning, e.symbol)}</div>
+                <div className="small">{fmt(e.meaning, e.symbol, { math: true })}</div>
               </div>
             ))}
           </div>
         </div>
       ))}
 
-      <p className="tiny faint center" style={{ marginTop: "1.5rem" }}>
-        {NOTATION.length} entries · generated from ~/PhD/00-notation-cheatsheet.md
+      <p className="tiny faint center" style={{ marginTop: "1.8rem" }}>
+        {NOTATION.length} entries, generated from 00-notation-cheatsheet.md
       </p>
     </>
   );
