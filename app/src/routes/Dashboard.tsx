@@ -1,9 +1,11 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { currentSession, unlockedCards, useStudy } from "../App";
 import { SESSIONS, TERM_START, TOTAL_HOURS } from "../data/sessions";
 import { CARDS } from "../data/cards";
 import { daysUntil, todayISO } from "../lib/store";
 import { mastery } from "../lib/srs";
+import { computeMetrics, pct } from "../lib/metrics";
 import { HeroCurve } from "../components/Logo";
 import { IconChevronRight, IconLayers } from "../components/Icons";
 
@@ -22,6 +24,8 @@ export default function Dashboard() {
   const avgMastery = unlocked.length
     ? unlocked.reduce((a, c) => a + mastery(progress.cards[c.id]), 0) / unlocked.length
     : 0;
+
+  const m = useMemo(() => computeMetrics(progress, 14), [progress]);
 
   const blocksDone = session.blocks.filter(
     (_, i) => progress.blocksDone[`${session.n}:${i}`],
@@ -63,6 +67,12 @@ export default function Dashboard() {
             {dueCount}
           </div>
           <div className="k">Cards due</div>
+        </div>
+        <div className="stat">
+          <div className={`v${m.reviews ? "" : " none"}`}>
+            {m.reviews ? pct(m.recall) : "Not yet"}
+          </div>
+          <div className="k">Recall 14d</div>
         </div>
       </div>
 

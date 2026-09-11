@@ -34,6 +34,21 @@
   --ethics: #E0956A;
   --both:   #A897E8;
 
+  /* ---- data viz: diverging poles + neutral midpoint ----
+     Validated with the house palette validator against surface #11151E:
+     lightness band PASS, chroma PASS, CVD ΔE 7.1 (WARN band — legal here
+     because every chart using it also ships a legend, 2px segment gaps and
+     direct labels), normal-vision ΔE 24.1 PASS, contrast PASS. */
+  --neg: #D9705C;
+  --mid: #5C6779;
+  --pos: #1FA57F;
+
+  /* ---- data viz: single-hue ordinal ramp (mastery), --ordinal PASS ---- */
+  --r1: #5A4A28;
+  --r2: #8A6C33;
+  --r3: #B08C46;
+  --r4: #CEA65E;
+
   /* ---- semantic ---- */
   --good: #5FBE87;
   --warn: #DFB44F;
@@ -84,6 +99,17 @@
     --stats:  #2E6FA8;
     --ethics: #A2592A;
     --both:   #6A57B8;
+
+    /* Re-stepped for the light surface, not flipped: validated against
+       #FFFFFF — CVD ΔE 8.4 PASS, and the ramp's light end clears 2:1. */
+    --neg: #B8503A;
+    --mid: #98A0AC;
+    --pos: #0A8266;
+
+    --r1: #C9AC6B;
+    --r2: #AC8A45;
+    --r3: #876824;
+    --r4: #59420F;
 
     --good: #2C7B4D;
     --warn: #8A6A1F;
@@ -387,7 +413,6 @@ p { margin: .55rem 0; }
   letter-spacing: -.045em;
   color: var(--brass);
   font-variation-settings: "opsz" 144;
-  font-variant-numeric: tabular-nums;
 }
 .hero .big-unit {
   font-family: var(--ui);
@@ -408,10 +433,11 @@ p { margin: .55rem 0; }
 /* ================================================================== stats */
 .statgrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: .55rem;
   margin-bottom: 1.15rem;
 }
+@media (min-width: 640px) { .statgrid { grid-template-columns: repeat(4, 1fr); } }
 .stat {
   background: var(--surface);
   border: 1px solid var(--border-soft);
@@ -420,14 +446,14 @@ p { margin: .55rem 0; }
   text-align: center;
   box-shadow: var(--shadow-1);
 }
+/* Data figures wear the interface sans, and proportional digits: equal-width
+   digits make a large standalone number look loose. */
 .stat .v {
-  font-family: var(--display);
+  font-family: var(--ui);
   font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -.028em;
-  font-variation-settings: "opsz" 40;
-  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -.03em;
 }
 .stat .v small {
   font-family: var(--ui);
@@ -436,6 +462,8 @@ p { margin: .55rem 0; }
   color: var(--text-3);
   letter-spacing: -.01em;
 }
+.stat .v.none { font-size: .92rem; font-weight: 600; color: var(--text-3); letter-spacing: -.005em; }
+
 .stat .k {
   font-size: .6rem;
   font-weight: 700;
@@ -740,7 +768,6 @@ textarea { min-height: 92px; resize: vertical; line-height: 1.55; }
   display: grid; place-items: center;
   font-family: var(--display);
   font-size: .82rem; font-weight: 600;
-  font-variant-numeric: tabular-nums;
   color: var(--text-2);
   flex-shrink: 0;
 }
@@ -866,7 +893,379 @@ textarea { min-height: 92px; resize: vertical; line-height: 1.55; }
   .tab { flex-direction: row; gap: .42rem; font-size: .8rem; min-height: 42px; }
   .tab svg { width: 17px; height: 17px; }
   .tab .badge { position: static; transform: none; border: none; }
-  .statgrid { grid-template-columns: repeat(3, 1fr); gap: .75rem; }
   .main { padding-top: 1.5rem; }
   .hero { padding: 1.75rem 1.6rem 1.5rem; }
+}
+
+/* ============================================================================
+   DASHBOARD & CHARTS
+   Marks are thin, grid lines are solid hairlines, stacked segments are
+   separated by a 2px surface gap rather than a border, and every chart has a
+   table-view twin so no value is reachable only by hovering.
+   ========================================================================= */
+
+/* -------------------------------------------------------------- filter bar */
+.filterbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .8rem;
+  margin: -.2rem 0 1.1rem;
+}
+.segmented {
+  display: inline-flex;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2px;
+  gap: 2px;
+}
+.segbtn {
+  min-height: 34px;
+  padding: .3rem .7rem;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-3);
+  transition: background .16s, color .16s;
+}
+.segbtn.on { background: var(--surface); color: var(--brass); box-shadow: var(--shadow-1); }
+
+/* -------------------------------------------------------------- KPI row */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* lead spans the row, three beneath */
+  gap: .5rem;
+  margin-bottom: 1.1rem;
+}
+.kpi {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-sm);
+  padding: .8rem .75rem;
+  box-shadow: var(--shadow-1);
+  min-width: 0;
+}
+.kpi.lead { grid-column: 1 / -1; border-color: var(--brass-edge); background: linear-gradient(160deg, var(--brass-wash), var(--surface) 70%); }
+.kpi-k {
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+/* Hero/stat figures: interface sans, proportional digits. */
+.kpi-v {
+  font-family: var(--ui);
+  font-size: 1.7rem;
+  font-weight: 650;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  margin-top: .18rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.kpi.lead .kpi-v { font-size: 2.4rem; color: var(--brass); }
+/* No data is a state, not a value: don't dress it as a figure. */
+.kpi-v.none { font-size: 1.25rem; font-weight: 600; color: var(--text-3); letter-spacing: -.01em; }
+.kpi.lead .kpi-v.none { font-size: 1.4rem; color: var(--text-3); }
+.kpi-spark { flex: 1; min-width: 42px; max-width: 120px; color: var(--brass); display: block; }
+.spark { width: 100%; height: 28px; display: block; overflow: visible; }
+.kpi-note { font-size: .72rem; color: var(--text-3); margin-top: .15rem; }
+
+/* --------------------------------------------------------------- chart card */
+.chartgrid { display: grid; grid-template-columns: 1fr; gap: .9rem; }
+
+.chart {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r);
+  padding: 1rem 1.05rem 1.05rem;
+  box-shadow: var(--shadow-1);
+  min-width: 0;
+}
+.chart-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .7rem;
+  margin-bottom: .7rem;
+}
+.chart-head h3 { font-size: .93rem; font-weight: 650; margin: 0; }
+.chart-head p { margin: .2rem 0 0; max-width: 46ch; }
+
+.tablebtn {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: .3rem .6rem;
+  font-size: .68rem;
+  font-weight: 650;
+  letter-spacing: .03em;
+  color: var(--text-3);
+  min-height: 30px;
+}
+.tablebtn:hover { color: var(--brass); border-color: var(--brass-edge); }
+
+/* ------------------------------------------------------------------ legend */
+.legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .9rem;
+  padding: 0;
+  margin: 0 0 .8rem;
+  font-size: .73rem;
+  color: var(--text-2);           /* legend text wears text tokens, not series color */
+}
+.legend li { display: inline-flex; align-items: center; gap: .35rem; }
+.swatch { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+.swatch.pos { background: var(--pos); }
+.swatch.mid { background: var(--mid); }
+.swatch.neg { background: var(--neg); }
+.swatch.r1 { background: var(--r1); }
+.swatch.r2 { background: var(--r2); }
+.swatch.r3 { background: var(--r3); }
+.swatch.r4 { background: var(--r4); }
+
+/* ------------------------------------------------- daily columns (stacked) */
+.plot { position: relative; }
+.cols {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3px;
+  height: 132px;
+  border-bottom: 1px solid var(--border);   /* solid hairline baseline */
+}
+.col {
+  flex: 1;
+  min-width: 0;
+  max-width: 34px;          /* thin marks: never wide saturated blocks */
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 5px 5px 0 0;
+  transition: background .14s;
+}
+.col:hover, .col.hot { background: var(--brass-wash); }
+.stack {
+  width: 100%;
+  min-height: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;                       /* 2px surface gap, never a border */
+  justify-content: flex-end;
+}
+.seg { display: block; min-height: 3px; border-radius: 2px; }
+.stack .seg:first-child { border-radius: 4px 4px 2px 2px; }  /* rounded data-end */
+.seg.pos { background: var(--pos); }
+.seg.mid { background: var(--mid); }
+.seg.neg { background: var(--neg); }
+
+.axis { display: flex; gap: 3px; margin-top: .4rem; justify-content: space-between; }
+.tick {
+  flex: 1;
+  min-width: 0;
+  max-width: 34px;
+  text-align: center;
+  font-size: .62rem;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;   /* ticks stack: tabular is right here */
+}
+
+.tip {
+  position: absolute;
+  top: -6px;
+  transform: translate(-50%, -100%);
+  z-index: 5;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: .5rem .65rem;
+  box-shadow: var(--shadow-3);
+  font-size: .72rem;
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  white-space: nowrap;
+  pointer-events: none;
+  color: var(--text-2);
+}
+.tip strong { color: var(--text); font-size: .74rem; }
+.tip-accent { color: var(--brass); font-weight: 650; }
+
+/* ------------------------------------------------------- horizontal bars */
+.hbars { display: flex; flex-direction: column; gap: .6rem; }
+.hbar {
+  display: grid;
+  grid-template-columns: 76px 1fr auto;
+  align-items: center;
+  gap: .65rem;
+}
+.hbar-label { font-size: .8rem; font-weight: 600; }
+.hbar-track {
+  height: 8px;
+  background: var(--surface-3);
+  border-radius: 99px;
+  overflow: hidden;
+}
+/* One series, one colour — never a value-ramp across nominal categories. */
+.hbar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: var(--brass);
+  transition: width .45s cubic-bezier(.4,0,.2,1);
+}
+.hbar-fill.track-stats  { background: var(--stats); }
+.hbar-fill.track-ethics { background: var(--ethics); }
+.hbar-fill.track-both   { background: var(--both); }
+.hbar-val {
+  font-size: .78rem;
+  font-weight: 650;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------- stacked bar (1D) */
+.stackbar {
+  display: flex;
+  gap: 2px;
+  height: 14px;
+  margin-bottom: .8rem;
+}
+.sseg { display: block; border-radius: 3px; min-width: 3px; }
+.sseg.r1 { background: var(--r1); }
+.sseg.r2 { background: var(--r2); }
+.sseg.r3 { background: var(--r3); }
+.sseg.r4 { background: var(--r4); }
+
+/* ---------------------------------------------------------------- tables */
+.tablewrap { overflow-x: auto; }
+.datatable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .78rem;
+  font-variant-numeric: tabular-nums;   /* rows align vertically */
+}
+.datatable th {
+  text-align: left;
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: .3rem .5rem .35rem 0;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.datatable td {
+  padding: .4rem .5rem .4rem 0;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-2);
+}
+.datatable tr:last-child td { border-bottom: none; }
+.datatable td:first-child { color: var(--text); }
+.datatable td.clip {
+  max-width: 0;
+  width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================================================
+   RESPONSIVE — three layouts
+   phone: bottom tab bar · tablet: sticky top tabs · desktop: left sidebar
+   ========================================================================= */
+
+@media (min-width: 640px) {
+  .kpis { grid-template-columns: 1.7fr 1fr 1fr 1fr; }
+  .kpi.lead { grid-column: auto; }
+}
+
+@media (min-width: 900px) {
+  .chartgrid { grid-template-columns: 1fr 1fr; }
+  /* The activity chart is the lead: give it the full width. */
+  .chartgrid > .chart:first-child { grid-column: 1 / -1; }
+}
+
+@media (min-width: 1024px) {
+  :root { --sidebar: 216px; }
+
+  .app { padding-left: var(--sidebar); padding-bottom: 0; }
+
+  .topbar { z-index: 40; }
+  .topbar-inner { max-width: none; }
+
+  /* The tab strip becomes a full-height sidebar. Same markup, different shape. */
+  .tabs {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    right: auto;
+    z-index: 10;
+    width: var(--sidebar);
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: calc(env(safe-area-inset-top) + 5.6rem) .65rem 1rem;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid var(--border-soft);
+    box-shadow: none;
+    overflow-y: auto;
+  }
+  .tab {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 40px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: .65rem;
+    padding: .55rem .7rem;
+    font-size: .855rem;
+    letter-spacing: -.005em;
+    border-radius: 9px;
+  }
+  .tab svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .tab .badge {
+    position: static;
+    transform: none;
+    margin-left: auto;
+    border: none;
+    padding: 0 5px;
+  }
+
+  .main { max-width: 1060px; padding: 1.8rem 2rem 3rem; }
+  .hero { padding: 2rem 1.9rem 1.7rem; }
+  .hero .big { font-size: 4.6rem; }
+  .hero-curve { width: 230px; right: 2rem; }
+
+  .statgrid { gap: .85rem; }
+  .h-section { font-size: 1.5rem; }
+  .cols { height: 168px; }
+  .flash { min-height: 300px; padding: 2.4rem 2.2rem; }
+  .flash .q { font-size: 1.4rem; }
+  .flash .q.solo .math, .flash .q.solo code { font-size: 4.4rem; }
+  .gradegrid { gap: .55rem; }
+  .gradebtn { min-height: 66px; font-size: .85rem; }
+  .notation-item { grid-template-columns: 110px 1fr; }
+}
+
+/* Two-column reading layout for the widest screens. */
+@media (min-width: 1320px) {
+  .main { max-width: 1180px; }
 }

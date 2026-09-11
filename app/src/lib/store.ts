@@ -13,8 +13,20 @@ import { type CardState, initialState } from "./srs";
 const KEY = "phd-prep-state-v1";
 const PIN_KEY = "phd-prep-pin";
 
+/**
+ * One graded review. Stored as a compact tuple because there will be thousands
+ * of these and they travel through localStorage and the sync blob:
+ *   [cardId, grade 0-3, epoch ms]
+ * The deck is derivable from the card id prefix, so it is not stored.
+ */
+export type ReviewEvent = [string, number, number];
+
+export const MAX_REVIEWS = 5000;
+
 export type Progress = {
   cards: Record<string, CardState>;
+  /** Append-only log of every grade, oldest first. */
+  reviews: ReviewEvent[];
   /** session number -> ISO timestamp completed */
   sessionsDone: Record<number, string>;
   /** "sessionN:blockI" -> true */
@@ -26,6 +38,7 @@ export type Progress = {
 export function emptyProgress(): Progress {
   return {
     cards: {},
+    reviews: [],
     sessionsDone: {},
     blocksDone: {},
     minutesLogged: 0,
@@ -80,8 +93,20 @@ export function merge(a: Progress, b: Progress): Progress {
       cards[id] = rs;
     }
   }
+  // Reviews are append-only on every device: union, de-duplicate, cap.
+  const seen = new Set<string>();
+  const reviews: ReviewEvent[] = [];
+  for (const ev of [...(a.reviews ?? []), ...(b.reviews ?? [])]) {
+    const k = `${ev[0]}|${ev[2]}`;
+    if (seen.has(k)) continue;
+    seen.add(k);
+    reviews.push(ev);
+  }
+  reviews.sort((x, y) => x[2] - y[2]);
+
   return {
     cards,
+    reviews: reviews.slice(-MAX_REVIEWS),
     sessionsDone: { ...b.sessionsDone, ...a.sessionsDone },
     blocksDone: { ...b.blocksDone, ...a.blocksDone },
     minutesLogged: Math.max(a.minutesLogged, b.minutesLogged),

@@ -14,7 +14,7 @@ A mobile-first PWA for the five-week run-up to PhDAI 730 (Statistics for AI) and
 | `/cards` | SM-2 spaced repetition over 204 cards, filterable by deck; swipe ← Again / → Good |
 | `/notation` | Searchable notation decoder, 43 entries |
 | `/tutor` | Claude-backed tutor that knows the plan and the learner's level |
-| `/progress` | Hours logged, mastery by deck, most-forgotten cards, sync settings |
+| `/progress` | Dashboard: recall accuracy, review activity, per-deck accuracy, mastery distribution, most-forgotten cards, plan progress, sync settings |
 
 ## Content is generated, not duplicated
 
@@ -26,6 +26,53 @@ node scripts/gen-notation.mjs
 ```
 
 `src/data/sessions.ts` and `src/data/cards.ts` are authored directly and mirror `~/PhD/00-roadmap.md`.
+
+## Three layouts, one markup
+
+| Width | Navigation | Content |
+|---|---|---|
+| < 780px | fixed bottom tab bar, icon over label | single column |
+| 780–1023px | sticky tab strip under the header, icon beside label | single column, wider |
+| >= 1024px | **full-height left sidebar**, 216px | up to 1060px, charts in two columns |
+
+The nav is the same six `NavLink`s at every size — only CSS changes its shape, so there is no
+duplicated markup or JS breakpoint to keep in sync.
+
+## Accuracy tracking
+
+`Progress.reviews` is an append-only log of `[cardId, grade, epochMs]` tuples, capped at 5,000 and
+merged across devices by de-duplicating on `cardId|timestamp`. The deck is derived from the card-id
+prefix rather than stored. Everything on the dashboard is computed from that log in
+`src/lib/metrics.ts` — nothing is back-filled or estimated, so the charts are empty until the first
+card is graded.
+
+**Two accuracy numbers, deliberately.** *Recall* counts a card as remembered if it was graded Hard,
+Good or Easy; *confident* counts only Good or Easy. Reporting the first alone flatters, the second
+alone punishes an honest "Hard" — both together are the truthful summary.
+
+### Chart rules this app follows
+
+Charts are CSS boxes, not scaled SVG, so labels stay crisp at every width and hover targets are real
+focusable elements. Beyond that:
+
+- **The palette was computed, not eyeballed.** Recall outcomes are an ordered scale with polarity, so
+  they use a **diverging** scale — rust / neutral gray / green — not traffic lights. Both modes were
+  run through the palette validator: the light steps pass every check, and the dark pair sits in the
+  CVD 6–8 warn band, which is legal only with secondary encoding, so those charts always ship a
+  legend, 2px segment gaps and direct labels. An earlier traffic-light palette failed outright (an
+  amber that computed as gray, and a red/amber pair at ΔE 3.3 under deuteranopia).
+- **Mastery** is ordered magnitude, so it uses a single-hue brass ordinal ramp (validated with
+  `--ordinal`), never a multi-hue scale.
+- **Per-deck accuracy is one series**, so every bar is one colour — a value-ramp across nominal
+  categories would just re-encode bar length as hue.
+- One axis, never two. 2px surface gaps rather than borders between stacked segments. Solid hairline
+  baselines, no dashed grid. Thin marks — columns cap at 34px so wide screens don't get heavy blocks.
+- **Every chart has a table view** (the "Numbers" toggle), so no value is reachable only by hovering,
+  and keyboard focus shows the same tooltip as the mouse.
+- Data figures wear the interface sans with proportional digits; `tabular-nums` appears only where
+  numbers stack vertically (table rows, axis ticks). Fraunces is kept for the countdown, which is a
+  brand moment rather than a data figure.
+- One filter row (7/14/30 days) above the charts, scoping all of them — never a filter per card.
 
 ## Persistence
 

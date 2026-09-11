@@ -8,8 +8,8 @@ import { CARDS } from "./data/cards";
 import { SESSIONS, TERM_START } from "./data/sessions";
 import { isDue, type Grade, grade as gradeCard } from "./lib/srs";
 import {
-  cardState, daysUntil, load, merge, pull, pushDebounced, save,
-  type Progress, type SyncStatus, todayISO,
+  cardState, daysUntil, load, MAX_REVIEWS, merge, pull, pushDebounced, save,
+  type Progress, type ReviewEvent, type SyncStatus, todayISO,
 } from "./lib/store";
 
 import { Brand } from "./components/Logo";
@@ -97,6 +97,9 @@ export default function App() {
       const next: Progress = {
         ...p,
         cards: { ...p.cards, [cardId]: gradeCard(cardState(p, cardId), g) },
+        // Append to the review log so accuracy can be measured over time.
+        reviews: [...(p.reviews ?? []), [cardId, g, Date.now()] as ReviewEvent]
+          .slice(-MAX_REVIEWS),
       };
       next.updatedAt = new Date().toISOString();
       save(next);
@@ -175,7 +178,7 @@ export default function App() {
           <Tab to="/cards" icon={<IconLayers />} label="Cards" badge={dueCount} />
           <Tab to="/notation" icon={<IconSigma />} label="Notation" />
           {tutorReady && <Tab to="/tutor" icon={<IconSpark />} label="Tutor" />}
-          <Tab to="/progress" icon={<IconBars />} label="Stats" />
+          <Tab to="/progress" icon={<IconBars />} label="Dashboard" />
         </nav>
 
         <main className="main">

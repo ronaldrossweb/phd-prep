@@ -1,120 +1,189 @@
-import { useMemo } from "react";
-import { unlockedCards, useStudy } from "../App";
-import { CARDS, DECK_LABELS, type Deck } from "../data/cards";
+import { useMemo, useState } from "react";
+import { useStudy } from "../App";
 import { SESSIONS, TOTAL_HOURS } from "../data/sessions";
-import { mastery } from "../lib/srs";
+import { computeMetrics, pct } from "../lib/metrics";
 import { getPin, setPin } from "../lib/store";
+import { DayActivity, DeckAccuracy, MasteryBar, Sparkline } from "../components/Charts";
 
-const DECKS: Deck[] = ["notation", "stats", "python", "ethics"];
+const RANGES = [
+  { d: 7, label: "7 days" },
+  { d: 14, label: "14 days" },
+  { d: 30, label: "30 days" },
+];
 
 export default function Progress() {
   const { progress, sync } = useStudy();
-  const unlocked = useMemo(() => unlockedCards(progress), [progress]);
+  const [range, setRange] = useState(14);
+
+  const m = useMemo(() => computeMetrics(progress, range), [progress, range]);
 
   const sessionsDone = Object.keys(progress.sessionsDone).length;
   const hours = progress.minutesLogged / 60;
-  const lapses = Object.values(progress.cards).reduce((a, c) => a + c.lapses, 0);
-  const reviews = Object.values(progress.cards).reduce((a, c) => a + c.reps + c.lapses, 0);
-
   const trackHours = (t: string) =>
     SESSIONS.flatMap((s) => s.blocks).filter((b) => b.track === t)
       .reduce((a, b) => a + b.minutes, 0) / 60;
 
+  const noData = m.reviews === 0;
+
   return (
     <>
-      <h2 className="h-section">Progress</h2>
+      <h2 className="h-section">Dashboard</h2>
 
-      <div className="statgrid">
-        <div className="stat"><div className="v">{sessionsDone}</div><div className="k">Sessions</div></div>
-        <div className="stat"><div className="v">{hours.toFixed(1)}</div><div className="k">Hours</div></div>
-        <div className="stat"><div className="v">{reviews}</div><div className="k">Reviews</div></div>
-      </div>
-
-      <div className="card">
-        <div className="rowline">
-          <span className="small" style={{ fontWeight: 650 }}>Time logged</span>
-          <span className="tiny faint num">{hours.toFixed(1)} / {TOTAL_HOURS}h</span>
+      {/* One filter row, above everything it scopes. */}
+      <div className="filterbar">
+        <span className="eyebrow" style={{ margin: 0 }}>Window</span>
+        <div className="segmented" role="group" aria-label="Time window">
+          {RANGES.map((r) => (
+            <button
+              key={r.d}
+              className={`segbtn${range === r.d ? " on" : ""}`}
+              onClick={() => setRange(r.d)}
+              aria-pressed={range === r.d}
+            >
+              {r.label}
+            </button>
+          ))}
         </div>
-        <div className="meter brass">
-          <span style={{ width: `${Math.min(100, (hours / TOTAL_HOURS) * 100)}%` }} />
-        </div>
       </div>
 
-      <h2 className="h-section">Mastery by deck</h2>
-      <div className="card">
-        {DECKS.map((d, i) => {
-          const all = CARDS.filter((c) => c.deck === d);
-          const open = unlocked.filter((c) => c.deck === d);
-          const m = open.length
-            ? open.reduce((a, c) => a + mastery(progress.cards[c.id]), 0) / open.length
-            : 0;
-          return (
-            <div key={d} style={{ marginBottom: i === DECKS.length - 1 ? ".7rem" : "1rem" }}>
-              <div className="rowline">
-                <span className="small" style={{ fontWeight: 650 }}>{DECK_LABELS[d]}</span>
-                <span className="tiny faint num">{Math.round(m * 100)}% · {open.length}/{all.length}</span>
-              </div>
-              <div className="meter brass">
-                <span style={{ width: `${m * 100}%` }} />
-              </div>
-            </div>
-          );
-        })}
-        <p className="tiny faint" style={{ marginBottom: 0 }}>
-          Mastery is the scheduling interval as a share of 21 days — it rises as cards stop coming back.
-        </p>
-      </div>
-
-      <h2 className="h-section">How the 35 hours split</h2>
-      <div className="card">
-        {([["stats", "Statistics"], ["ethics", "Ethics"], ["both", "Both"]] as const).map(
-          ([t, label]) => (
-            <div key={t} className="rowline" style={{ marginBottom: ".55rem" }}>
-              <span className={`pill ${t}`}>{label}</span>
-              <span className="tiny faint num">{trackHours(t).toFixed(1)}h</span>
-            </div>
-          ),
-        )}
-        <p className="tiny faint" style={{ marginTop: ".8rem", marginBottom: 0 }}>
-          Weighted toward statistics and Python, which is the harder track from a cold start. Ethics
-          builds on judgement you already have.
-        </p>
-      </div>
-
-      {lapses > 0 && (
-        <>
-          <h2 className="h-section">Cards you keep forgetting</h2>
-          <div className="card">
-            {unlocked
-              .map((c) => ({ c, s: progress.cards[c.id] }))
-              .filter((x) => x.s && x.s.lapses > 0)
-              .sort((a, b) => b.s!.lapses - a.s!.lapses)
-              .slice(0, 8)
-              .map(({ c, s }) => (
-                <div key={c.id} className="rowline" style={{
-                  padding: ".45rem 0", borderBottom: "1px solid var(--border-soft)",
-                }}>
-                  <span className="small" style={{
-                    flex: 1, minWidth: 0, overflow: "hidden",
-                    textOverflow: "ellipsis", whiteSpace: "nowrap",
-                  }}>
-                    {c.front.replace(/[`*]/g, "")}
-                  </span>
-                  <span className="tiny faint num">×{s!.lapses}</span>
-                </div>
-              ))}
-            <p className="tiny faint" style={{ marginTop: ".8rem", marginBottom: 0 }}>
-              Worth re-reading the underlying note rather than drilling the card.
-            </p>
+      {/* ---------------------------------------------------------- KPI row */}
+      <div className="kpis">
+        <div className="kpi lead">
+          <div className="kpi-k">Recall accuracy</div>
+          <div className={`kpi-v${noData ? " none" : ""}`}>
+            {noData ? "Not yet" : pct(m.recall)}
+            {m.trend.length > 1 && (
+              <span className="kpi-spark"><Sparkline points={m.trend.map((t) => t.value)} /></span>
+            )}
           </div>
-        </>
+          <div className="kpi-note">
+            {noData
+              ? "no reviews in this window"
+              : `${pct(m.confident)} of those felt comfortable`}
+          </div>
+        </div>
+        <div className="kpi">
+          <div className="kpi-k">Reviews</div>
+          <div className="kpi-v">{m.reviews}</div>
+          <div className="kpi-note">{m.today} today</div>
+        </div>
+        <div className="kpi">
+          <div className="kpi-k">Streak</div>
+          <div className="kpi-v">{m.streak}</div>
+          <div className="kpi-note">{m.streak === 1 ? "day" : "days"} in a row</div>
+        </div>
+        <div className="kpi">
+          <div className="kpi-k">Locked in</div>
+          <div className="kpi-v">{m.mastery.mature}</div>
+          <div className="kpi-note">cards at 21+ days</div>
+        </div>
+      </div>
+
+      {noData && (
+        <div className="card">
+          <p className="small muted" style={{ margin: 0 }}>
+            <strong>Nothing to measure yet.</strong> Accuracy tracking starts the moment you grade
+            your first card — every review is logged with its outcome and timestamp, so these charts
+            fill in as you work. Nothing here is back-filled or estimated.
+          </p>
+        </div>
       )}
 
+      {/* ------------------------------------------------------------ charts */}
+      <div className="chartgrid">
+        <DayActivity days={m.days} />
+        <DeckAccuracy byDeck={m.byDeck} />
+        <MasteryBar mastery={m.mastery} />
+
+        {m.hardest.length > 0 && (
+          <figure className="chart">
+            <figcaption className="chart-head">
+              <div>
+                <h3>Cards fighting back</h3>
+                <p className="tiny faint">
+                  Most-forgotten first. Re-read the underlying note rather than drilling the card.
+                </p>
+              </div>
+            </figcaption>
+            <div className="tablewrap">
+              <table className="datatable">
+                <thead><tr><th>Card</th><th>Forgotten</th><th>Reviews</th></tr></thead>
+                <tbody>
+                  {m.hardest.map((h) => (
+                    <tr key={h.id}>
+                      <td className="clip">{h.front}</td>
+                      <td>{h.lapses}×</td>
+                      <td>{h.reviews}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </figure>
+        )}
+      </div>
+
+      {/* ------------------------------------------------------- plan progress */}
+      <h2 className="h-section">The plan</h2>
+      <div className="chartgrid">
+        <figure className="chart">
+          <figcaption className="chart-head">
+            <div><h3>Sessions and hours</h3></div>
+          </figcaption>
+          <div className="hbars">
+            <div className="hbar">
+              <span className="hbar-label">Sessions</span>
+              <span className="hbar-track">
+                <span className="hbar-fill" style={{ width: `${(sessionsDone / 15) * 100}%` }} />
+              </span>
+              <span className="hbar-val num">{sessionsDone}<span className="faint">/15</span></span>
+            </div>
+            <div className="hbar">
+              <span className="hbar-label">Hours</span>
+              <span className="hbar-track">
+                <span className="hbar-fill"
+                      style={{ width: `${Math.min(100, (hours / TOTAL_HOURS) * 100)}%` }} />
+              </span>
+              <span className="hbar-val num">
+                {hours.toFixed(1)}<span className="faint">/{TOTAL_HOURS}</span>
+              </span>
+            </div>
+          </div>
+        </figure>
+
+        <figure className="chart">
+          <figcaption className="chart-head">
+            <div>
+              <h3>How the 35 hours split</h3>
+              <p className="tiny faint">
+                Weighted toward statistics and Python — the harder track from a cold start.
+              </p>
+            </div>
+          </figcaption>
+          <div className="hbars">
+            {([["stats", "Statistics"], ["ethics", "Ethics"], ["both", "Both"]] as const).map(
+              ([t, label]) => (
+                <div className="hbar" key={t}>
+                  <span className="hbar-label">{label}</span>
+                  <span className="hbar-track">
+                    <span className={`hbar-fill track-${t}`}
+                          style={{ width: `${(trackHours(t) / TOTAL_HOURS) * 100}%` }} />
+                  </span>
+                  <span className="hbar-val num">{trackHours(t).toFixed(1)}h</span>
+                </div>
+              ),
+            )}
+          </div>
+        </figure>
+      </div>
+
+      {/* ------------------------------------------------------------- sync */}
       <h2 className="h-section">Cross-device sync</h2>
       <div className="card">
         <p className="small muted" style={{ marginTop: 0 }}>
-          Progress always saves on this device. To share it between your Mac and your phone, set
-          <code>STUDY_PIN</code> in the Netlify dashboard, then enter the same PIN here on each device.
+          Progress and your full review history always save on this device. To share them between
+          your Mac and your phone, set <code>STUDY_PIN</code> in the Netlify dashboard, then enter
+          the same PIN here on each device.
         </p>
         <input
           type="password"
