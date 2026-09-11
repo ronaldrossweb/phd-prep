@@ -1,0 +1,1201 @@
+account_id,branch,product,balance,tenure_years
+AC00000,Logan,Savings,4383.34,9.4
+AC00001,Provo,Checking,9059.38,7.7
+AC00002,Logan,Checking,6916.25,10.4
+AC00003,Logan,Savings,5393.5,7.4
+AC00004,Provo,Savings,1068.11,3.4
+AC00005,St. George,CD,1085.62,1.8
+AC00006,Provo,Checking,4089.11,4.0
+AC00007,Ogden,CD,6666.31,14.4
+AC00008,Provo,Checking,12685.59,8.8
+AC00009,Provo,Checking,1238.48,6.1
+AC00010,St. George,Checking,2357.06,1.6
+AC00011,Provo,Savings,595.02,9.7
+AC00012,Ogden,CD,7410.69,6.8
+AC00013,Ogden,Checking,661.7,5.5
+AC00014,Ogden,Checking,12485.77,5.8
+AC00015,Ogden,Checking,5133.4,0.5
+AC00016,Provo,Savings,761.13,7.8
+AC00017,St. George,CD,1568.47,15.4
+AC00018,Provo,Savings,999.06,6.3
+AC00019,St. George,Checking,6700.04,2.7
+AC00020,Ogden,Checking,9787.86,1.3
+AC00021,Ogden,Checking,3207.84,5.9
+AC00022,Ogden,Checking,2616.77,10.3
+AC00023,Ogden,Checking,3819.05,4.3
+AC00024,Provo,Checking,718.73,8.2
+AC00025,St. George,Savings,674.53,1.0
+AC00026,St. George,CD,660.7,5.0
+AC00027,Ogden,Checking,1768.7,4.6
+AC00028,Provo,Savings,993.95,7.0
+AC00029,Logan,CD,11424.11,6.6
+AC00030,Provo,Checking,2118.76,2.3
+AC00031,Logan,Checking,11180.59,5.6
+AC00032,St. George,Checking,12332.26,2.1
+AC00033,Ogden,CD,12408.25,2.3
+AC00034,Logan,Savings,1386.32,9.9
+AC00035,Logan,Checking,3360.34,2.6
+AC00036,Provo,Savings,8019.85,3.8
+AC00037,St. George,CD,11941.61,1.6
+AC00038,Ogden,Checking,9011.74,0.6
+AC00039,St. George,Checking,2047.63,3.4
+AC00040,Ogden,CD,255211.33,2.7
+AC00041,Provo,Checking,4517.44,2.6
+AC00042,Ogden,CD,7186.86,5.7
+AC00043,Logan,Checking,9074.34,3.6
+AC00044,Provo,Checking,859.72,6.8
+AC00045,St. George,CD,17690.78,1.5
+AC00046,Provo,Checking,1328.28,0.7
+AC00047,Ogden,CD,10291.58,18.7
+AC00048,Ogden,Savings,2500.22,9.7
+AC00049,Ogden,Checking,10137.1,4.5
+AC00050,Logan,Checking,776150.4,1.0
+AC00051,Ogden,CD,15526.45,6.5
+AC00052,Provo,Savings,4058.42,13.2
+AC00053,Logan,Checking,4801.94,6.9
+AC00054,Logan,Checking,2385.85,3.0
+AC00055,Ogden,Checking,6088.18,6.9
+AC00056,Logan,Savings,13301.14,5.5
+AC00057,Ogden,Checking,726.24,5.1
+AC00058,Ogden,Savings,21245.0,7.9
+AC00059,Provo,Savings,662568.87,7.8
+AC00060,Ogden,Checking,2956.69,8.3
+AC00061,Logan,Checking,12601.94,3.3
+AC00062,Ogden,CD,915.7,2.6
+AC00063,Ogden,Savings,17343.92,3.0
+AC00064,St. George,Checking,1225.04,10.1
+AC00065,Ogden,Savings,1597.68,7.4
+AC00066,Provo,Checking,3698.89,4.1
+AC00067,St. George,CD,1825.14,11.2
+AC00068,Provo,CD,5262.93,5.5
+AC00069,Logan,Savings,2648.85,0.7
+AC00070,Provo,CD,6621.62,6.4
+AC00071,Provo,Savings,2485.12,0.7
+AC00072,Provo,Checking,7048.17,10.1
+AC00073,Provo,Checking,8963.65,13.2
+AC00074,Provo,Checking,1058.42,3.1
+AC00075,Logan,Checking,3845.65,6.6
+AC00076,Ogden,Checking,5266.42,3.9
+AC00077,Ogden,Savings,5838.29,5.4
+AC00078,Ogden,Checking,9253.12,4.6
+AC00079,Logan,Checking,15780.4,2.6
+AC00080,Ogden,Checking,5982.96,4.6
+AC00081,Ogden,CD,1343.21,3.4
+AC00082,St. George,Checking,1431.8,3.4
+AC00083,Logan,Checking,6892.03,14.2
+AC00084,Ogden,Checking,2023.85,5.3
+AC00085,Ogden,Checking,625.5,2.5
+AC00086,Logan,Savings,3387.66,5.5
+AC00087,Logan,CD,8430.08,8.1
+AC00088,Logan,Checking,2756.12,9.9
+AC00089,Logan,Checking,4056.87,4.0
+AC00090,Logan,Savings,1147.57,5.3
+AC00091,Logan,Savings,2710.46,3.3
+AC00092,Provo,Savings,25304.01,4.4
+AC00093,Ogden,Checking,10932.91,2.2
+AC00094,St. George,Checking,2092.14,1.6
+AC00095,St. George,CD,4076.73,10.7
+AC00096,Provo,Savings,7313.49,4.6
+AC00097,Ogden,Checking,3344.31,14.6
+AC00098,Provo,Checking,11274.8,4.8
+AC00099,Provo,Checking,2626.6,7.4
+AC00100,Provo,Savings,5203.75,0.9
+AC00101,Ogden,Savings,1331.38,11.8
+AC00102,Provo,Checking,9575.76,0.1
+AC00103,Provo,Savings,2057.82,7.1
+AC00104,Logan,CD,1215.0,5.3
+AC00105,Ogden,CD,475.32,3.1
+AC00106,Ogden,Checking,4022.49,5.8
+AC00107,St. George,Checking,2452.03,4.1
+AC00108,Ogden,Checking,368.22,7.1
+AC00109,Logan,Checking,2462.88,2.0
+AC00110,Provo,Checking,1179.73,3.3
+AC00111,Ogden,Checking,22865.85,3.7
+AC00112,Ogden,Checking,968.61,9.1
+AC00113,Provo,Checking,776803.32,3.4
+AC00114,Ogden,Savings,474600.36,4.8
+AC00115,St. George,Checking,5845.54,2.5
+AC00116,Ogden,Checking,2098.87,9.6
+AC00117,Ogden,CD,7415.02,0.8
+AC00118,St. George,Savings,7224.83,2.2
+AC00119,Ogden,Checking,1276.63,4.8
+AC00120,Logan,CD,29046.42,3.8
+AC00121,Provo,Checking,5371.1,8.5
+AC00122,Logan,Savings,7231.66,6.2
+AC00123,Ogden,Savings,6556.48,2.3
+AC00124,Logan,Checking,2571.48,6.2
+AC00125,St. George,CD,6871.79,5.6
+AC00126,Logan,Checking,11102.87,6.3
+AC00127,Provo,Savings,1560.28,1.2
+AC00128,St. George,Checking,4762.18,7.0
+AC00129,St. George,CD,1531.22,4.3
+AC00130,Ogden,Savings,1127.09,16.0
+AC00131,Provo,Savings,1682.16,7.8
+AC00132,Ogden,Savings,6837.42,0.9
+AC00133,Ogden,Checking,4181.54,2.9
+AC00134,Provo,Checking,3014.51,4.1
+AC00135,Ogden,CD,5265.09,5.8
+AC00136,Logan,Checking,16084.24,4.0
+AC00137,Ogden,Checking,1770.2,4.0
+AC00138,Provo,Checking,2672.49,10.1
+AC00139,Ogden,Savings,1047.62,2.0
+AC00140,Ogden,Checking,226.4,5.7
+AC00141,Ogden,Checking,1690.81,3.6
+AC00142,Provo,Savings,2523.64,10.8
+AC00143,Provo,Savings,4306.76,5.3
+AC00144,Logan,Checking,10643.76,2.6
+AC00145,Ogden,Savings,408.49,3.3
+AC00146,Logan,Checking,5832.04,4.8
+AC00147,St. George,Checking,1613.67,5.8
+AC00148,Logan,Checking,1670.84,3.8
+AC00149,Ogden,CD,1272.5,12.7
+AC00150,St. George,Savings,9109.36,3.8
+AC00151,Ogden,Savings,1024.7,2.8
+AC00152,Ogden,CD,6871.82,3.5
+AC00153,St. George,Checking,14913.47,11.7
+AC00154,St. George,CD,1862.8,1.8
+AC00155,Logan,Savings,3345.03,11.2
+AC00156,Provo,Checking,1028.83,4.4
+AC00157,Provo,Checking,2393.97,10.5
+AC00158,Ogden,Checking,2516.07,8.4
+AC00159,Provo,CD,4652.13,6.4
+AC00160,Provo,Savings,11998.1,4.4
+AC00161,Ogden,CD,815.97,8.9
+AC00162,St. George,Checking,845.84,5.4
+AC00163,Ogden,Savings,14226.52,4.3
+AC00164,Logan,Checking,634781.97,2.5
+AC00165,Ogden,CD,1798.34,4.0
+AC00166,Ogden,Checking,2717.86,7.3
+AC00167,Ogden,Checking,4909.78,3.9
+AC00168,Provo,Checking,775.51,9.3
+AC00169,Provo,Checking,2637.36,5.8
+AC00170,Ogden,Savings,1234.77,2.6
+AC00171,Ogden,Checking,5081.14,8.7
+AC00172,Ogden,Checking,18837.05,3.1
+AC00173,Ogden,Checking,889.62,14.3
+AC00174,Ogden,Checking,5408.83,9.6
+AC00175,Ogden,Checking,481088.58,4.1
+AC00176,Provo,Checking,5493.26,1.6
+AC00177,Provo,Checking,811.06,11.0
+AC00178,Provo,Savings,5495.97,5.6
+AC00179,Ogden,CD,3960.42,9.0
+AC00180,Ogden,Savings,9204.97,5.6
+AC00181,St. George,Checking,7220.25,4.5
+AC00182,Logan,Savings,8279.27,6.4
+AC00183,St. George,Checking,1184.88,6.8
+AC00184,Provo,Checking,74373.88,2.0
+AC00185,Ogden,Checking,2584.08,1.2
+AC00186,Ogden,Checking,628.25,2.0
+AC00187,St. George,Checking,1707.23,8.0
+AC00188,Provo,Checking,21325.86,2.7
+AC00189,Ogden,CD,1877.22,9.9
+AC00190,Provo,Savings,2725.12,6.1
+AC00191,Ogden,Savings,8665.47,2.6
+AC00192,Ogden,Checking,2257.56,2.4
+AC00193,Logan,Checking,4072.79,9.9
+AC00194,Provo,Checking,2786.3,1.1
+AC00195,Logan,Checking,6714.34,10.9
+AC00196,Provo,Checking,13036.65,5.2
+AC00197,St. George,Savings,5586.68,10.3
+AC00198,Ogden,CD,1141.63,6.9
+AC00199,Ogden,Savings,3615.68,2.3
+AC00200,Logan,Checking,2334.11,10.4
+AC00201,Ogden,Savings,2010.16,10.1
+AC00202,Provo,Checking,2165.84,12.3
+AC00203,Ogden,CD,12093.47,6.5
+AC00204,Provo,Checking,1698.4,7.4
+AC00205,Ogden,Savings,1549.22,11.3
+AC00206,Ogden,Savings,4011.32,10.3
+AC00207,Provo,Savings,2022.37,2.7
+AC00208,Logan,Checking,5263.7,9.1
+AC00209,Provo,Checking,9080.08,3.7
+AC00210,Ogden,Checking,29900.33,6.4
+AC00211,Ogden,Checking,5037.29,4.7
+AC00212,Ogden,CD,1900.85,5.8
+AC00213,Ogden,Checking,8962.72,3.2
+AC00214,Ogden,Checking,2050.56,3.9
+AC00215,Provo,Savings,2805.73,7.0
+AC00216,Provo,CD,8769.12,7.2
+AC00217,St. George,Savings,1857.72,4.5
+AC00218,St. George,Savings,10026.28,6.6
+AC00219,Ogden,Checking,24502.93,6.6
+AC00220,Ogden,Savings,2213.9,9.8
+AC00221,Logan,Checking,5396.3,6.9
+AC00222,Logan,Checking,697020.01,16.8
+AC00223,Ogden,Savings,2677.49,2.8
+AC00224,Ogden,Checking,4048.92,1.1
+AC00225,Logan,CD,2831.91,3.3
+AC00226,Ogden,Checking,12461.26,6.4
+AC00227,Provo,Checking,1382.52,10.1
+AC00228,Logan,Savings,1808.83,9.6
+AC00229,Ogden,CD,13543.51,6.5
+AC00230,Provo,Savings,7256.67,3.1
+AC00231,Provo,Checking,437.06,5.0
+AC00232,St. George,Checking,4602.92,4.5
+AC00233,St. George,Checking,4138.78,6.4
+AC00234,Ogden,Checking,1011.86,3.1
+AC00235,Provo,Checking,5871.15,5.7
+AC00236,St. George,Checking,1070.54,4.8
+AC00237,Ogden,Checking,3879.59,0.1
+AC00238,Ogden,Checking,14098.59,1.6
+AC00239,Ogden,Savings,3108.22,10.7
+AC00240,St. George,Savings,4692.77,4.9
+AC00241,St. George,Checking,816751.45,2.6
+AC00242,Provo,CD,1419.68,22.3
+AC00243,Logan,Checking,9446.22,9.0
+AC00244,Ogden,Savings,4088.75,7.9
+AC00245,Ogden,Savings,2914.87,1.1
+AC00246,Provo,Checking,3079.18,6.5
+AC00247,Logan,Savings,2965.58,5.9
+AC00248,Provo,CD,4533.95,6.6
+AC00249,Ogden,Savings,4990.86,6.4
+AC00250,Ogden,CD,961.55,2.6
+AC00251,Ogden,Checking,9208.92,2.8
+AC00252,Logan,Checking,1201.8,2.9
+AC00253,Ogden,Checking,403.11,5.8
+AC00254,Logan,Checking,7581.59,3.8
+AC00255,Ogden,Checking,1922.64,9.8
+AC00256,Logan,Checking,1584.07,5.2
+AC00257,Provo,CD,6211.71,10.4
+AC00258,Provo,Savings,7871.73,4.1
+AC00259,Ogden,Checking,3579.69,5.6
+AC00260,Logan,Checking,28005.18,0.6
+AC00261,Provo,CD,3202.71,5.2
+AC00262,Logan,Checking,8702.42,7.8
+AC00263,Provo,CD,25102.0,8.0
+AC00264,Provo,Savings,4112.8,1.5
+AC00265,Ogden,Savings,2215.1,11.0
+AC00266,Provo,Checking,1571.5,20.2
+AC00267,Logan,Savings,3664.68,7.5
+AC00268,Ogden,Savings,3526.64,11.6
+AC00269,Provo,Checking,2014.13,5.8
+AC00270,Provo,Savings,1457.54,1.7
+AC00271,Logan,Savings,9026.29,1.0
+AC00272,Logan,Checking,1692.82,9.3
+AC00273,Ogden,Savings,6704.9,9.4
+AC00274,Logan,Checking,612.69,9.5
+AC00275,Provo,Checking,3900.98,0.8
+AC00276,Ogden,Checking,6464.11,14.2
+AC00277,Provo,Savings,5479.82,4.1
+AC00278,Ogden,Savings,1903.19,11.3
+AC00279,Provo,Savings,4788.12,2.1
+AC00280,Provo,Checking,5627.72,0.6
+AC00281,St. George,Checking,3135.67,8.6
+AC00282,Provo,Savings,7464.74,4.9
+AC00283,Ogden,Checking,10548.23,13.8
+AC00284,Logan,Savings,8974.36,3.7
+AC00285,Provo,Savings,4945.59,7.2
+AC00286,Logan,Savings,8952.04,5.6
+AC00287,Ogden,Checking,1953.89,5.7
+AC00288,Logan,Savings,4961.56,5.5
+AC00289,Ogden,Checking,11558.98,12.3
+AC00290,St. George,Savings,5667.08,5.6
+AC00291,Ogden,CD,338416.68,15.7
+AC00292,St. George,Checking,8270.72,5.3
+AC00293,Provo,Savings,379.02,2.5
+AC00294,Provo,CD,8942.43,8.2
+AC00295,Provo,Checking,1628.92,2.8
+AC00296,Provo,CD,6167.58,1.2
+AC00297,Ogden,Savings,2424.33,10.3
+AC00298,St. George,Savings,3557.46,5.3
+AC00299,Logan,CD,2860.48,1.8
+AC00300,Ogden,Checking,4000.14,3.5
+AC00301,Provo,Checking,4709.45,2.7
+AC00302,Ogden,Savings,8746.88,11.0
+AC00303,Ogden,Checking,7333.93,3.5
+AC00304,Provo,Savings,438912.33,1.5
+AC00305,Ogden,Checking,1885.21,10.8
+AC00306,Ogden,Checking,1168.1,1.1
+AC00307,Logan,Checking,6344.33,23.7
+AC00308,Ogden,Savings,2461.26,5.3
+AC00309,Provo,Savings,1641.24,2.7
+AC00310,Ogden,Checking,1150.37,3.6
+AC00311,Ogden,CD,34190.89,4.6
+AC00312,Provo,Checking,783.53,16.3
+AC00313,Logan,Checking,11346.51,11.4
+AC00314,Logan,Checking,1645.27,1.4
+AC00315,Ogden,Checking,6718.85,5.5
+AC00316,Logan,Checking,5055.72,3.7
+AC00317,St. George,Savings,3846.16,2.1
+AC00318,Logan,Checking,7862.54,2.8
+AC00319,Ogden,CD,4453.14,2.8
+AC00320,Provo,Checking,6260.15,6.3
+AC00321,Provo,CD,4186.46,16.1
+AC00322,Provo,Savings,3940.35,3.1
+AC00323,Logan,Checking,2053.39,1.0
+AC00324,Logan,Checking,31082.54,11.3
+AC00325,Logan,Checking,5505.46,9.5
+AC00326,Logan,Checking,715.4,5.8
+AC00327,Logan,Savings,1573.1,12.7
+AC00328,Provo,Checking,9968.95,7.9
+AC00329,Ogden,Checking,7760.47,1.4
+AC00330,Ogden,Checking,857458.81,7.5
+AC00331,Ogden,CD,385.36,11.1
+AC00332,St. George,Checking,2826.09,7.8
+AC00333,Ogden,Checking,13901.33,12.4
+AC00334,Provo,Savings,2574.76,2.9
+AC00335,Provo,Savings,3715.22,13.7
+AC00336,Ogden,Savings,5843.09,5.7
+AC00337,St. George,Checking,6549.75,9.8
+AC00338,St. George,Savings,5033.77,8.3
+AC00339,Provo,CD,4381.99,12.3
+AC00340,Ogden,Savings,1590.57,3.3
+AC00341,Ogden,CD,7536.33,3.9
+AC00342,Provo,Checking,3260.3,2.6
+AC00343,Logan,Savings,5780.95,3.0
+AC00344,Ogden,Checking,3165.41,11.5
+AC00345,Ogden,Checking,1967.93,3.6
+AC00346,Ogden,Savings,11479.53,3.9
+AC00347,Provo,Checking,2695.6,8.4
+AC00348,Ogden,Checking,2807.93,5.8
+AC00349,Provo,Checking,3244.05,2.3
+AC00350,St. George,CD,1667.36,4.4
+AC00351,Ogden,Savings,2643.13,5.9
+AC00352,Provo,Checking,2119.47,2.7
+AC00353,St. George,Checking,1366.47,8.6
+AC00354,Logan,Checking,4936.71,2.9
+AC00355,Provo,Checking,19467.49,2.5
+AC00356,Provo,Checking,4465.65,8.7
+AC00357,Provo,Savings,5854.44,1.7
+AC00358,Ogden,Savings,1373.16,13.5
+AC00359,Provo,Checking,2948.22,4.1
+AC00360,St. George,CD,985.78,10.5
+AC00361,St. George,CD,1378.6,0.7
+AC00362,St. George,Savings,10413.98,18.5
+AC00363,Ogden,Savings,965.09,4.8
+AC00364,Ogden,Checking,4375.32,7.3
+AC00365,Logan,Savings,2038.08,12.9
+AC00366,Provo,CD,8190.06,7.8
+AC00367,Provo,Checking,6126.6,2.2
+AC00368,Provo,Savings,32715.98,3.2
+AC00369,Ogden,CD,3004.17,3.1
+AC00370,Logan,Savings,4105.72,10.2
+AC00371,Ogden,Savings,2539.11,3.8
+AC00372,Ogden,Checking,7536.78,2.5
+AC00373,Provo,Savings,10646.9,6.9
+AC00374,St. George,Checking,1679.16,17.0
+AC00375,Ogden,Savings,1015.02,10.5
+AC00376,Ogden,CD,8708.99,9.3
+AC00377,Ogden,Checking,8449.34,3.4
+AC00378,Logan,Checking,2304.89,9.1
+AC00379,Provo,Checking,12349.32,4.4
+AC00380,Provo,CD,6173.26,6.5
+AC00381,St. George,Savings,2908.75,6.8
+AC00382,Ogden,Savings,1444.17,1.4
+AC00383,Ogden,Savings,14684.21,19.3
+AC00384,St. George,Checking,1144.87,3.0
+AC00385,Ogden,Savings,5000.89,2.8
+AC00386,Provo,Checking,4952.68,1.8
+AC00387,Ogden,Checking,6498.18,3.4
+AC00388,Logan,Checking,3245.33,2.8
+AC00389,Logan,Checking,1201.57,1.9
+AC00390,Ogden,Checking,2016.05,5.5
+AC00391,Logan,Checking,4395.29,8.9
+AC00392,Ogden,Checking,2217.09,19.1
+AC00393,Logan,Checking,1128.19,5.4
+AC00394,Ogden,CD,4643.73,6.7
+AC00395,Ogden,CD,719.39,9.7
+AC00396,Provo,CD,830.46,5.2
+AC00397,Logan,Savings,386117.08,6.4
+AC00398,Logan,Savings,2224.85,10.1
+AC00399,St. George,Checking,715.4,0.3
+AC00400,Provo,Checking,1383.41,2.8
+AC00401,Provo,Checking,4891.61,10.2
+AC00402,St. George,Checking,4311.63,4.3
+AC00403,Logan,Checking,1719.77,6.9
+AC00404,Ogden,Checking,2103.18,5.5
+AC00405,Provo,CD,2746.58,13.1
+AC00406,Ogden,CD,8694.47,7.1
+AC00407,Logan,Checking,2988.57,5.6
+AC00408,Provo,Checking,2020.78,3.2
+AC00409,Ogden,Checking,8968.84,0.7
+AC00410,Ogden,CD,5585.68,20.5
+AC00411,St. George,Checking,1601.53,7.6
+AC00412,Provo,Checking,2368.02,5.4
+AC00413,St. George,Checking,5141.63,7.5
+AC00414,Provo,Savings,11691.47,1.5
+AC00415,Logan,Checking,10683.96,2.5
+AC00416,Provo,Checking,2606.82,6.0
+AC00417,Logan,CD,981.59,10.6
+AC00418,St. George,Savings,5318.22,20.7
+AC00419,Ogden,Checking,5371.0,5.9
+AC00420,Ogden,Checking,5749.5,5.5
+AC00421,Ogden,Savings,1001.46,7.7
+AC00422,St. George,Checking,3813.5,10.5
+AC00423,Provo,Savings,9662.55,3.1
+AC00424,Ogden,Checking,4359.96,0.8
+AC00425,St. George,Checking,2622.62,4.4
+AC00426,Ogden,Checking,998.99,1.2
+AC00427,Ogden,Savings,5470.34,2.9
+AC00428,St. George,Checking,1412.87,7.4
+AC00429,Ogden,Checking,3260.39,2.1
+AC00430,Ogden,CD,8054.84,3.6
+AC00431,Provo,CD,9513.71,14.8
+AC00432,Provo,Savings,1521.9,8.8
+AC00433,St. George,Savings,4219.46,0.5
+AC00434,Provo,CD,11768.85,12.2
+AC00435,Provo,Checking,1269.07,4.5
+AC00436,Logan,Checking,360970.81,2.8
+AC00437,Provo,Checking,2040.17,5.1
+AC00438,St. George,Checking,1377.77,3.2
+AC00439,St. George,Checking,4575.41,16.1
+AC00440,Logan,Checking,788.48,3.4
+AC00441,St. George,Checking,7912.16,0.5
+AC00442,Logan,Checking,3667.69,5.9
+AC00443,Ogden,Checking,5213.05,1.5
+AC00444,Provo,CD,721933.44,1.1
+AC00445,Provo,Savings,10035.12,9.6
+AC00446,Logan,Checking,5869.72,5.9
+AC00447,Provo,Checking,1463.76,10.2
+AC00448,Ogden,Checking,9041.97,5.0
+AC00449,Provo,Checking,1098.37,4.8
+AC00450,Provo,CD,3116.68,5.6
+AC00451,Provo,Checking,1352.11,2.4
+AC00452,Provo,Savings,2063.49,4.9
+AC00453,St. George,Checking,6063.11,3.1
+AC00454,Ogden,Checking,9025.03,12.3
+AC00455,Provo,Savings,956.49,3.8
+AC00456,Ogden,Checking,2410.22,6.9
+AC00457,Provo,Savings,3910.95,12.8
+AC00458,St. George,Savings,3804.07,5.1
+AC00459,Ogden,Savings,4713.56,10.3
+AC00460,Ogden,Checking,2010.74,10.2
+AC00461,St. George,Checking,1659.44,3.5
+AC00462,Ogden,Checking,3292.68,8.3
+AC00463,Ogden,Savings,3374.6,4.6
+AC00464,St. George,Savings,4411.04,8.3
+AC00465,Ogden,Checking,632.49,1.3
+AC00466,Ogden,Savings,8475.12,0.6
+AC00467,Provo,Checking,450.26,6.2
+AC00468,Logan,Savings,582371.05,2.9
+AC00469,Ogden,Checking,1230.99,14.2
+AC00470,Provo,Checking,459.87,3.7
+AC00471,Logan,Checking,1272.99,5.2
+AC00472,St. George,Checking,1816.5,11.0
+AC00473,Ogden,Savings,5637.57,4.1
+AC00474,Provo,Savings,5352.58,4.6
+AC00475,Ogden,Checking,5597.95,1.9
+AC00476,St. George,Savings,3928.48,2.1
+AC00477,Logan,Savings,7520.19,6.0
+AC00478,St. George,Savings,3199.6,6.0
+AC00479,Provo,Savings,6892.65,8.8
+AC00480,Provo,Checking,4922.02,5.3
+AC00481,Ogden,Checking,1676.13,5.1
+AC00482,Ogden,CD,19499.48,1.4
+AC00483,Logan,Checking,2187.46,1.2
+AC00484,Provo,Savings,10753.19,3.4
+AC00485,Provo,Checking,8834.53,5.7
+AC00486,Logan,Savings,6464.47,1.2
+AC00487,Logan,Savings,4525.51,2.8
+AC00488,St. George,Savings,1267.19,7.0
+AC00489,Ogden,Checking,5335.49,4.6
+AC00490,St. George,Checking,2064.89,4.2
+AC00491,Provo,Savings,9167.01,4.8
+AC00492,Ogden,Savings,2368.85,2.8
+AC00493,St. George,CD,780.67,2.0
+AC00494,Ogden,Checking,1144.56,4.9
+AC00495,Logan,Checking,7386.77,6.2
+AC00496,Provo,Checking,5295.32,6.6
+AC00497,Ogden,Checking,3542.01,4.2
+AC00498,Provo,Checking,13925.72,6.0
+AC00499,Ogden,Checking,6302.12,6.7
+AC00500,Provo,Savings,1280.44,8.2
+AC00501,Logan,Checking,2231.54,3.4
+AC00502,Ogden,Checking,5969.11,12.0
+AC00503,Ogden,Savings,5172.49,0.9
+AC00504,Provo,Checking,2304.81,6.0
+AC00505,Provo,Savings,1951.06,16.8
+AC00506,St. George,Checking,4635.17,11.0
+AC00507,Logan,Savings,2583.74,3.3
+AC00508,Provo,CD,2443.96,3.0
+AC00509,Ogden,Savings,1082.09,8.7
+AC00510,Ogden,Checking,1728.39,5.9
+AC00511,Ogden,Checking,1973.06,10.3
+AC00512,Ogden,Savings,4741.67,1.3
+AC00513,Provo,Checking,1855.75,2.9
+AC00514,Provo,Savings,251.34,1.3
+AC00515,Provo,Checking,1118.85,5.9
+AC00516,Ogden,Savings,5390.76,1.6
+AC00517,St. George,CD,2732.97,9.5
+AC00518,Ogden,Checking,4238.0,9.7
+AC00519,St. George,Savings,774258.82,7.7
+AC00520,Provo,Savings,5002.46,6.2
+AC00521,Provo,Savings,2225.79,5.6
+AC00522,Provo,Savings,1819.72,7.2
+AC00523,Ogden,Checking,7984.13,3.4
+AC00524,Provo,CD,3641.66,1.5
+AC00525,St. George,Savings,5316.94,5.5
+AC00526,Logan,Savings,1235.51,3.5
+AC00527,St. George,Checking,13602.36,7.5
+AC00528,Provo,Checking,3055.66,1.9
+AC00529,Ogden,Checking,4146.35,6.1
+AC00530,Ogden,Checking,2577.56,2.9
+AC00531,St. George,Checking,4884.45,13.8
+AC00532,Provo,Savings,1772.92,5.8
+AC00533,Provo,Savings,4922.44,3.6
+AC00534,St. George,Checking,5424.32,4.8
+AC00535,St. George,Checking,2280.97,7.7
+AC00536,Ogden,Savings,4178.35,3.9
+AC00537,St. George,Savings,7213.6,7.1
+AC00538,St. George,CD,4854.75,2.3
+AC00539,Ogden,Checking,1250.56,19.2
+AC00540,Provo,Savings,4359.51,9.1
+AC00541,Ogden,Checking,3255.97,12.4
+AC00542,Ogden,Savings,5402.93,2.1
+AC00543,St. George,Checking,6725.26,3.1
+AC00544,Ogden,Savings,7321.75,4.9
+AC00545,Provo,Checking,1508.56,3.7
+AC00546,Ogden,Checking,3744.65,1.3
+AC00547,St. George,Checking,13113.07,5.0
+AC00548,Ogden,Checking,1349.94,6.5
+AC00549,Ogden,Checking,6661.07,1.7
+AC00550,Logan,Checking,1650.82,7.5
+AC00551,Logan,Checking,4808.11,2.5
+AC00552,Provo,Savings,2718.36,3.0
+AC00553,St. George,Savings,2430.77,6.0
+AC00554,Logan,Savings,2529.13,11.3
+AC00555,Provo,Checking,1803.3,7.8
+AC00556,Provo,Savings,1680.48,0.3
+AC00557,Logan,Checking,6052.49,7.4
+AC00558,Provo,Savings,2240.23,12.2
+AC00559,St. George,Checking,1176.51,9.2
+AC00560,Ogden,CD,1769.98,3.9
+AC00561,St. George,Checking,16429.92,7.8
+AC00562,Provo,Savings,8300.12,8.2
+AC00563,Provo,Checking,597.1,3.5
+AC00564,Ogden,Savings,5570.54,1.0
+AC00565,Logan,Checking,7548.07,8.6
+AC00566,Logan,Checking,9512.1,7.6
+AC00567,Ogden,CD,2085.29,0.7
+AC00568,Ogden,Savings,412.7,9.0
+AC00569,St. George,Savings,8146.16,2.2
+AC00570,St. George,Savings,539.43,0.5
+AC00571,Ogden,Checking,3292.32,7.5
+AC00572,Logan,Checking,15901.66,12.3
+AC00573,Provo,Checking,8008.45,9.8
+AC00574,Ogden,Checking,2345.92,3.7
+AC00575,Logan,Savings,3774.48,6.1
+AC00576,St. George,Checking,814.18,4.8
+AC00577,Ogden,Savings,9175.44,5.1
+AC00578,Provo,Checking,12449.93,9.5
+AC00579,Ogden,CD,1868.52,4.0
+AC00580,Ogden,CD,2497.48,4.5
+AC00581,Ogden,Savings,9371.32,9.9
+AC00582,Logan,Checking,2224.56,2.7
+AC00583,Provo,Savings,4626.96,3.7
+AC00584,Ogden,Checking,3416.37,4.8
+AC00585,Ogden,CD,1093.89,12.2
+AC00586,Provo,Savings,7881.76,3.4
+AC00587,Ogden,CD,2915.13,8.3
+AC00588,Provo,Checking,1919.11,2.5
+AC00589,St. George,Checking,5578.66,6.8
+AC00590,Provo,Savings,2671.7,7.2
+AC00591,St. George,Savings,1320.39,8.2
+AC00592,Ogden,Checking,3959.56,2.7
+AC00593,Ogden,Savings,1376.13,9.2
+AC00594,Provo,CD,511.61,7.5
+AC00595,Provo,Checking,5060.95,9.1
+AC00596,Ogden,CD,8790.5,7.3
+AC00597,Ogden,Checking,5506.55,3.9
+AC00598,Provo,Checking,2470.37,18.4
+AC00599,Provo,Checking,1614.98,12.9
+AC00600,Ogden,Checking,1998.2,4.2
+AC00601,St. George,Savings,8008.85,13.4
+AC00602,Ogden,Checking,351.7,7.7
+AC00603,Logan,Checking,8016.29,6.2
+AC00604,Provo,Savings,5140.7,4.7
+AC00605,Ogden,Checking,13488.56,15.1
+AC00606,Provo,Savings,12500.82,9.6
+AC00607,Logan,Checking,8160.41,1.1
+AC00608,St. George,Savings,1813.04,24.2
+AC00609,Ogden,Savings,1189.9,1.5
+AC00610,Ogden,Savings,3074.42,4.4
+AC00611,Logan,Checking,513499.13,9.1
+AC00612,St. George,Savings,5931.27,6.6
+AC00613,Logan,Savings,3930.73,10.8
+AC00614,Ogden,Checking,11660.75,12.5
+AC00615,Logan,Savings,16682.79,3.7
+AC00616,Provo,Checking,6424.46,15.5
+AC00617,Ogden,Checking,706.61,2.6
+AC00618,St. George,Savings,5463.82,1.6
+AC00619,Provo,CD,606.32,3.7
+AC00620,Ogden,CD,27834.05,1.5
+AC00621,Provo,Savings,3535.18,6.0
+AC00622,Provo,Checking,4001.07,18.2
+AC00623,St. George,Checking,19924.18,3.7
+AC00624,Ogden,Checking,741.71,3.6
+AC00625,St. George,Checking,3163.87,2.8
+AC00626,Provo,CD,2721.91,10.3
+AC00627,Provo,Checking,675912.02,2.0
+AC00628,Logan,Checking,7446.17,5.7
+AC00629,Ogden,Checking,2044.11,0.5
+AC00630,Ogden,Checking,877.73,3.7
+AC00631,Provo,Checking,9497.59,3.4
+AC00632,Logan,Checking,24889.12,5.0
+AC00633,Ogden,Savings,7681.61,2.4
+AC00634,Logan,Savings,4118.27,8.0
+AC00635,Logan,Savings,27658.55,4.7
+AC00636,Ogden,Savings,2271.39,7.4
+AC00637,St. George,Checking,9535.95,4.3
+AC00638,St. George,Checking,9022.77,7.1
+AC00639,Provo,Checking,3023.41,16.8
+AC00640,Provo,CD,6712.2,6.6
+AC00641,Ogden,Savings,4965.28,1.2
+AC00642,Provo,CD,2415.78,5.8
+AC00643,Ogden,Checking,6277.82,2.9
+AC00644,Logan,Checking,4396.9,2.3
+AC00645,Provo,Checking,9317.98,12.8
+AC00646,Ogden,Checking,1327.95,2.7
+AC00647,Ogden,Checking,8187.7,6.5
+AC00648,Provo,CD,332874.97,9.3
+AC00649,Provo,Savings,458932.55,24.8
+AC00650,Logan,Checking,3524.32,19.8
+AC00651,Ogden,Savings,3499.38,2.4
+AC00652,Provo,Savings,1276.07,8.1
+AC00653,Provo,CD,4566.65,5.9
+AC00654,Provo,CD,3468.92,0.7
+AC00655,Provo,Savings,3048.31,6.8
+AC00656,Ogden,Savings,9364.43,6.7
+AC00657,Ogden,Checking,6564.25,6.8
+AC00658,Provo,CD,1052.4,4.6
+AC00659,St. George,CD,913.31,4.7
+AC00660,Ogden,Checking,3567.38,2.3
+AC00661,Ogden,CD,4294.75,0.5
+AC00662,St. George,Checking,5293.25,10.0
+AC00663,St. George,Checking,14883.95,16.5
+AC00664,Ogden,Checking,2581.96,2.2
+AC00665,Ogden,Checking,821.36,2.1
+AC00666,Ogden,CD,3172.36,4.8
+AC00667,Ogden,CD,6540.22,3.4
+AC00668,Ogden,Checking,1386.71,7.5
+AC00669,Ogden,Savings,1881.94,1.2
+AC00670,Ogden,CD,621.42,5.1
+AC00671,Logan,Checking,2050.67,3.2
+AC00672,Provo,Savings,6216.37,2.7
+AC00673,Provo,Checking,1247.45,7.9
+AC00674,Ogden,Savings,6962.8,7.2
+AC00675,St. George,Savings,9598.82,3.5
+AC00676,St. George,Savings,718.71,13.6
+AC00677,Ogden,Savings,6682.54,3.3
+AC00678,Provo,Checking,4593.09,6.5
+AC00679,St. George,CD,1703.53,3.3
+AC00680,Ogden,Checking,5516.48,3.4
+AC00681,St. George,CD,1098.78,1.2
+AC00682,Provo,Checking,1166.29,8.4
+AC00683,Provo,Checking,6632.49,2.7
+AC00684,Logan,Checking,1488.34,8.0
+AC00685,St. George,Checking,4590.27,1.0
+AC00686,Ogden,Checking,3851.29,14.3
+AC00687,Provo,Checking,4308.53,9.5
+AC00688,Ogden,Savings,4691.5,1.9
+AC00689,Logan,Savings,2053.08,4.3
+AC00690,Ogden,CD,4576.3,2.4
+AC00691,Ogden,Checking,3813.33,1.6
+AC00692,Ogden,Checking,6775.08,0.5
+AC00693,Provo,Checking,2838.38,4.6
+AC00694,Provo,Checking,4190.36,2.6
+AC00695,Provo,Checking,2986.68,6.1
+AC00696,Logan,Savings,977.03,9.2
+AC00697,St. George,Checking,1675.07,5.3
+AC00698,Ogden,Savings,2343.86,23.9
+AC00699,Provo,Checking,27181.9,2.4
+AC00700,Provo,Checking,9112.24,10.4
+AC00701,Ogden,Checking,10271.58,7.3
+AC00702,Ogden,Checking,4958.73,3.7
+AC00703,Ogden,CD,5060.76,11.0
+AC00704,St. George,Checking,3076.04,2.5
+AC00705,Provo,Checking,3975.76,8.0
+AC00706,St. George,Checking,8285.78,3.3
+AC00707,Ogden,Savings,3640.0,4.9
+AC00708,Provo,Checking,1597.3,2.6
+AC00709,Provo,Checking,7944.35,1.6
+AC00710,Logan,Checking,1410.74,4.2
+AC00711,Ogden,Savings,2651.89,6.7
+AC00712,Logan,Savings,2299.19,7.4
+AC00713,Provo,CD,926.77,3.6
+AC00714,St. George,Savings,10502.12,3.1
+AC00715,Logan,CD,1071.88,4.6
+AC00716,Logan,Checking,5693.38,22.5
+AC00717,Provo,Checking,3589.6,3.3
+AC00718,Logan,CD,14740.66,2.6
+AC00719,Logan,CD,2976.33,5.7
+AC00720,Ogden,Checking,2618.41,2.0
+AC00721,Logan,Savings,2277.52,5.4
+AC00722,Ogden,Checking,8995.03,5.9
+AC00723,Ogden,Checking,3727.38,6.8
+AC00724,St. George,Checking,751.83,7.1
+AC00725,Logan,Savings,2247.47,4.4
+AC00726,Logan,Savings,713.59,8.5
+AC00727,Logan,Checking,1341.18,1.9
+AC00728,Ogden,Savings,4249.32,4.9
+AC00729,St. George,Savings,5599.53,7.7
+AC00730,St. George,Checking,2156.05,3.2
+AC00731,Logan,CD,2846.45,3.0
+AC00732,St. George,Checking,5077.49,11.8
+AC00733,St. George,Checking,1535.28,1.6
+AC00734,St. George,Checking,1959.32,4.1
+AC00735,Ogden,CD,6704.12,2.6
+AC00736,Ogden,Checking,22334.12,4.7
+AC00737,Provo,Checking,3033.28,2.5
+AC00738,Ogden,Checking,10401.63,9.2
+AC00739,Logan,Checking,3150.63,0.7
+AC00740,Provo,Checking,5372.8,15.0
+AC00741,Ogden,Checking,3307.49,16.8
+AC00742,Provo,Savings,1851.25,2.6
+AC00743,Provo,Checking,4216.14,3.1
+AC00744,Logan,CD,927.58,10.3
+AC00745,Ogden,Checking,2859.2,4.1
+AC00746,Provo,Checking,2166.21,5.4
+AC00747,Ogden,Savings,2344.02,5.5
+AC00748,Ogden,Checking,4077.67,4.2
+AC00749,Ogden,Savings,3790.01,7.6
+AC00750,Ogden,Checking,6378.94,7.4
+AC00751,Provo,Savings,917.81,7.0
+AC00752,Ogden,Checking,6445.28,6.8
+AC00753,Provo,Checking,2863.99,3.3
+AC00754,Provo,Savings,1616.67,8.0
+AC00755,Provo,Checking,14180.63,10.2
+AC00756,Logan,Checking,768.69,5.7
+AC00757,Logan,Savings,33374.79,3.0
+AC00758,Ogden,Savings,1974.25,12.9
+AC00759,Ogden,Savings,3062.37,4.5
+AC00760,Logan,Savings,5186.35,2.7
+AC00761,Ogden,CD,1823.07,2.8
+AC00762,Ogden,CD,2973.73,4.2
+AC00763,St. George,Checking,8753.96,0.9
+AC00764,St. George,Savings,3562.93,2.8
+AC00765,Ogden,Savings,413024.66,1.9
+AC00766,Provo,Checking,1726.18,13.0
+AC00767,Ogden,Savings,2871.1,1.7
+AC00768,Ogden,Savings,8041.69,12.5
+AC00769,Ogden,Savings,18490.98,4.8
+AC00770,Provo,Checking,1461.83,5.4
+AC00771,Provo,Savings,1462.62,7.6
+AC00772,Provo,CD,6565.56,3.5
+AC00773,Ogden,CD,13145.72,3.4
+AC00774,Logan,Checking,1121.14,9.3
+AC00775,Provo,Checking,21930.36,6.9
+AC00776,Logan,Savings,3001.51,5.8
+AC00777,Ogden,Savings,5118.75,10.0
+AC00778,Logan,Checking,4736.37,5.5
+AC00779,Ogden,Savings,9581.39,2.9
+AC00780,St. George,Savings,7985.56,3.6
+AC00781,Logan,Checking,3084.54,10.6
+AC00782,St. George,Checking,1372.6,9.5
+AC00783,Ogden,Checking,14491.64,5.0
+AC00784,Logan,Savings,1424.9,3.3
+AC00785,Provo,Checking,44673.44,3.8
+AC00786,Provo,Savings,3341.04,4.6
+AC00787,Logan,Savings,2306.07,6.7
+AC00788,Provo,Savings,18860.42,7.6
+AC00789,Provo,Savings,30219.77,2.9
+AC00790,Ogden,Checking,8212.81,5.6
+AC00791,Logan,Savings,6069.54,10.2
+AC00792,Logan,Checking,5575.15,1.1
+AC00793,Ogden,Checking,12818.59,3.9
+AC00794,Ogden,Savings,7185.64,5.4
+AC00795,Logan,Checking,3382.5,8.0
+AC00796,Ogden,Checking,5713.56,4.4
+AC00797,Ogden,Checking,10533.32,3.4
+AC00798,Ogden,Checking,2576.63,2.6
+AC00799,Ogden,CD,1406.12,4.2
+AC00800,Provo,Checking,1900.2,8.9
+AC00801,Logan,Savings,6419.98,4.0
+AC00802,St. George,Savings,3395.16,8.2
+AC00803,Logan,Savings,850.61,2.8
+AC00804,St. George,Checking,4651.19,3.4
+AC00805,Provo,Checking,14963.55,2.3
+AC00806,Logan,Checking,3262.29,2.0
+AC00807,Ogden,Savings,6037.29,3.7
+AC00808,St. George,Savings,6251.25,3.4
+AC00809,St. George,Checking,4237.07,1.0
+AC00810,Ogden,Checking,12803.33,0.7
+AC00811,St. George,Savings,7727.52,2.1
+AC00812,Provo,Checking,8088.42,5.5
+AC00813,St. George,Checking,3828.07,8.6
+AC00814,Ogden,Checking,1397.88,4.3
+AC00815,Provo,Checking,3809.3,1.5
+AC00816,Ogden,Checking,10084.74,11.9
+AC00817,Ogden,Savings,2294.01,5.6
+AC00818,Ogden,Checking,967.2,8.2
+AC00819,Logan,Checking,3104.64,4.4
+AC00820,Logan,Checking,3411.42,1.8
+AC00821,Logan,Checking,27356.63,1.5
+AC00822,St. George,Checking,1961.4,7.5
+AC00823,Provo,Checking,4101.32,4.4
+AC00824,Logan,Savings,13305.31,12.0
+AC00825,Provo,Savings,6346.71,19.4
+AC00826,Ogden,Checking,5620.76,2.8
+AC00827,Ogden,Savings,8704.43,20.6
+AC00828,Ogden,Savings,1732.58,10.9
+AC00829,Provo,Savings,3007.8,6.3
+AC00830,Logan,Checking,281.18,2.3
+AC00831,Ogden,Savings,6593.93,0.9
+AC00832,Provo,Savings,2791.09,2.8
+AC00833,St. George,CD,6279.5,4.2
+AC00834,Provo,Savings,2057.39,5.7
+AC00835,Provo,CD,1687.37,6.2
+AC00836,St. George,Savings,2621.61,3.4
+AC00837,Ogden,CD,2298.84,3.8
+AC00838,Logan,CD,28014.07,8.3
+AC00839,Ogden,Savings,10205.39,18.2
+AC00840,Ogden,CD,2878.2,3.8
+AC00841,Provo,CD,9934.64,3.2
+AC00842,Logan,Savings,1796.44,8.4
+AC00843,Ogden,CD,6503.87,6.4
+AC00844,Ogden,Checking,2208.31,1.0
+AC00845,Ogden,Checking,805.35,8.6
+AC00846,Provo,Checking,2658.78,13.4
+AC00847,St. George,Savings,12060.23,9.1
+AC00848,Provo,Checking,2832.77,0.6
+AC00849,Ogden,Checking,4331.79,14.9
+AC00850,Provo,CD,3222.43,2.1
+AC00851,Ogden,Savings,1543.63,8.8
+AC00852,Ogden,Savings,2866.07,7.7
+AC00853,St. George,Checking,4077.67,1.5
+AC00854,Logan,Checking,4308.27,8.1
+AC00855,Ogden,Checking,1795.18,1.7
+AC00856,Logan,Checking,8321.69,5.0
+AC00857,Logan,Savings,793.4,1.0
+AC00858,St. George,Checking,1969.92,5.3
+AC00859,Ogden,Checking,2123.9,4.2
+AC00860,Provo,Checking,5657.14,1.5
+AC00861,Provo,Checking,3611.31,6.7
+AC00862,Ogden,Checking,729.65,24.4
+AC00863,Ogden,Checking,372.39,13.7
+AC00864,Provo,Checking,2781.52,14.4
+AC00865,Provo,CD,7044.0,2.7
+AC00866,Logan,Checking,4100.44,3.2
+AC00867,St. George,Checking,834.71,7.2
+AC00868,Logan,Checking,3890.56,12.9
+AC00869,Provo,Checking,3843.41,1.0
+AC00870,St. George,CD,3180.5,5.5
+AC00871,St. George,Checking,8250.1,1.4
+AC00872,Logan,Savings,999.26,4.5
+AC00873,Ogden,Checking,1390.63,3.4
+AC00874,St. George,Savings,1476.28,0.3
+AC00875,Ogden,Checking,26282.53,10.0
+AC00876,St. George,Checking,1406.59,14.4
+AC00877,Provo,Savings,5061.37,8.3
+AC00878,St. George,Checking,2493.02,6.6
+AC00879,Provo,CD,2109.38,5.6
+AC00880,Ogden,Savings,6133.39,2.2
+AC00881,Provo,CD,4729.62,9.8
+AC00882,Logan,Checking,7985.33,2.8
+AC00883,Logan,Savings,3585.54,37.8
+AC00884,St. George,Checking,490387.4,2.9
+AC00885,Provo,Checking,3282.2,1.4
+AC00886,Provo,Checking,4086.7,0.6
+AC00887,Ogden,Checking,8631.58,8.0
+AC00888,Provo,Savings,8898.38,12.9
+AC00889,Ogden,Checking,1162.84,1.4
+AC00890,Ogden,Savings,9424.92,13.1
+AC00891,Ogden,Checking,3395.66,1.9
+AC00892,Ogden,CD,5447.15,1.7
+AC00893,Logan,Savings,832.0,5.6
+AC00894,St. George,Savings,17905.03,6.2
+AC00895,Ogden,Checking,1694.65,8.3
+AC00896,Logan,Checking,912.62,3.6
+AC00897,Provo,Checking,2907.01,8.6
+AC00898,St. George,CD,9211.9,7.9
+AC00899,Ogden,Checking,4771.57,1.6
+AC00900,Ogden,Checking,1652.67,7.0
+AC00901,Ogden,Savings,2725.41,4.2
+AC00902,Ogden,Checking,6353.45,5.2
+AC00903,Logan,Checking,777755.37,5.3
+AC00904,Provo,Checking,14289.06,2.7
+AC00905,Provo,Checking,2529.91,5.7
+AC00906,Ogden,Savings,3111.58,3.1
+AC00907,Ogden,Checking,4306.08,11.8
+AC00908,St. George,Checking,887.84,6.2
+AC00909,Ogden,CD,5838.62,7.1
+AC00910,Ogden,Checking,4156.05,6.1
+AC00911,Ogden,Checking,16806.41,4.8
+AC00912,Logan,Savings,618929.02,7.5
+AC00913,St. George,Checking,17803.05,11.2
+AC00914,Provo,CD,4685.48,8.0
+AC00915,Provo,CD,6196.76,7.1
+AC00916,Ogden,Checking,1623.48,5.2
+AC00917,Ogden,CD,10809.73,5.4
+AC00918,Provo,Savings,1430.82,8.0
+AC00919,Logan,CD,16054.94,4.3
+AC00920,St. George,CD,2477.87,6.7
+AC00921,Logan,CD,714.59,5.4
+AC00922,Provo,Checking,5169.13,7.3
+AC00923,Ogden,Savings,1004.9,7.0
+AC00924,Ogden,Savings,10577.71,2.1
+AC00925,Ogden,CD,2592.81,0.4
+AC00926,Ogden,CD,3239.93,3.2
+AC00927,Provo,CD,6534.31,4.4
+AC00928,Provo,Savings,5821.35,10.7
+AC00929,Ogden,Savings,2592.84,9.5
+AC00930,Logan,Checking,2414.82,6.6
+AC00931,Logan,Checking,5189.86,0.2
+AC00932,Provo,Checking,9061.76,9.4
+AC00933,Logan,Checking,3416.96,1.0
+AC00934,Ogden,Checking,1574.27,8.5
+AC00935,Provo,Checking,6932.21,7.0
+AC00936,Provo,Checking,1681.17,7.7
+AC00937,Ogden,Checking,4284.06,10.0
+AC00938,Logan,CD,2883.37,5.3
+AC00939,St. George,Savings,6577.39,3.6
+AC00940,Ogden,Checking,1671.84,2.0
+AC00941,Ogden,Checking,3511.37,3.3
+AC00942,Ogden,Checking,9976.92,11.3
+AC00943,Ogden,Savings,4771.44,1.3
+AC00944,Ogden,Savings,10354.65,1.5
+AC00945,Ogden,Savings,38239.96,7.7
+AC00946,Ogden,Checking,3912.91,7.0
+AC00947,Logan,CD,2384.55,3.2
+AC00948,Ogden,CD,6774.24,4.3
+AC00949,Ogden,CD,6501.37,3.6
+AC00950,Provo,Checking,2048.39,1.1
+AC00951,Provo,CD,1134.2,1.2
+AC00952,Logan,Savings,2130.97,1.7
+AC00953,Provo,Savings,5773.57,8.4
+AC00954,Ogden,Savings,3277.11,2.9
+AC00955,Ogden,Checking,2306.65,7.1
+AC00956,Logan,Savings,2880.02,5.5
+AC00957,Ogden,Checking,1327.53,4.4
+AC00958,Ogden,Checking,6454.44,8.0
+AC00959,Logan,Savings,7361.97,13.0
+AC00960,St. George,Checking,1117.69,3.3
+AC00961,Ogden,Savings,10065.72,6.7
+AC00962,Provo,Checking,7364.35,11.8
+AC00963,Ogden,Savings,2556.58,1.8
+AC00964,Logan,CD,1882.18,4.3
+AC00965,Provo,Checking,1038.66,3.5
+AC00966,Provo,Checking,12008.43,1.2
+AC00967,Provo,Checking,4506.88,13.5
+AC00968,Ogden,Checking,2322.83,3.2
+AC00969,Ogden,Checking,1610.82,16.7
+AC00970,Provo,Checking,4487.15,7.5
+AC00971,Provo,CD,2914.49,12.5
+AC00972,Ogden,CD,5371.57,2.2
+AC00973,Ogden,Savings,4031.26,0.9
+AC00974,Logan,Savings,10394.81,1.1
+AC00975,St. George,Checking,2149.64,2.1
+AC00976,Provo,CD,1027.32,6.6
+AC00977,Ogden,Checking,3808.93,4.7
+AC00978,Ogden,CD,857921.21,7.2
+AC00979,Provo,Savings,2085.88,7.2
+AC00980,Provo,Checking,1120.95,8.1
+AC00981,Ogden,CD,20342.55,2.8
+AC00982,Provo,Savings,5853.38,3.2
+AC00983,Logan,Savings,3674.47,2.6
+AC00984,Ogden,Checking,3629.29,15.8
+AC00985,Provo,Checking,3981.83,4.4
+AC00986,St. George,Savings,2623.84,4.3
+AC00987,Ogden,Checking,7405.48,13.5
+AC00988,Logan,Checking,7176.39,3.0
+AC00989,Ogden,Checking,3042.05,3.9
+AC00990,Provo,Savings,7254.59,16.3
+AC00991,Provo,Checking,12610.17,5.8
+AC00992,Logan,Checking,2204.69,6.2
+AC00993,Provo,CD,13632.92,5.7
+AC00994,Logan,CD,1831.72,9.2
+AC00995,Provo,Checking,1945.17,6.0
+AC00996,Logan,Savings,5700.64,0.9
+AC00997,Provo,Savings,3084.65,10.4
+AC00998,Logan,Savings,6632.72,3.7
+AC00999,Logan,Savings,465.41,3.0
+AC01000,St. George,Checking,14161.12,3.3
+AC01001,St. George,Checking,560810.74,6.6
+AC01002,Provo,Checking,7501.08,21.4
+AC01003,Ogden,Savings,42614.11,4.5
+AC01004,Ogden,Checking,14452.33,5.9
+AC01005,Provo,CD,405049.28,2.8
+AC01006,Logan,Checking,814040.32,4.1
+AC01007,Provo,Checking,1197.42,12.8
+AC01008,Ogden,Savings,3884.7,11.4
+AC01009,Ogden,CD,4113.28,3.7
+AC01010,Ogden,Checking,2929.37,12.4
+AC01011,Provo,Checking,29410.52,2.0
+AC01012,Logan,Checking,302084.32,4.7
+AC01013,Provo,Checking,2400.56,3.6
+AC01014,Provo,CD,492128.84,2.4
+AC01015,Logan,Checking,1933.82,6.2
+AC01016,Provo,Checking,4103.21,3.1
+AC01017,St. George,Checking,5429.14,11.1
+AC01018,Provo,Checking,8786.0,8.8
+AC01019,Logan,Checking,3054.69,7.0
+AC01020,St. George,Checking,1693.64,4.2
+AC01021,Ogden,Savings,1164.59,5.7
+AC01022,Provo,Savings,2327.81,7.2
+AC01023,Logan,CD,1086.77,2.8
+AC01024,Ogden,Checking,3274.71,5.0
+AC01025,Ogden,CD,770.3,9.7
+AC01026,Ogden,Checking,6757.58,10.9
+AC01027,Ogden,Savings,2195.66,8.7
+AC01028,Provo,Checking,873.29,3.2
+AC01029,Provo,Savings,3619.7,3.8
+AC01030,Ogden,CD,12332.35,3.9
+AC01031,Provo,Checking,1448.83,4.8
+AC01032,Provo,Savings,3036.33,7.8
+AC01033,Logan,Savings,527.56,2.0
+AC01034,Ogden,Checking,7058.33,8.2
+AC01035,Provo,Savings,10794.7,16.9
+AC01036,Provo,Savings,2998.88,4.6
+AC01037,Logan,Checking,7537.56,2.1
+AC01038,Logan,Checking,5159.09,5.4
+AC01039,Ogden,CD,7740.71,0.7
+AC01040,Ogden,Checking,897660.84,10.7
+AC01041,Provo,Savings,1038.43,3.5
+AC01042,Ogden,Checking,5038.77,9.2
+AC01043,Ogden,Savings,4454.91,3.0
+AC01044,Ogden,Savings,6549.55,13.1
+AC01045,Logan,Savings,1034.19,1.6
+AC01046,St. George,Savings,2289.51,7.1
+AC01047,Logan,Checking,11794.4,2.7
+AC01048,Logan,Checking,8712.47,1.6
+AC01049,Ogden,CD,1774.57,2.7
+AC01050,Provo,Savings,10066.74,7.6
+AC01051,Logan,Checking,459980.98,5.6
+AC01052,St. George,CD,9075.95,12.1
+AC01053,Ogden,Savings,3360.73,11.5
+AC01054,Logan,Checking,1176.66,6.3
+AC01055,Logan,CD,5749.2,3.8
+AC01056,St. George,Checking,275872.2,10.3
+AC01057,St. George,CD,11555.63,2.3
+AC01058,Logan,Savings,403.98,2.7
+AC01059,St. George,Checking,3597.18,3.3
+AC01060,Provo,Checking,11927.87,3.9
+AC01061,Provo,Checking,8903.95,15.4
+AC01062,Provo,Checking,6062.17,5.4
+AC01063,Provo,Checking,1080.63,0.7
+AC01064,St. George,Savings,5633.14,2.4
+AC01065,Provo,Savings,2551.73,4.6
+AC01066,Ogden,Checking,1645.4,2.4
+AC01067,Ogden,Checking,5055.87,6.7
+AC01068,St. George,CD,4540.79,5.7
+AC01069,Provo,Savings,5052.83,3.4
+AC01070,Ogden,Savings,3144.09,2.3
+AC01071,Logan,Checking,2890.7,0.7
+AC01072,Ogden,Savings,5836.97,3.6
+AC01073,Provo,Checking,13891.91,2.2
+AC01074,Ogden,Savings,1401.89,7.6
+AC01075,St. George,Savings,401131.91,0.9
+AC01076,Logan,Savings,1365.8,2.1
+AC01077,Provo,Checking,10717.23,7.0
+AC01078,Provo,Savings,3419.4,10.8
+AC01079,Provo,Savings,9892.73,1.8
+AC01080,Logan,Checking,2978.93,6.3
+AC01081,Provo,Checking,13059.16,4.3
+AC01082,Provo,Savings,12538.53,11.2
+AC01083,St. George,Checking,1730.22,5.5
+AC01084,Logan,Savings,4549.74,5.9
+AC01085,Provo,Checking,1635.64,4.2
+AC01086,Ogden,Savings,5669.29,10.4
+AC01087,Ogden,CD,1584.18,3.2
+AC01088,Ogden,Checking,16354.61,2.6
+AC01089,Ogden,Checking,1871.31,2.4
+AC01090,Ogden,Checking,1114.13,2.2
+AC01091,Ogden,Checking,1509.53,1.4
+AC01092,St. George,Savings,5181.05,7.5
+AC01093,Provo,Savings,7804.93,6.9
+AC01094,Provo,Checking,10462.45,2.8
+AC01095,Provo,Checking,7401.03,1.2
+AC01096,Ogden,Checking,2114.2,0.7
+AC01097,Provo,Checking,6319.1,2.9
+AC01098,Ogden,Savings,37727.71,7.9
+AC01099,Ogden,Checking,5555.09,6.5
+AC01100,St. George,Savings,29919.36,5.1
+AC01101,Logan,Checking,2954.89,0.3
+AC01102,Provo,Checking,6155.36,8.6
+AC01103,Provo,Savings,1216.2,3.7
+AC01104,Provo,Savings,5669.63,2.9
+AC01105,Logan,Checking,1377.29,2.0
+AC01106,Logan,Checking,22507.7,9.9
+AC01107,Logan,Savings,2019.02,3.2
+AC01108,Ogden,CD,3412.88,1.1
+AC01109,Provo,Savings,1534.55,4.8
+AC01110,Logan,Checking,2808.14,16.3
+AC01111,Logan,Checking,7121.81,4.0
+AC01112,St. George,Checking,4448.27,3.4
+AC01113,Ogden,Savings,1145.73,1.5
+AC01114,Ogden,CD,2264.82,4.1
+AC01115,Provo,Savings,2922.58,2.0
+AC01116,Ogden,Checking,11908.79,9.8
+AC01117,St. George,Savings,3327.25,8.9
+AC01118,Ogden,Savings,1040.74,13.2
+AC01119,Provo,Savings,2855.77,6.4
+AC01120,Ogden,Checking,8060.13,1.7
+AC01121,Provo,Savings,5931.2,2.9
+AC01122,Ogden,Checking,10820.66,3.7
+AC01123,Ogden,Checking,5253.5,3.8
+AC01124,Ogden,Savings,3719.71,13.2
+AC01125,Provo,Checking,2984.91,4.5
+AC01126,Ogden,Savings,5650.04,8.3
+AC01127,Provo,Savings,3601.2,13.0
+AC01128,Ogden,Checking,3216.44,9.5
+AC01129,Provo,Checking,2408.3,6.4
+AC01130,Ogden,Checking,3426.85,3.4
+AC01131,Provo,Checking,861729.92,1.5
+AC01132,Provo,Checking,12870.19,13.7
+AC01133,Logan,Savings,2034.91,8.9
+AC01134,St. George,Checking,26882.18,6.0
+AC01135,Ogden,Checking,2256.87,5.4
+AC01136,Ogden,Checking,9758.77,3.3
+AC01137,St. George,Checking,3564.78,7.1
+AC01138,Provo,Checking,1440.73,4.9
+AC01139,Provo,Savings,8729.25,15.6
+AC01140,Ogden,Savings,6444.82,16.5
+AC01141,Ogden,Savings,1934.8,10.6
+AC01142,Provo,Checking,7615.19,3.1
+AC01143,Ogden,Checking,496283.27,5.9
+AC01144,St. George,Savings,1724.39,4.7
+AC01145,St. George,Checking,12106.4,3.9
+AC01146,Logan,Checking,668.33,8.8
+AC01147,St. George,Checking,1792.13,11.2
+AC01148,Provo,Checking,24275.31,4.3
+AC01149,Ogden,Checking,4973.81,12.5
+AC01150,Ogden,Checking,3433.05,8.3
+AC01151,Provo,Savings,3042.94,2.9
+AC01152,Ogden,Savings,4373.06,4.6
+AC01153,Provo,CD,14300.17,13.5
+AC01154,Ogden,Savings,454583.52,3.0
+AC01155,Logan,Checking,299665.57,2.6
+AC01156,Provo,Savings,3033.04,1.0
+AC01157,Ogden,Checking,2275.49,3.3
+AC01158,Ogden,Checking,8750.47,0.7
+AC01159,Provo,Checking,3093.38,2.3
+AC01160,St. George,Checking,5573.68,2.4
+AC01161,Provo,Checking,2793.41,10.7
+AC01162,Provo,Savings,2093.61,1.5
+AC01163,Ogden,CD,4882.44,4.5
+AC01164,Ogden,Checking,1844.81,5.2
+AC01165,Logan,Savings,674518.04,1.7
+AC01166,Ogden,Checking,1197.85,2.6
+AC01167,Ogden,CD,6489.61,3.4
+AC01168,Provo,Checking,19761.93,2.8
+AC01169,Provo,CD,2138.01,4.8
+AC01170,St. George,Checking,15531.4,6.6
+AC01171,Logan,Savings,1717.61,3.3
+AC01172,Ogden,CD,8567.8,3.6
+AC01173,Ogden,Checking,7328.83,7.5
+AC01174,Provo,Savings,3092.85,10.0
+AC01175,Ogden,Checking,685.89,2.8
+AC01176,Ogden,Checking,7190.06,9.6
+AC01177,Logan,Savings,5108.76,7.0
+AC01178,Logan,Checking,1785.73,7.1
+AC01179,Provo,Checking,8351.84,2.4
+AC01180,Ogden,Savings,4485.37,14.3
+AC01181,Logan,Checking,14377.36,3.8
+AC01182,Provo,Savings,3569.15,22.6
+AC01183,Ogden,Savings,1464.3,13.1
+AC01184,Ogden,Checking,843.96,4.7
+AC01185,Ogden,Checking,795.32,16.4
+AC01186,Ogden,CD,18328.48,11.1
+AC01187,St. George,Savings,2638.98,9.0
+AC01188,Ogden,Savings,12671.3,10.1
+AC01189,St. George,Savings,2099.36,2.2
+AC01190,Provo,Checking,846.23,3.8
+AC01191,Ogden,CD,10443.81,18.9
+AC01192,Provo,Checking,1954.27,0.7
+AC01193,Ogden,Checking,902.53,4.0
+AC01194,Logan,Checking,3471.04,2.5
+AC01195,St. George,Savings,1536.17,1.9
+AC01196,Ogden,Checking,1395.99,7.7
+AC01197,Logan,Checking,7050.01,13.1
+AC01198,Ogden,Checking,1819.45,15.1
+AC01199,Provo,Savings,2164.01,0.9
