@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { unlockedCards, useStudy } from "../App";
 import { fmt } from "../lib/fmt";
 
@@ -17,7 +17,15 @@ export default function Tutor() {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
+  const [via, setVia] = useState<string | null>(null);
   const abort = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    fetch("/api/tutor")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => setVia(j?.via ?? null))
+      .catch(() => setVia(null));
+  }, []);
 
   async function send(text: string) {
     const q = text.trim();
@@ -119,6 +127,19 @@ export default function Tutor() {
       <p className="tiny faint" style={{ marginTop: ".6rem" }}>
         ⌘+Enter to send. Answers come from Claude and can be wrong — check anything surprising against
         your notes.
+        {via === "netlify-ai-gateway" && (
+          <>
+            <br />
+            Routed through Netlify AI Gateway, so usage is billed on your Netlify plan — no Anthropic
+            key needed.
+          </>
+        )}
+        {via === "anthropic-direct" && (
+          <>
+            <br />
+            Using your own Anthropic API key, billed directly by Anthropic.
+          </>
+        )}
       </p>
     </>
   );

@@ -130,8 +130,9 @@ export default function Progress() {
         />
         <p className="tiny faint" style={{ marginBottom: 0, marginTop: ".5rem" }}>
           Status: <strong>{sync === "off" ? "local only" : sync}</strong>. Reload after entering a PIN
-          to pull down existing progress. This PIN deters a stumbled-upon URL; it is not strong
-          authentication, so keep nothing sensitive here.
+          to pull down existing progress. Until <code>STUDY_PIN</code> is set, the sync endpoint
+          refuses every request, so an unconfigured site is never left open. The PIN deters a
+          stumbled-upon URL rather than a determined attacker — keep nothing sensitive here.
         </p>
       </div>
     </>

@@ -6,9 +6,14 @@ import Anthropic from "@anthropic-ai/sdk";
  * GET  -> { configured: boolean }   (the app hides the Tutor tab when false)
  * POST -> { text: string }
  *
- * Requires ANTHROPIC_API_KEY as a Netlify environment variable. Note that Netlify
- * reserves the NETLIFY_ prefix for its own variables, so the key must NOT be named
- * NETLIFY_ANTHROPIC_KEY.
+ * Credentials: Netlify AI Gateway injects ANTHROPIC_API_KEY (a short-lived JWT) and
+ * ANTHROPIC_BASE_URL (a Netlify proxy) into the function environment automatically, so
+ * this works with no key of your own and usage is billed through Netlify.
+ *
+ * If you ever prefer to bill Anthropic directly, set your own ANTHROPIC_API_KEY
+ * (sk-ant-...) as a site environment variable. The gateway's ANTHROPIC_BASE_URL would
+ * otherwise still be in the environment and your key would be sent to the wrong host --
+ * so a non-gateway key explicitly pins baseURL back to api.anthropic.com below.
  */
 
 const MODEL = "claude-opus-5";
@@ -48,7 +53,11 @@ export default async function handler(req: Request) {
   const key = process.env.ANTHROPIC_API_KEY;
 
   if (req.method === "GET") {
-    return json({ configured: Boolean(key) });
+    return json({
+      configured: Boolean(key),
+      via: !key ? null : key.startsWith("eyJ") ? "netlify-ai-gateway" : "anthropic-direct",
+      model: MODEL,
+    });
   }
   if (req.method !== "POST") {
     return json({ error: "Method not allowed" }, 405);
@@ -79,7 +88,14 @@ export default async function handler(req: Request) {
 
   const reached = Number(body.sessionReached) || 1;
 
-  const client = new Anthropic({ apiKey: key });
+  // A Netlify AI Gateway credential is a JWT; a first-party Anthropic key is `sk-ant-...`.
+  const viaGateway = key.startsWith("eyJ");
+  const client = new Anthropic({
+    apiKey: key,
+    // Pin the official host for a first-party key so a lingering gateway
+    // ANTHROPIC_BASE_URL cannot misroute it.
+    ...(viaGateway ? {} : { baseURL: "https://api.anthropic.com" }),
+  });
 
   try {
     const res = await client.messages.create({

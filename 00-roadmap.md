@@ -45,7 +45,7 @@ friction**.
 - What a dataset *is*: rows are observations, columns are variables, `n` is how many rows.
 - Load a CSV, `.head()`, `.describe()`, your first histogram.
 - Notation: `n`, `x̄` (sample mean) vs `µ` (population mean), `Σ` (add these up).
-- Cards: first 15 seeded. Read `stats/01-what-is-a-distribution.md`.
+- Cards: session 1 unlocks 27 cards (mostly Python syntax and four symbols). Review them at the end.
 
 **S2 · Thu Sep 17 · 4:00–6:00am · 2h — 1h Stats + 1h Ethics**
 - Stats: shape, center, spread. Mean vs median and when the mean lies. `notebooks/02_shape_center_spread.ipynb`.

@@ -55,8 +55,10 @@ export function grade(state: CardState, g: Grade, now = new Date()): CardState {
 
   reps += 1;
 
-  if (reps === 1) interval = g === 1 ? 1 : 2;
-  else if (reps === 2) interval = g === 1 ? 3 : 6;
+  // First two reps use fixed steps so the grade buttons offer genuinely
+  // different promises (Good and Easy previously both landed on 2 days).
+  if (reps === 1) interval = g === 1 ? 1 : g === 2 ? 2 : 4;
+  else if (reps === 2) interval = g === 1 ? 3 : g === 2 ? 6 : 10;
   else interval = Math.round(interval * (g === 1 ? Math.max(1.2, ease - 0.4) : ease));
 
   interval = Math.min(interval, 180);
