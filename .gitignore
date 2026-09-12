@@ -6,3 +6,5 @@ app/dist
 app/dev-dist
 app/.netlify
 .ipynb_checkpoints/
+supabase/.temp/
+supabase/.branches/
