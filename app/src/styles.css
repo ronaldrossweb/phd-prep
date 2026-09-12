@@ -1269,3 +1269,38 @@ textarea { min-height: 92px; resize: vertical; line-height: 1.55; }
 @media (min-width: 1320px) {
   .main { max-width: 1180px; }
 }
+
+/* ================================================================= sign-in */
+.boot { min-height: 100vh; display: grid; place-items: center; }
+.signin {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem 1rem calc(1.5rem + env(safe-area-inset-bottom));
+}
+.signin-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  padding: 1.8rem 1.5rem 1.5rem;
+  box-shadow: var(--shadow-3);
+}
+.signin-brand { text-align: center; margin-bottom: 1.4rem; display: flex; flex-direction: column; align-items: center; gap: .5rem; }
+.signin-title {
+  font-family: var(--display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  margin: .2rem 0 0;
+  font-variation-settings: "opsz" 40;
+}
+.signin-form { display: flex; flex-direction: column; gap: .8rem; }
+.field { display: flex; flex-direction: column; gap: .3rem; }
+.field-k { font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); }
+.signin-error { color: var(--bad); margin: 0; }
+.signin-ok { color: var(--good); margin: 0; }
+.signin-links { display: flex; justify-content: center; gap: 1.2rem; margin-top: 1rem; flex-wrap: wrap; }
+.linkbtn { background: none; border: none; padding: .3rem 0; font-size: .8rem; font-weight: 600; color: var(--brass); min-height: 32px; }
+.linkbtn:hover { color: var(--brass-hi); }

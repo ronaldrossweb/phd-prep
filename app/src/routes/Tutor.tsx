@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { unlockedCards, useStudy } from "../App";
 import { fmt } from "../lib/fmt";
 import { IconSend } from "../components/Icons";
+import { askTutor } from "../lib/tutorClient";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -18,15 +19,7 @@ export default function Tutor() {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
-  const [via, setVia] = useState<string | null>(null);
   const abort = useRef<AbortController | null>(null);
-
-  useEffect(() => {
-    fetch("/api/tutor")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => setVia(j?.via ?? null))
-      .catch(() => setVia(null));
-  }, []);
 
   async function send(text: string) {
     const q = text.trim();
@@ -45,20 +38,9 @@ export default function Tutor() {
     const reached = unlockedCards(progress).reduce((a, c) => Math.max(a, c.session), 0);
 
     try {
-      const r = await fetch("/api/tutor", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ messages: next, sessionReached: reached }),
-        signal: abort.current.signal,
-      });
-
-      if (!r.ok) {
-        const j = await r.json().catch(() => ({}));
-        throw new Error(j.error || `Request failed (${r.status})`);
-      }
-
-      const j = await r.json();
-      setMsgs([...next, { role: "assistant", content: j.text }]);
+      abort.current.signal.throwIfAborted();
+      const text = await askTutor(next, reached);
+      setMsgs([...next, { role: "assistant", content: text }]);
     } catch (e) {
       if ((e as Error).name === "AbortError") return;
       setErr((e as Error).message);
@@ -127,19 +109,8 @@ export default function Tutor() {
       <p className="tiny faint" style={{ marginTop: ".6rem" }}>
         ⌘+Enter to send. Answers come from Claude and can be wrong — check anything surprising against
         your notes.
-        {via === "netlify-ai-gateway" && (
-          <>
-            <br />
-            Routed through Netlify AI Gateway, so usage is billed on your Netlify plan — no Anthropic
-            key needed.
-          </>
-        )}
-        {via === "anthropic-direct" && (
-          <>
-            <br />
-            Using your own Anthropic API key, billed directly by Anthropic.
-          </>
-        )}
+        <br />
+        Uses the Anthropic API key saved on this device only — set or change it under Dashboard.
       </p>
     </>
   );

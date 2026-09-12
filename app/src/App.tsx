@@ -1,5 +1,5 @@
 import {
-  createContext, useCallback, useContext, useEffect, useMemo, useState,
+  createContext, useCallback, useContext, useEffect, useMemo, useRef, useState,
   type ReactNode,
 } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
@@ -8,9 +8,14 @@ import { CARDS } from "./data/cards";
 import { SESSIONS, TERM_START } from "./data/sessions";
 import { isDue, type Grade, grade as gradeCard } from "./lib/srs";
 import {
-  cardState, daysUntil, load, MAX_REVIEWS, merge, pull, pushDebounced, save,
-  type Progress, type ReviewEvent, type SyncStatus, todayISO,
+  cardState, daysUntil, load, MAX_REVIEWS, save,
+  type Progress, type ReviewEvent, todayISO,
 } from "./lib/store";
+import { type CloudStatus, pullCloud, pushCloudDebounced } from "./lib/cloud";
+import { supabase } from "./lib/supabase";
+import type { Session } from "@supabase/supabase-js";
+import SignIn from "./routes/SignIn";
+import { getTutorKey } from "./lib/tutorClient";
 
 import { Brand } from "./components/Logo";
 import {
@@ -27,8 +32,10 @@ import ProgressView from "./routes/Progress";
 type Ctx = {
   progress: Progress;
   dueCount: number;
-  sync: SyncStatus;
+  sync: CloudStatus;
   tutorReady: boolean;
+  session: Session | null;
+  refreshTutor: () => void;
   gradeOne: (cardId: string, g: Grade) => void;
   toggleBlock: (key: string) => void;
   toggleSession: (n: number) => void;
@@ -64,33 +71,35 @@ export function unlockedCards(progress: Progress) {
 
 export default function App() {
   const [progress, setProgress] = useState<Progress>(() => load());
-  const [sync, setSync] = useState<SyncStatus>("off");
-  const [tutorReady, setTutorReady] = useState(false);
+  const [sync, setSync] = useState<CloudStatus>("off");
+  const [tutorReady, setTutorReady] = useState(() => Boolean(getTutorKey()));
+  const [session, setSession] = useState<Session | null>(null);
+  const [authReady, setAuthReady] = useState(false);
 
-  // Pull remote state once on mount and merge it in.
+  // Auth session: resolve once, then follow changes.
   useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setAuthReady(true);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
+  // On sign-in, pull the cloud copy and merge it with whatever is local.
+  useEffect(() => {
+    if (!session) { setSync("off"); return; }
     let cancelled = false;
-    (async () => {
-      const remote = await pull();
-      if (!cancelled && remote) {
-        setProgress((local) => {
-          const m = merge(local, remote);
-          save(m);
-          return m;
-        });
-        setSync("ok");
-      }
-    })();
+    setSync("syncing");
+    pullCloud(session, load())
+      .then((m) => { if (cancelled) return; save(m); setProgress(m); setSync("ok"); })
+      .catch(() => { if (!cancelled) setSync("error"); });
     return () => { cancelled = true; };
-  }, []);
+  }, [session?.user.id]);  // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Is the tutor configured on this deployment?
-  useEffect(() => {
-    fetch("/api/tutor")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => setTutorReady(Boolean(j?.configured)))
-      .catch(() => setTutorReady(false));
-  }, []);
+  const sessionRef = useRef<Session | null>(null);
+  sessionRef.current = session;
+  const push = (next: Progress) => pushCloudDebounced(sessionRef.current, next, setSync);
 
   const gradeOne = useCallback((cardId: string, g: Grade) => {
     setProgress((p) => {
@@ -103,7 +112,7 @@ export default function App() {
       };
       next.updatedAt = new Date().toISOString();
       save(next);
-      pushDebounced(next, setSync);
+      push(next);
       return next;
     });
   }, []);
@@ -116,7 +125,7 @@ export default function App() {
       const next = { ...p, blocksDone };
       next.updatedAt = new Date().toISOString();
       save(next);
-      pushDebounced(next, setSync);
+      push(next);
       return next;
     });
   }, []);
@@ -136,7 +145,7 @@ export default function App() {
       const next = { ...p, sessionsDone, minutesLogged };
       next.updatedAt = new Date().toISOString();
       save(next);
-      pushDebounced(next, setSync);
+      push(next);
       return next;
     });
   }, []);
@@ -147,12 +156,16 @@ export default function App() {
   );
 
   const ctx: Ctx = {
-    progress, dueCount, sync, tutorReady,
+    progress, dueCount, sync, tutorReady, session,
+    refreshTutor: () => setTutorReady(Boolean(getTutorKey())),
     gradeOne, toggleBlock, toggleSession,
     reload: () => setProgress(load()),
   };
 
   const days = daysUntil(TERM_START);
+
+  if (!authReady) return <div className="boot"><span className="dot syncing" /></div>;
+  if (!session) return <SignIn />;
 
   return (
     <StudyCtx.Provider value={ctx}>
@@ -166,7 +179,7 @@ export default function App() {
               </div>
               <span className="sync">
                 <span className={`dot ${sync}`} />
-                {sync === "off" ? "on this device" : sync}
+                {sync === "ok" ? "saved to cloud" : sync === "off" ? "local" : sync}
               </span>
             </div>
           </div>

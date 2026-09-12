@@ -11,7 +11,6 @@
 import { type CardState, initialState } from "./srs";
 
 const KEY = "phd-prep-state-v1";
-const PIN_KEY = "phd-prep-pin";
 
 /**
  * One graded review. Stored as a compact tuple because there will be thousands
@@ -64,20 +63,6 @@ export function save(p: Progress) {
   }
 }
 
-export function getPin(): string {
-  try {
-    return localStorage.getItem(PIN_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
-
-export function setPin(pin: string) {
-  try {
-    pin ? localStorage.setItem(PIN_KEY, pin) : localStorage.removeItem(PIN_KEY);
-  } catch { /* ignore */ }
-}
-
 export function cardState(p: Progress, id: string): CardState {
   return p.cards[id] ?? initialState(new Date(0));
 }
@@ -112,51 +97,6 @@ export function merge(a: Progress, b: Progress): Progress {
     minutesLogged: Math.max(a.minutesLogged, b.minutesLogged),
     updatedAt: new Date().toISOString(),
   };
-}
-
-/* -------------------------------------------------------------------- sync */
-
-export type SyncStatus = "off" | "syncing" | "ok" | "error" | "offline";
-
-let timer: ReturnType<typeof setTimeout> | undefined;
-
-export async function pull(): Promise<Progress | null> {
-  const pin = getPin();
-  if (!pin) return null;
-  try {
-    const r = await fetch("/api/sync", { headers: { "x-study-pin": pin } });
-    if (!r.ok) return null;
-    const j = await r.json();
-    return j && j.cards ? (j as Progress) : null;
-  } catch {
-    return null;
-  }
-}
-
-export function pushDebounced(p: Progress, onStatus: (s: SyncStatus) => void) {
-  const pin = getPin();
-  if (!pin) {
-    onStatus("off");
-    return;
-  }
-  clearTimeout(timer);
-  timer = setTimeout(async () => {
-    if (!navigator.onLine) {
-      onStatus("offline");
-      return;
-    }
-    onStatus("syncing");
-    try {
-      const r = await fetch("/api/sync", {
-        method: "PUT",
-        headers: { "content-type": "application/json", "x-study-pin": pin },
-        body: JSON.stringify(p),
-      });
-      onStatus(r.ok ? "ok" : "error");
-    } catch {
-      onStatus("offline");
-    }
-  }, 1500);
 }
 
 /* ------------------------------------------------------------------- dates */

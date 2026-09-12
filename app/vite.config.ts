@@ -2,7 +2,10 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
+const BASE = "/phd-prep/";
+
 export default defineConfig({
+  base: BASE,
   plugins: [
     react(),
     VitePWA({
@@ -17,13 +20,13 @@ export default defineConfig({
         background_color: "#0A0C12",
         display: "standalone",
         orientation: "portrait",
-        start_url: "/",
-        scope: "/",
+        start_url: BASE,
+        scope: BASE,
         icons: [
-          { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
-          { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
+          { src: "icon-192.png", sizes: "192x192", type: "image/png" },
+          { src: "icon-512.png", sizes: "512x512", type: "image/png" },
           {
-            src: "/icon-maskable-512.png",
+            src: "icon-maskable-512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable",
@@ -32,15 +35,11 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,png,ico,svg,woff2}"],
-        navigateFallback: "/index.html",
-        // Never cache the API: sync must hit the network, and a stale tutor
-        // reply is worse than an error.
-        navigateFallbackDenylist: [/^\/api\//],
+        navigateFallback: BASE + "index.html",
         runtimeCaching: [
-          {
-            urlPattern: /^.*\/api\/.*$/,
-            handler: "NetworkOnly",
-          },
+          // Supabase and Anthropic must always hit the network.
+          { urlPattern: /^https:\/\/[a-z0-9]+\.supabase\.co\/.*/i, handler: "NetworkOnly" },
+          { urlPattern: /^https:\/\/api\.anthropic\.com\/.*/i, handler: "NetworkOnly" },
           // Cache the webfonts so typography survives a commute with no signal.
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

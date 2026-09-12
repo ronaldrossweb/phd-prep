@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useStudy } from "../App";
 import { SESSIONS, TOTAL_HOURS } from "../data/sessions";
 import { computeMetrics, pct } from "../lib/metrics";
-import { getPin, setPin } from "../lib/store";
+import { supabase } from "../lib/supabase";
+import { getTutorKey, setTutorKey } from "../lib/tutorClient";
 import { DayActivity, DeckAccuracy, MasteryBar, Sparkline } from "../components/Charts";
 
 const RANGES = [
@@ -12,7 +13,7 @@ const RANGES = [
 ];
 
 export default function Progress() {
-  const { progress, sync } = useStudy();
+  const { progress, sync, session, refreshTutor } = useStudy();
   const [range, setRange] = useState(14);
 
   const m = useMemo(() => computeMetrics(progress, range), [progress, range]);
@@ -177,30 +178,38 @@ export default function Progress() {
         </figure>
       </div>
 
-      {/* ------------------------------------------------------------- sync */}
-      <h2 className="h-section">Cross-device sync</h2>
-      <div className="card">
-        <p className="small muted" style={{ marginTop: 0 }}>
-          Progress and your full review history always save on this device. To share them between
-          your Mac and your phone, set <code>STUDY_PIN</code> in the Netlify dashboard, then enter
-          the same PIN here on each device.
-        </p>
-        <input
-          type="password"
-          defaultValue={getPin()}
-          onChange={(e) => setPin(e.target.value.trim())}
-          placeholder="Study PIN — blank for this device only"
-          autoCapitalize="none"
-          autoCorrect="off"
-        />
-        <p className="tiny faint" style={{ marginBottom: 0, marginTop: ".6rem" }}>
-          Status <strong style={{ color: "var(--text-2)" }}>
-            {sync === "off" ? "on this device only" : sync}
-          </strong>. Reload after entering a PIN to pull down existing progress. Until{" "}
-          <code>STUDY_PIN</code> is set the sync endpoint refuses every request, so an unconfigured
-          site is never left open. The PIN deters a stumbled-upon URL rather than a determined
-          attacker — keep nothing sensitive here.
-        </p>
+      {/* ---------------------------------------------------------- account */}
+      <h2 className="h-section">Account</h2>
+      <div className="chartgrid">
+        <div className="card" style={{ margin: 0 }}>
+          <h3>Signed in</h3>
+          <p className="small muted" style={{ marginTop: 0 }}>
+            {session?.user.email}
+            <br />
+            <span className="tiny faint">
+              Cloud status: <strong style={{ color: "var(--text-2)" }}>{sync}</strong>. Progress, review
+              history, exercise results and quiz answers are stored against this account and readable
+              only by you.
+            </span>
+          </p>
+          <button className="btn quiet" onClick={() => supabase.auth.signOut()}>Sign out</button>
+        </div>
+
+        <div className="card" style={{ margin: 0 }}>
+          <h3>Tutor key</h3>
+          <p className="small muted" style={{ marginTop: 0 }}>
+            The tutor calls Anthropic directly from this device using a key you provide. The key is
+            stored only in this browser and sent only to Anthropic. Create one at console.anthropic.com.
+          </p>
+          <input
+            type="password"
+            defaultValue={getTutorKey()}
+            onChange={(e) => { setTutorKey(e.target.value.trim()); refreshTutor(); }}
+            placeholder="sk-ant-… (leave blank to hide the tutor)"
+            autoCapitalize="none"
+            autoCorrect="off"
+          />
+        </div>
       </div>
     </>
   );
