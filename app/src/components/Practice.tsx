@@ -22,6 +22,9 @@ type Props = {
   onResult: (passed: boolean, code: string) => void;
 };
 
+const PHASE_PCT: Record<LoadPhase, number> = { idle: 0, script: 15, runtime: 45, packages: 75, data: 92, ready: 100, failed: 0 };
+const PHASE_SHORT: Record<LoadPhase, string> = { idle: "", script: "Fetch", runtime: "Start", packages: "Libraries", data: "Data", ready: "Ready", failed: "Failed" };
+
 const PHASE_LABEL: Record<LoadPhase, string> = {
   idle: "", script: "Fetching the Python runtime…", runtime: "Starting Python…",
   packages: "Loading numpy, pandas, matplotlib…", data: "Loading the datasets…",
@@ -130,7 +133,21 @@ export function Practice({ exercise, setup, prereq, packages, onResult }: Props)
         </button>
       </div>
 
-      {loading && detail && <p className="tiny faint" style={{ marginTop: ".5rem" }}>{detail}</p>}
+      {loading && (
+        <div className="loader" aria-live="polite">
+          <div className="loader-bar"><span style={{ width: `${PHASE_PCT[phase]}%` }} /></div>
+          <div className="loader-phases">
+            {(["script", "runtime", "packages", "data"] as LoadPhase[]).map((ph) => (
+              <span key={ph} className={ph === phase ? "on" : PHASE_PCT[ph] < PHASE_PCT[phase] ? "done" : ""}>
+                {PHASE_SHORT[ph]}
+              </span>
+            ))}
+          </div>
+          <p className="tiny faint" style={{ marginTop: ".4rem" }}>
+            {PHASE_LABEL[phase]} {detail ? `— ${detail}` : ""} First time takes about 15 seconds; after that it's instant.
+          </p>
+        </div>
+      )}
       {showHint && exercise.hint && <p className="small muted callout">{exercise.hint}</p>}
 
       {result && (

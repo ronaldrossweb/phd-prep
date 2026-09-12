@@ -2,7 +2,7 @@ import {
   createContext, useCallback, useContext, useEffect, useMemo, useRef, useState,
   type ReactNode,
 } from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 
 import { CARDS } from "./data/cards";
 import { SESSIONS, TERM_START } from "./data/sessions";
@@ -164,6 +164,7 @@ export default function App() {
   };
 
   const days = daysUntil(TERM_START);
+  const location = useLocation();
 
   if (!authReady) return <div className="boot"><span className="dot syncing" /></div>;
   // Local development only: `?dev=1` skips the sign-in gate so the lesson
@@ -205,6 +206,7 @@ export default function App() {
         </nav>
 
         <main className="main">
+          <div className="page" key={location.pathname}>
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/learn" element={<Learn />} />
@@ -217,6 +219,7 @@ export default function App() {
             <Route path="/progress" element={<ProgressView />} />
             <Route path="*" element={<Dashboard />} />
           </Routes>
+          </div>
         </main>
       </div>
     </StudyCtx.Provider>

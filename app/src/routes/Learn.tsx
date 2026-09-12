@@ -10,6 +10,7 @@ import { logExercise, logQuiz, saveModuleProgress } from "../lib/cloud";
 import { ensurePackages } from "../lib/pyodide";
 import { IconCheck, IconChevronLeft, IconChevronRight } from "../components/Icons";
 import { todayISO } from "../lib/store";
+import { Ring, burst } from "../components/Fx";
 
 const STEP_LABEL: Record<StepKind, string> = { watch: "Watch", read: "Read", practice: "Practice", quiz: "Quiz" };
 
@@ -77,7 +78,9 @@ function LearnIndex() {
                 const complete = isComplete(m);
                 return (
                   <Link key={m.id} to={`/learn/${m.id}`} className="sesslink">
-                    <span className={`sessn${complete ? " done" : ""}`}>{complete ? <IconCheck /> : doneSteps.size ? `${doneSteps.size}/${total}` : "·"}</span>
+                    <Ring value={doneSteps.size / total} size={36} stroke={3.5} tone={complete ? "good" : doneSteps.size ? "brass" : "muted"}>
+                      {complete ? <IconCheck /> : doneSteps.size ? `${doneSteps.size}/${total}` : ""}
+                    </Ring>
                     <span style={{ flex: 1, minWidth: 0 }}>
                       <div className="sesstitle">{m.title}</div>
                       <div className="sessdate">
@@ -116,9 +119,12 @@ function ModuleView({ id }: { id: string }) {
   const prevMod = MODULES[MODULES.indexOf(m) - 1];
   const nextMod = MODULES[MODULES.indexOf(m) + 1];
 
+  const allDone = steps.every((s) => doneSteps.has(s));
+
   function advance() {
     markStep(m!, step);
     if (next) setStep(next);
+    else burst();
   }
 
   return (
@@ -196,6 +202,17 @@ function ModuleView({ id }: { id: string }) {
             onAnswer={(q, chosen, correct) => void logQuiz(session, m.id, q.id, q.choices[chosen], correct)}
             onComplete={() => markStep(m, "quiz")}
           />
+        </div>
+      )}
+
+      {allDone && (
+        <div className="celebrate" style={{ marginTop: "1rem" }}>
+          <div className="eyebrow">Lesson complete</div>
+          <h3>{m.title}</h3>
+          <p className="small muted" style={{ margin: ".2rem auto .9rem", maxWidth: "40ch" }}>
+            {nextMod ? "Every step done. The next one is ready when you are." : "That was the last lesson. You are ready for October 19."}
+          </p>
+          {nextMod && <Link className="btn primary" to={`/learn/${nextMod.id}`}>Next: {nextMod.title} <IconChevronRight /></Link>}
         </div>
       )}
 

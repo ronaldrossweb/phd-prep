@@ -7,7 +7,9 @@ import { daysUntil, todayISO } from "../lib/store";
 import { mastery } from "../lib/srs";
 import { computeMetrics, pct } from "../lib/metrics";
 import { HeroCurve } from "../components/Logo";
-import { IconChevronRight, IconLayers } from "../components/Icons";
+import { IconBook, IconChevronRight, IconLayers } from "../components/Icons";
+import { useCountUp } from "../components/Fx";
+import { MODULES, stepsFor } from "../data/modules";
 
 export default function Dashboard() {
   const { progress, dueCount } = useStudy();
@@ -15,6 +17,17 @@ export default function Dashboard() {
   const today = todayISO();
   const isToday = session.date === today;
   const days = daysUntil(TERM_START);
+  const shownDays = useCountUp(Math.max(0, days), 1000);
+
+  // The next lesson with unfinished steps, from the local module-progress cache.
+  let mp: Record<string, string[]> = {};
+  try { mp = JSON.parse(localStorage.getItem("phd-prep-modules-v1") ?? "{}"); } catch { /* ignore */ }
+  const nextLesson = MODULES.find((mod) => {
+    const d = new Set(mp[mod.id] ?? []);
+    return !stepsFor(mod).every((st) => d.has(st));
+  });
+  const nextLessonDone = nextLesson ? (mp[nextLesson.id] ?? []).length : 0;
+  const lessonsDone = MODULES.filter((mod) => { const d = new Set(mp[mod.id] ?? []); return stepsFor(mod).every((st) => d.has(st)); }).length;
   const untilSession = daysUntil(session.date);
 
   const doneCount = Object.keys(progress.sessionsDone).length;
@@ -42,7 +55,7 @@ export default function Dashboard() {
         <div className="hero-inner">
           <div className="eyebrow">Countdown</div>
           <div className="big">
-            {days > 0 ? days : 0}
+            {shownDays}
             <span className="big-unit">{days === 1 ? "day" : "days"}</span>
           </div>
           <p className="label">
@@ -75,6 +88,21 @@ export default function Dashboard() {
           <div className="k">Recall 14d</div>
         </div>
       </div>
+
+      {nextLesson && (
+        <>
+          <h2 className="h-section">Continue learning</h2>
+          <Link to={`/learn/${nextLesson.id}`} className="card continue">
+            <div className="continue-icon"><IconBook /></div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div className="eyebrow" style={{ margin: 0 }}>Session {nextLesson.session} · {nextLesson.minutes} min · lesson {lessonsDone + 1} of {MODULES.length}</div>
+              <div className="continue-title">{nextLesson.title}</div>
+              <div className="tiny faint">{nextLessonDone ? `${nextLessonDone} of ${stepsFor(nextLesson).length} steps done — pick up where you left off` : nextLesson.summary}</div>
+            </div>
+            <span className="chev"><IconChevronRight /></span>
+          </Link>
+        </>
+      )}
 
       <h2 className="h-section">
         {isToday ? "Today" : untilSession > 0 ? "Up next" : "Most recent"}
