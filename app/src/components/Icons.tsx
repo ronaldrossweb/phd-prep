@@ -104,3 +104,25 @@ export const IconBook = (p: SVGProps<SVGSVGElement>) => (
     <path d="M12 6.5v13.2" opacity=".5" />
   </svg>
 );
+
+export const IconSun = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...S(p)}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4" />
+  </svg>
+);
+export const IconMoon = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...S(p)}><path d="M19.5 14.2A8 8 0 0 1 9.8 4.5a8 8 0 1 0 9.7 9.7Z" /></svg>
+);
+export const IconMonitor = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...S(p)}>
+    <rect x="3" y="4.5" width="18" height="12" rx="2.2" />
+    <path d="M9 20h6M12 16.5V20" />
+  </svg>
+);
+export const IconLogout = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...S(p)}>
+    <path d="M10 4.5H6.5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10" />
+    <path d="M15 8l4 4-4 4M19 12H9.5" />
+  </svg>
+);

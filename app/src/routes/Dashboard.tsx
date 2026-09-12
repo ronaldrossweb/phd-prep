@@ -12,7 +12,10 @@ import { useCountUp } from "../components/Fx";
 import { MODULES, stepsFor } from "../data/modules";
 
 export default function Dashboard() {
-  const { progress, dueCount } = useStudy();
+  const { progress, dueCount, session: auth } = useStudy();
+  const hour = new Date().getHours();
+  const greet = hour < 5 ? "Up early" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const who = ((auth?.user.user_metadata?.display_name as string | undefined) || auth?.user.email?.split("@")[0] || "").replace(/^./, (c) => c.toUpperCase());
   const session = currentSession();
   const today = todayISO();
   const isToday = session.date === today;
@@ -53,7 +56,7 @@ export default function Dashboard() {
       <section className="hero">
         <HeroCurve className="hero-curve" />
         <div className="hero-inner">
-          <div className="eyebrow">Countdown</div>
+          <div className="eyebrow">{greet}{who ? `, ${who}` : ""} · countdown</div>
           <div className="big">
             {shownDays}
             <span className="big-unit">{days === 1 ? "day" : "days"}</span>

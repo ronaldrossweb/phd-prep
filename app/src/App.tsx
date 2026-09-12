@@ -18,6 +18,9 @@ import SignIn from "./routes/SignIn";
 import { getTutorKey } from "./lib/tutorClient";
 
 import { Brand } from "./components/Logo";
+import { AccountMenu } from "./components/AccountMenu";
+import { applyTheme, getTheme } from "./lib/theme";
+import { MODULES, stepsFor } from "./data/modules";
 import {
   IconBars, IconBook, IconLayers, IconRows, IconSigma, IconSpark, IconSunrise,
 } from "./components/Icons";
@@ -76,6 +79,8 @@ export default function App() {
   const [tutorReady, setTutorReady] = useState(() => Boolean(getTutorKey()));
   const [session, setSession] = useState<Session | null>(null);
   const [authReady, setAuthReady] = useState(false);
+
+  useEffect(() => { applyTheme(getTheme()); }, []);
 
   // Auth session: resolve once, then follow changes.
   useEffect(() => {
@@ -166,6 +171,13 @@ export default function App() {
   const days = daysUntil(TERM_START);
   const location = useLocation();
 
+  // Overall lesson completion for the header progress line (local cache; cheap).
+  let lessonsDone = 0;
+  try {
+    const mp = JSON.parse(localStorage.getItem("phd-prep-modules-v1") ?? "{}") as Record<string, string[]>;
+    lessonsDone = MODULES.filter((m) => { const d = new Set(mp[m.id] ?? []); return stepsFor(m).every((st) => d.has(st)); }).length;
+  } catch { /* ignore */ }
+
   if (!authReady) return <div className="boot"><span className="dot syncing" /></div>;
   // Local development only: `?dev=1` skips the sign-in gate so the lesson
   // engine can be exercised without an account. Vite drops this from builds.
@@ -183,15 +195,16 @@ export default function App() {
         <header className="topbar">
           <div className="topbar-inner">
             <Brand />
-            <div className="topmeta">
-              <div className="days">
-                {days > 0 ? <><b>{days}</b> days to Oct 19</> : "Term underway"}
+            <div className="topright">
+              <div className="topmeta">
+                <div className="days">{days > 0 ? <><b>{days}</b> days to Oct 19</> : "Term underway"}</div>
+                <div className="tiny faint num">{lessonsDone}/{MODULES.length} lessons</div>
               </div>
-              <span className="sync">
-                <span className={`dot ${sync}`} />
-                {sync === "ok" ? "saved to cloud" : sync === "off" ? "local" : sync}
-              </span>
+              <AccountMenu session={session} sync={sync} />
             </div>
+          </div>
+          <div className="topprogress" aria-hidden="true">
+            <span style={{ width: `${(lessonsDone / MODULES.length) * 100}%` }} />
           </div>
         </header>
 
