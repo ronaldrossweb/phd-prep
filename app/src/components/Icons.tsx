@@ -96,3 +96,11 @@ export const IconEmptySet = (p: SVGProps<SVGSVGElement>) => (
 export const IconSend = (p: SVGProps<SVGSVGElement>) => (
   <svg {...S(p)}><path d="M4.5 12 20 4.5 15.5 20 11.8 14.2 4.5 12Z" /></svg>
 );
+
+/** Learn — an open book. */
+export const IconBook = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...S(p)}>
+    <path d="M12 6.5c-1.6-1.4-4-1.9-7.5-1.6v13.2c3.5-.3 5.9.2 7.5 1.6 1.6-1.4 4-1.9 7.5-1.6V4.9c-3.5-.3-5.9.2-7.5 1.6Z" />
+    <path d="M12 6.5v13.2" opacity=".5" />
+  </svg>
+);

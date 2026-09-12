@@ -19,7 +19,7 @@ import { getTutorKey } from "./lib/tutorClient";
 
 import { Brand } from "./components/Logo";
 import {
-  IconBars, IconLayers, IconRows, IconSigma, IconSpark, IconSunrise,
+  IconBars, IconBook, IconLayers, IconRows, IconSigma, IconSpark, IconSunrise,
 } from "./components/Icons";
 
 import Dashboard from "./routes/Dashboard";
@@ -28,6 +28,7 @@ import Cards from "./routes/Cards";
 import Notation from "./routes/Notation";
 import Tutor from "./routes/Tutor";
 import ProgressView from "./routes/Progress";
+import Learn from "./routes/Learn";
 
 type Ctx = {
   progress: Progress;
@@ -165,7 +166,15 @@ export default function App() {
   const days = daysUntil(TERM_START);
 
   if (!authReady) return <div className="boot"><span className="dot syncing" /></div>;
-  if (!session) return <SignIn />;
+  // Local development only: `?dev=1` skips the sign-in gate so the lesson
+  // engine can be exercised without an account. Vite drops this from builds.
+  const devBypass = import.meta.env.DEV && (() => {
+    try {
+      if (new URLSearchParams(location.search).has("dev")) sessionStorage.setItem("phd-dev", "1");
+      return sessionStorage.getItem("phd-dev") === "1";
+    } catch { return false; }
+  })();
+  if (!session && !devBypass) return <SignIn />;
 
   return (
     <StudyCtx.Provider value={ctx}>
@@ -187,6 +196,7 @@ export default function App() {
 
         <nav className="tabs">
           <Tab to="/" icon={<IconSunrise />} label="Today" />
+          <Tab to="/learn" icon={<IconBook />} label="Learn" />
           <Tab to="/sessions" icon={<IconRows />} label="Plan" />
           <Tab to="/cards" icon={<IconLayers />} label="Cards" badge={dueCount} />
           <Tab to="/notation" icon={<IconSigma />} label="Notation" />
@@ -197,6 +207,8 @@ export default function App() {
         <main className="main">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/learn" element={<Learn />} />
+            <Route path="/learn/:id" element={<Learn />} />
             <Route path="/sessions" element={<SessionView />} />
             <Route path="/sessions/:n" element={<SessionView />} />
             <Route path="/cards" element={<Cards />} />

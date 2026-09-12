@@ -59,5 +59,7 @@ export default defineConfig({
       },
     }),
   ],
+  // Dev server honours PORT so the preview tool can assign a free one.
+  server: { host: "127.0.0.1", port: Number(process.env.PORT) || 5173, strictPort: false },
   build: { target: "es2022" },
 });
