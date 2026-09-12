@@ -556,7 +556,7 @@ p { margin: .55rem 0; }
 .btnrow { display: flex; gap: .5rem; flex-wrap: wrap; }
 
 /* ================================================================= inputs */
-input[type="text"], input[type="password"], input[type="search"], textarea, select {
+input[type="text"], input[type="email"], input[type="password"], input[type="search"], textarea, select {
   width: 100%;
   min-height: var(--tap);
   padding: .65rem .8rem;
