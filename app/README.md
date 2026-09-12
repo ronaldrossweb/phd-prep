@@ -1,8 +1,9 @@
 # PhD Prep — study app
 
-Live: **https://ross-phd-prep.netlify.app**
+Live: **https://ronaldrossweb.github.io/phd-prep/** (GitHub Pages, auto-deployed from `main`)
+Source: **https://github.com/ronaldrossweb/phd-prep**
 
-A mobile-first PWA for the five-week run-up to PhDAI 730 (Statistics for AI) and PhDAI 832
+A learning portal — video, written lessons, a live in-browser Python environment with checked exercises, and quizzes — for the five-week run-up to PhDAI 730 (Statistics for AI) and PhDAI 832
 (Ethics in Responsible AI), term starting 2026-10-19.
 
 ## Screens
@@ -10,6 +11,7 @@ A mobile-first PWA for the five-week run-up to PhDAI 730 (Statistics for AI) and
 | Route | What it does |
 |---|---|
 | `/` | Countdown to Oct 19, today's session, review queue, per-week progress |
+| `/learn` | All 24 lessons by session; `/learn/:id` runs one lesson: watch → read → practice → quiz |
 | `/sessions` | All 15 sessions; `/sessions/:n` is one session's agenda with per-block checkboxes |
 | `/cards` | SM-2 spaced repetition over 204 cards, filterable by deck; swipe ← Again / → Good |
 | `/notation` | Searchable notation decoder, 43 entries |
@@ -74,44 +76,49 @@ focusable elements. Beyond that:
   brand moment rather than a data figure.
 - One filter row (7/14/30 days) above the charts, scoping all of them — never a filter per card.
 
-## Persistence
+## Accounts and data (Supabase)
 
-Offline-first. `localStorage` is the immediate source of truth, so the app is instant and works with
-no signal. A debounced background `PUT /api/sync` pushes to Netlify Blobs; on load the remote copy is
-merged in, preferring whichever side touched each card most recently.
+Sign-in is email + password on Supabase Auth (project `ygzdeyatsxfniubayxli`, us-west-1). Every
+table is row-level-secured to `auth.uid()`, so a user can only ever read or write their own rows:
+`profiles`, `study_state` (one JSON document per user), `reviews`, `exercise_attempts`,
+`quiz_answers`, `module_progress`. Schema lives in `supabase/migrations/`; apply with
+`supabase db push`. Auth URLs are in `supabase/config.toml`; apply with `supabase config push`.
 
-**Sync is opt-in and fails closed.** `/api/sync` refuses every request unless `STUDY_PIN` is set as a
-site environment variable, so an unconfigured deployment is never an open read/write endpoint. To
-enable it: set `STUDY_PIN` in the Netlify dashboard, redeploy, then enter the same PIN on each device
-under *Stats → Cross-device sync*.
+Offline-first still holds: localStorage is written first; the cloud copy is pulled on sign-in and
+merged (per-card last-write-wins; the review log is unioned), then pushed in the background.
 
-The PIN deters a stumbled-upon URL. It is **not** strong authentication — keep nothing sensitive here.
+The anon key in `src/lib/supabase.ts` is public by design — it grants only what RLS allows.
+
+## The lesson engine
+
+`src/lib/pyodide.ts` loads Pyodide (WebAssembly Python) from jsDelivr on the first lesson that needs
+it, with numpy, pandas and matplotlib; heavier packages a module declares (`packages: ["scipy"]`)
+are awaited inside each run. The notebook datasets in `public/data/` are mounted at `data/` in the
+virtual filesystem, so lesson code reads `data/lending.csv` exactly as the notebooks do.
+
+Conventions that make exercises robust after a page reload:
+
+- **`setup`** on a module runs before every Run/Check (imports, data loading; idempotent).
+- **Prerequisite replay:** earlier exercises' *solutions* run silently first (stdout redirected,
+  figures closed), so exercise 3 works without the learner having re-run 1 and 2.
+- Therefore **every `solution` must be a complete runnable program**, not a fragment.
+- `check` is Python assertions over the learner's globals; assertion messages are shown verbatim,
+  so write them as hints. Reported line numbers subtract the hidden setup lines.
+- Video ids are verified against YouTube's oEmbed endpoint: `node scripts/verify-videos.mjs`.
 
 ## The tutor
 
-`netlify/functions/tutor.ts` calls `claude-opus-5` with adaptive thinking at medium effort, and a
-cached system prompt carrying the learner's profile and current session.
-
-Credentials resolve in one of two ways:
-
-1. **Netlify AI Gateway** (what this site uses today). Netlify injects `ANTHROPIC_API_KEY` — a
-   short-lived JWT — plus `ANTHROPIC_BASE_URL` pointing at its own proxy. No key of your own is
-   needed, and usage is billed through your Netlify plan.
-2. **Your own Anthropic key.** Set `ANTHROPIC_API_KEY` to an `sk-ant-...` value as a site env var.
-   The function detects a non-JWT key and pins `baseURL` back to `api.anthropic.com`, so the
-   gateway's lingering `ANTHROPIC_BASE_URL` cannot misroute it.
-
-`GET /api/tutor` reports `{ configured, via, model }`; the UI hides the Tutor tab when it is not
-configured.
+Bring-your-own-key: an Anthropic key pasted under *Dashboard → Tutor key* is stored only in that
+browser and sent only to `api.anthropic.com` (`dangerouslyAllowBrowser`, since there is no server).
+The Tutor tab is hidden until a key is present.
 
 ## Develop
 
 ```bash
 npm install
-npm run dev          # Vite only -- /api/* will 404
-netlify dev          # Vite + functions, so /api/* works
+npm run dev          # add ?dev=1 to the URL to skip sign-in locally (stripped from builds)
 npm run build
-netlify deploy --prod --build
+git push             # GitHub Actions builds and deploys to Pages
 ```
 
 ## Design system
@@ -146,5 +153,5 @@ inline SVG in `src/components/Icons.tsx`).
 
 ## Stack
 
-Vite 8 · React 19 · TypeScript 6 · react-router 7 · vite-plugin-pwa · Netlify Functions + Blobs ·
-`@anthropic-ai/sdk`. Webfonts are runtime-cached so typography survives an offline commute.
+Vite 8 · React 19 · TypeScript 6 · react-router 7 · vite-plugin-pwa · Pyodide · Supabase (auth + Postgres) ·
+GitHub Pages · `@anthropic-ai/sdk`. Webfonts are runtime-cached so typography survives an offline commute.
