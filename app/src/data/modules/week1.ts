@@ -45,9 +45,11 @@ print(deposits.head())
         check: `assert "deposits" in globals(), "Create a variable called deposits"
 assert deposits.shape == (1200, 5), f"Expected 1200 rows and 5 columns, got {deposits.shape}"`,
         solution: `import pandas as pd
+
 deposits = pd.read_csv("data/branch_deposits.csv")
 print(deposits.shape)
-print(deposits.head())`,
+print(deposits.head())
+`,
       },
       {
         id: "mean-median", title: "Mean versus median",
@@ -61,7 +63,8 @@ assert abs(median_bal - deposits["balance"].median()) < 1, "median_bal is not th
 assert mean_bal / median_bal > 4, "Check: the mean should be several times the median here"`,
         solution: `mean_bal = deposits["balance"].mean()
 median_bal = deposits["balance"].median()
-print(f"mean {mean_bal:,.0f}   median {median_bal:,.0f}   ratio {mean_bal/median_bal:.1f}x")`,
+print(f"mean {mean_bal:,.0f}   median {median_bal:,.0f}   ratio {mean_bal/median_bal:.1f}x")
+`,
         hint: "The method is `.median()`, exactly parallel to `.mean()`.",
       },
       {
@@ -76,9 +79,12 @@ plt.show()
 `,
         check: `assert True`,
         solution: `import matplotlib.pyplot as plt
+
 plt.hist(deposits["balance"], bins=60)
-plt.title("Account balances"); plt.xlabel("balance ($)")
-plt.show()`,
+plt.title("Account balances")
+plt.xlabel("balance ($)")
+plt.show()
+`,
       },
       {
         id: "groupby", title: "Split, apply, combine",
@@ -91,7 +97,8 @@ assert isinstance(by_branch, pd.Series), "by_branch should be the result of a gr
 assert set(by_branch.index) == {"Ogden","Provo","Logan","St. George"}, "Group by branch"
 assert abs(by_branch["Provo"] - deposits[deposits.branch=="Provo"].balance.median()) < 1, "Use the median, not the mean"`,
         solution: `by_branch = deposits.groupby("branch")["balance"].median()
-print(by_branch)`,
+print(by_branch)
+`,
       },
     ],
     quiz: [
@@ -150,10 +157,17 @@ print(f"IQR \${iqr:,.0f}   sd \${sd:,.0f}   variance {var:,.0f} (dollars squared
         check: `assert abs(sd - x.std()) < 1, "sd should be x.std()"
 assert abs(var - x.var()) < 1, "var should be x.var()"
 assert abs(sd*sd - var) < 1, "variance must equal sd squared"`,
-        solution: `iqr = x.quantile(.75) - x.quantile(.25)
+        solution: `import pandas as pd
+deposits = pd.read_csv("data/branch_deposits.csv")
+x = deposits["balance"]
+
+iqr = x.quantile(.75) - x.quantile(.25)
 sd = x.std()
 var = x.var()
-print(f"IQR \${iqr:,.0f}   sd \${sd:,.0f}   variance {var:,.0f}")`,
+print(f"IQR \${iqr:,.0f}   sd \${sd:,.0f}   variance {var:,.0f} (dollars squared!)")
+
+print(f"IQR \${iqr:,.0f}   sd \${sd:,.0f}   variance {var:,.0f}")
+`,
         hint: "`.std()` and `.var()`. Check that `sd**2` equals `var`.",
       },
       {
@@ -170,7 +184,11 @@ assert sq_sum > 1e6, "Squared deviations should be large and positive"`,
         solution: `dev = x - x.mean()
 raw_sum = dev.sum()
 sq_sum = (dev**2).sum()
-print(raw_sum, sq_sum)`,
+print(f"sum of deviations: {raw_sum:.6f}")
+print(f"sum of squared deviations: {sq_sum:,.0f}")
+
+print(raw_sum, sq_sum)
+`,
       },
       {
         id: "skew-groups", title: "Skew, and a disparity",
@@ -192,7 +210,14 @@ assert score_by_group["A"] > score_by_group["B"], "Look again: which group has t
         solution: `lending = pd.read_csv("data/lending.csv")
 inc_skew = lending["annual_income"].skew()
 score_by_group = lending.groupby("applicant_group")["credit_score"].mean()
-print(inc_skew); print(score_by_group)`,
+print("income skew:", round(inc_skew, 2))
+print(score_by_group)
+
+import matplotlib.pyplot as plt
+for g, d in lending.groupby("applicant_group"):
+    plt.hist(d["credit_score"], bins=40, alpha=.55, label=f"group {g}")
+plt.legend(); plt.title("Credit score by applicant group"); plt.show()
+`,
       },
     ],
     quiz: [
@@ -279,8 +304,12 @@ print(f"{within1:.3f} {within2:.3f} {within3:.3f}")
 assert abs(within2 - 0.954) < 0.01, f"within 2σ should be ~0.954, got {within2:.3f}"
 assert abs(within3 - 0.997) < 0.005, f"within 3σ should be ~0.997, got {within3:.3f}"`,
         solution: `z = rng.normal(0, 1, 200_000)
+within1 = (abs(z) < 1).mean()
+print(f"{within1:.3f} {within2:.3f} {within3:.3f}")
+
 within1 = (abs(z) < 1).mean(); within2 = (abs(z) < 2).mean(); within3 = (abs(z) < 3).mean()
-print(within1, within2, within3)`,
+print(within1, within2, within3)
+`,
         hint: "A boolean array's `.mean()` is the proportion that is True.",
       },
       {
@@ -299,9 +328,17 @@ plt.show()
 `,
         check: `assert skew_raw > 1.5, "The raw log-normal should be strongly right-skewed"
 assert abs(skew_log) < 0.25, "After taking logs the skew should be near zero"`,
-        solution: `ln = rng.lognormal(3, 0.9, 5000)
+        solution: `import numpy as np, pandas as pd, matplotlib.pyplot as plt
+ln = rng.lognormal(3, 0.9, 5000)
 skew_raw = pd.Series(ln).skew()
-skew_log = pd.Series(np.log(ln)).skew()`,
+skew_log = pd.Series(np.log(ln)).skew()
+print(f"skew raw {skew_raw:.2f}   skew after log {skew_log:.2f}")
+
+fig, ax = plt.subplots(1, 2, figsize=(10, 3.4))
+ax[0].hist(ln, bins=60); ax[0].set_title("log-normal")
+ax[1].hist(np.log(ln), bins=60); ax[1].set_title("after np.log: normal")
+plt.show()
+`,
       },
       {
         id: "binomial", title: "Risk limits and luck",
@@ -316,8 +353,13 @@ print(f"expected {expected:.0f}   99th pct {p99:.0f}   P(breach 35) {breach:.1%}
         check: `assert expected == 30
 assert 40 <= p99 <= 46, f"99th percentile should be ~43, got {p99}"
 assert 0.10 < breach < 0.20, "A limit at 35 is breached in roughly one book in eight"`,
-        solution: `books = rng.binomial(500, 0.06, 10000)
-expected = 30; p99 = np.percentile(books, 99); breach = (books > 35).mean()`,
+        solution: `import numpy as np
+books = rng.binomial(500, 0.06, 10000)
+expected = 500 * 0.06
+p99 = np.percentile(books, 99)
+breach = (books > 35).mean()
+print(f"expected {expected:.0f}   99th pct {p99:.0f}   P(breach 35) {breach:.1%}")
+`,
       },
     ],
     quiz: [

@@ -14,6 +14,11 @@ export type Exercise = {
 type Props = {
   exercise: Exercise;
   setup?: string;
+  /** Solutions of the module's earlier exercises, replayed silently first so
+      this exercise stands alone even after a page reload. */
+  prereq?: string;
+  /** Pyodide packages this exercise needs beyond numpy/pandas/matplotlib. */
+  packages?: string[];
   onResult: (passed: boolean, code: string) => void;
 };
 
@@ -23,7 +28,7 @@ const PHASE_LABEL: Record<LoadPhase, string> = {
   ready: "", failed: "The Python runtime failed to load.",
 };
 
-export function Practice({ exercise, setup, onResult }: Props) {
+export function Practice({ exercise, setup, prereq, packages, onResult }: Props) {
   const [code, setCode] = useState(exercise.starter);
   const [result, setResult] = useState<RunResult | null>(null);
   const [check, setCheck] = useState<{ ok: boolean; message: string } | null>(null);
@@ -43,19 +48,27 @@ export function Practice({ exercise, setup, onResult }: Props) {
   // Warm the runtime as soon as a practice block is on screen.
   useEffect(() => { getPyodide().catch(() => {}); }, []);
 
-  const withSetup = (c: string) => (setup ? `${setup}\n\n${c}` : c);
-  const offset = setup ? setup.split("\n").length + 1 : 0;
+  // Earlier exercises are replayed inside a stdout redirect, and their figures
+  // closed, so only this exercise's own output reaches the learner.
+  const silentPrereq = prereq
+    ? "import io as _io, contextlib as _cl\nwith _cl.redirect_stdout(_io.StringIO()):\n"
+      + prereq.split("\n").map((l) => "    " + l).join("\n")
+      + "\nimport matplotlib.pyplot as _plt; _plt.close(\"all\")"
+    : "";
+  const pre = [setup, silentPrereq].filter(Boolean).join("\n\n");
+  const withSetup = (c: string) => (pre ? `${pre}\n\n${c}` : c);
+  const offset = pre ? pre.split("\n").length + 1 : 0;
 
   async function run() {
     setBusy("run"); setCheck(null);
-    try { setResult(await runPython(withSetup(code), offset)); }
+    try { setResult(await runPython(withSetup(code), offset, packages)); }
     finally { setBusy(null); }
   }
 
   async function verify() {
     setBusy("check");
     try {
-      const r = await runPython(withSetup(code), offset);
+      const r = await runPython(withSetup(code), offset, packages);
       setResult(r);
       if (r.error) { setCheck({ ok: false, message: "Fix the error above first." }); onResult(false, code); return; }
       const c = await checkPython(exercise.check);

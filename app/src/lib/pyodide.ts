@@ -117,10 +117,11 @@ export async function ensurePackages(names: string[]) {
  * `lineOffset` is the number of hidden setup lines prepended to the learner's
  * code, so reported line numbers match what they see in the editor.
  */
-export async function runPython(code: string, lineOffset = 0): Promise<RunResult> {
+export async function runPython(code: string, lineOffset = 0, packages: string[] = []): Promise<RunResult> {
   const py = await getPyodide();
+  if (packages.length) await py.loadPackage(packages);   // awaited, so a run never races the download
   let stdout = "", stderr = "";
-  py.setStdout({ batched: (s) => { stdout += s + "\n"; } });
+  py.setStdout({ batched: (s) => { if (!/^Loading [\w, .-]+$|^Loaded [\w, .-]+$/.test(s)) stdout += s + "\n"; } });
   py.setStderr({ batched: (s) => { stderr += s + "\n"; } });
   const t0 = performance.now();
   let error: string | null = null;
@@ -161,7 +162,8 @@ except Exception as _e:
 /** Trim Pyodide's traceback down to the part a learner can act on. */
 function tidyTraceback(s: string, lineOffset = 0): string {
   const lines = s.trim().split("\n");
-  let last = lines[lines.length - 1] ?? s;
+  // Prefer the actual exception line over trailing hints (Pyodide appends a docs URL).
+  let last = [...lines].reverse().find((l) => /^[A-Za-z_]*(Error|Exception)\b/.test(l.trim())) ?? lines[lines.length - 1] ?? s;
   // A `...` placeholder left in the starter code produces an Ellipsis error;
   // say so in plain words instead of quoting the dunder method.
   if (/ellipsis/i.test(last)) last = "There is still a `...` placeholder to fill in.";

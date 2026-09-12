@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useStudy } from "../App";
 import { SESSIONS, TOTAL_HOURS } from "../data/sessions";
 import { computeMetrics, pct } from "../lib/metrics";
 import { supabase } from "../lib/supabase";
 import { getTutorKey, setTutorKey } from "../lib/tutorClient";
 import { DayActivity, DeckAccuracy, MasteryBar, Sparkline } from "../components/Charts";
+import { fetchLearnStats, type LearnStats } from "../lib/learnStats";
 
 const RANGES = [
   { d: 7, label: "7 days" },
@@ -17,6 +18,12 @@ export default function Progress() {
   const [range, setRange] = useState(14);
 
   const m = useMemo(() => computeMetrics(progress, range), [progress, range]);
+  const [ls, setLs] = useState<LearnStats | null>(null);
+  useEffect(() => {
+    let live = true;
+    fetchLearnStats(session, range).then((r) => { if (live) setLs(r); }).catch(() => {});
+    return () => { live = false; };
+  }, [session?.user.id, range]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const sessionsDone = Object.keys(progress.sessionsDone).length;
   const hours = progress.minutesLogged / 60;
@@ -90,6 +97,54 @@ export default function Progress() {
         </div>
       )}
 
+      {/* ----------------------------------------------------------- lessons */}
+      <h2 className="h-section">Lessons</h2>
+      <div className="kpis">
+        <div className="kpi lead">
+          <div className="kpi-k">Quiz accuracy</div>
+          <div className={`kpi-v${!ls || ls.quizAnswered === 0 ? " none" : ""}`}>
+            {!ls || ls.quizAnswered === 0 ? "Not yet" : pct(ls.quizCorrect / ls.quizAnswered)}
+          </div>
+          <div className="kpi-note">{ls ? `${ls.quizCorrect} of ${ls.quizAnswered} answers in this window` : "loads from your account"}</div>
+        </div>
+        <div className="kpi">
+          <div className="kpi-k">Exercises solved</div>
+          <div className="kpi-v">{ls ? ls.exercisesSolved : "—"}<span className="faint" style={{ fontSize: ".9rem" }}>/{ls?.totalExercises ?? "—"}</span></div>
+          <div className="kpi-note">distinct, ever</div>
+        </div>
+        <div className="kpi">
+          <div className="kpi-k">Pass rate</div>
+          <div className="kpi-v">{ls && ls.exerciseAttempts ? pct(ls.exercisePassed / ls.exerciseAttempts) : "—"}</div>
+          <div className="kpi-note">{ls ? `${ls.exerciseAttempts} checks in window` : ""}</div>
+        </div>
+        <div className="kpi">
+          <div className="kpi-k">Lessons done</div>
+          <div className="kpi-v">{ls ? ls.modulesCompleted : "—"}<span className="faint" style={{ fontSize: ".9rem" }}>/{ls?.totalModules ?? "—"}</span></div>
+          <div className="kpi-note">all four steps</div>
+        </div>
+      </div>
+
+      {ls && ls.byModule.length > 0 && (
+        <figure className="chart" style={{ marginBottom: "1rem" }}>
+          <figcaption className="chart-head"><div><h3>By lesson</h3></div></figcaption>
+          <div className="tablewrap">
+            <table className="datatable">
+              <thead><tr><th>Lesson</th><th>Quiz</th><th>Exercises</th></tr></thead>
+              <tbody>
+                {ls.byModule.map((r) => (
+                  <tr key={r.id}>
+                    <td className="clip">{r.title}</td>
+                    <td>{r.quizAcc === null ? "—" : `${pct(r.quizAcc)} (${r.quizN})`}</td>
+                    <td>{r.exTotal ? `${r.exSolved}/${r.exTotal}` : "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </figure>
+      )}
+
+      <h2 className="h-section">Flashcards</h2>
       {/* ------------------------------------------------------------ charts */}
       <div className="chartgrid">
         <DayActivity days={m.days} />

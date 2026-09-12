@@ -175,8 +175,15 @@ function ModuleView({ id }: { id: string }) {
           <p className="tiny faint" style={{ marginTop: 0 }}>
             Real Python, running in your browser. The datasets from the notebooks are available under <code>data/</code>.
           </p>
-          {m.exercises.map((ex) => (
-            <Practice key={ex.id} exercise={ex} setup={m.setup} onResult={(ok, code) => void logExercise(session, m.id, ex.id, ok, code)} />
+          {m.exercises.map((ex, i) => (
+            <Practice
+              key={ex.id}
+              exercise={ex}
+              setup={m.setup}
+              packages={m.packages}
+              prereq={m.exercises.slice(0, i).map((e) => e.solution).join("\n\n")}
+              onResult={(ok, code) => void logExercise(session, m.id, ex.id, ok, code)}
+            />
           ))}
           <button className="btn primary" onClick={advance}>{next ? "Continue to quiz" : "Done"} <IconChevronRight /></button>
         </div>
