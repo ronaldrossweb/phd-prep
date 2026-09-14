@@ -8,7 +8,7 @@ export const WEEK4: Module[] = [
   /* ===================================================== Session 10 */
   {
     id: "s10-hypothesis-testing",
-    session: 10, track: "stats", minutes: 55, setup: NP, packages: ["scipy"],
+    session: 6, track: "stats", minutes: 55, setup: NP, packages: ["scipy"],
     title: "Build a p-value from scratch",
     summary: "Shuffle the labels a few thousand times and see how big a difference chance alone produces. That fraction is a p-value. Then watch the t-test reproduce it instantly.",
     video: {
@@ -122,7 +122,7 @@ for n in (100, 1_000, 10_000, 100_000):
   /* ===================================================== Session 11 */
   {
     id: "s11-errors-power",
-    session: 11, track: "stats", minutes: 45, setup: NP, packages: ["scipy"],
+    session: 7, track: "stats", minutes: 45, setup: NP, packages: ["scipy"],
     title: "Two ways to be wrong, and power",
     summary: "Type I and Type II error, why underpowered studies produce false reassurance, and the multiple-comparisons trap that matters directly for fairness audits.",
     video: {
@@ -236,7 +236,7 @@ print(f"P(at least one false positive in 20 tests) = {p_any20:.1%}")
   /* ===================================================== Session 12 */
   {
     id: "s12-bootstrap",
-    session: 12, track: "stats", minutes: 60, setup: NP,
+    session: 0, track: "stats", minutes: 60, setup: NP,
     title: "The bootstrap — a confidence interval for anything",
     summary: "Resample your own data with replacement, ten lines of code, no formulas, works on any statistic. Then bootstrap a fairness gap into a defensible audit finding.",
     video: {

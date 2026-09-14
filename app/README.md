@@ -11,10 +11,11 @@ A learning portal — video, written lessons, a live in-browser Python environme
 | Route | What it does |
 |---|---|
 | `/` | Countdown to Oct 19, today's session, review queue, per-week progress |
-| `/learn` | All 24 lessons by session; `/learn/:id` runs one lesson: watch → read → practice → quiz |
+| `/learn` | 37 lessons by session (+ 12 optional extras); `/learn/:id` runs one lesson: watch → read → practice → quiz |
+| `/course` | The PhDAI 730 syllabus, transcribed: 8 weeks of McClave/Das readings, deliverables and points, projected due dates, grading — each week links to the prep lessons that cover it |
 | `/sessions` | All 15 sessions; `/sessions/:n` is one session's agenda with per-block checkboxes |
-| `/cards` | SM-2 spaced repetition over 204 cards, filterable by deck; swipe ← Again / → Good |
-| `/notation` | Searchable notation decoder, 43 entries |
+| `/cards` | SM-2 spaced repetition over 244 cards, filterable by deck; swipe ← Again / → Good |
+| `/notation` | Searchable notation decoder, 72 entries |
 | `/tutor` | Claude-backed tutor that knows the plan and the learner's level |
 | `/progress` | Dashboard: recall accuracy, review activity, per-deck accuracy, mastery distribution, most-forgotten cards, plan progress, sync settings |
 
@@ -105,6 +106,19 @@ Conventions that make exercises robust after a page reload:
 - `check` is Python assertions over the learner's globals; assertion messages are shown verbatim,
   so write them as hints. Reported line numbers subtract the hidden setup lines.
 - Video ids are verified against YouTube's oEmbed endpoint: `node scripts/verify-videos.mjs`.
+- Every exercise's solution + check runs in the local venv, with the module `setup` and the earlier
+  exercises' solutions replayed exactly as the portal does: `node scripts/check-exercises.mjs [idPrefix]`.
+  Solutions must therefore be complete programs (the starter with its blanks filled), not fragments.
+
+### Syllabus alignment
+
+`src/data/course.ts` is the PhDAI 730 syllabus as data (texts, 8-week readings, deliverables, grading).
+Lessons whose ids start with `w1`–`w8` follow McClave & Sincich ch 3, 4, 5, 11, 12, 13, 14 in the
+syllabus's order; `py-*` lessons follow the Das (OpenStax) Python chapters. The older foundation lessons
+(`s1`…`s15`) that the syllabus assumes rather than teaches stay in the schedule; the ones the course
+lessons superseded live under **Extras** (`EXTRAS` in `src/data/modules.ts`, `session: 0`).
+`src/data/sessions.ts` generates each session's blocks from the lessons scheduled for it, so the plan
+cannot drift from the content.
 
 ## The tutor
 

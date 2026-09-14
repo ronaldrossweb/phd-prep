@@ -8,7 +8,7 @@ export const WEEK2: Module[] = [
   /* ===================================================== Session 4 */
   {
     id: "s4-randomness",
-    session: 4, track: "stats", minutes: 40, setup: NP,
+    session: 0, track: "stats", minutes: 40, setup: NP,
     title: "Probability as long-run frequency",
     summary: "Probability defined so you can compute it: the fraction of times something happens if you repeat the setup forever. Simulate it, and see why the coin has no memory.",
     reading: {
@@ -88,7 +88,7 @@ print("addition rule:", round(p_a + p_b - p_both, 4))
   /* ===================================================== Session 5 */
   {
     id: "s5-conditioning",
-    session: 5, track: "stats", minutes: 45, setup: NP,
+    session: 0, track: "stats", minutes: 45, setup: NP,
     title: "Conditioning is filtering",
     summary: "P(A | B) is not a mysterious symbol. It is 'compute A only among the rows where B is true'. Once that is solid, Bayes is bookkeeping.",
     video: {
@@ -202,7 +202,7 @@ print(f"P(default) = {p_default:.3f}    P(default | DTI > 0.5) = {p_default_high
   /* ===================================================== Session 6 */
   {
     id: "s6-bayes",
-    session: 6, track: "stats", minutes: 60, setup: NP,
+    session: 4, track: "stats", minutes: 60, setup: NP,
     title: "Bayes by counting — the base-rate trap",
     summary: "A 96%-recall fraud model whose alerts are 91% false alarms. Nothing is broken. This is the most consequential idea in the course, and you will get it by counting, not by formula.",
     video: {

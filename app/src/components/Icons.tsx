@@ -126,3 +126,12 @@ export const IconLogout = (p: SVGProps<SVGSVGElement>) => (
     <path d="M15 8l4 4-4 4M19 12H9.5" />
   </svg>
 );
+
+/** Course — a mortarboard. */
+export const IconGrad = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...S(p)}>
+    <path d="M2.5 9.5 12 5l9.5 4.5L12 14 2.5 9.5Z" />
+    <path d="M6.5 11.5v4.2c0 1.3 2.5 2.8 5.5 2.8s5.5-1.5 5.5-2.8v-4.2" />
+    <path d="M21.5 9.5v5" opacity=".6" />
+  </svg>
+);

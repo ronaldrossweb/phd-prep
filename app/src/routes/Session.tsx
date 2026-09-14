@@ -86,6 +86,9 @@ export default function SessionView() {
         {new Date(session.date + "T12:00:00").toLocaleDateString("en-US",
           { weekday: "long", month: "long", day: "numeric" })} · {session.start} · {session.hours} hours
       </div>
+      <p className="small muted" style={{ marginTop: "-.4rem", marginBottom: ".9rem" }}>
+        <span className="pill stats" style={{ marginRight: ".4rem" }}>Syllabus</span>{session.syllabus}
+      </p>
 
       <div className="meter good">
         <span style={{ width: `${(blocksDone / session.blocks.length) * 100}%` }} />
@@ -113,7 +116,9 @@ export default function SessionView() {
                   <span className="tiny faint num">{b.minutes} min</span>
                 </div>
                 <div className="block-detail">{fmt(b.detail, key)}</div>
-                {b.resource && <div className="res">~/PhD/{b.resource}</div>}
+                {b.resource && (b.resource.startsWith("/")
+                  ? <Link to={b.resource} className="res" style={{ display: "inline-block", marginTop: ".35rem" }}>Open {b.resource.startsWith("/learn") ? "lesson" : "cards"} →</Link>
+                  : <div className="res">~/PhD/{b.resource}</div>)}
               </div>
             </div>
           );

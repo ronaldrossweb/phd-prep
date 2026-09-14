@@ -5,6 +5,24 @@
 **Term:** Monday Oct 19 – Friday Dec 11, 2026 (8 weeks)
 **Prep window:** Tue Sep 15 – Sat Oct 17, 2026
 
+## Syllabus alignment (added Sep 13 after the PhDAI 730 syllabus arrived)
+
+The official syllabus (McClave & Sincich, *Statistics*, ch 3–5 and 11–14; Das, *Introduction to Python
+Programming*, ch 1–2 and 6–15; eight weekly modules; 1,000 points) replaced the reconstructed stats
+track. The fifteen sessions now walk the syllabus in its own order:
+
+| Sessions | Syllabus | Portal lessons |
+|---|---|---|
+| 1–4 | McClave ch 3 (probability), ch 4 (discrete RVs), ch 5 (continuous RVs) · Das ch 1–2, 6, 9–10 | `w1-*`, `py-basics`, `py-functions`, `py-lists-dicts` + foundations |
+| 5–6 | Sampling distributions & hypothesis-test logic (assumed by ch 11+) · Das ch 11 | `s9-clt`, `s10-hypothesis-testing`, `py-classes` |
+| 7–9 | McClave ch 11 (simple regression: model, inference, CI vs PI), ch 12 §12.1–12.4 · Das ch 15 | `w2-simple-regression`, `w3-*`, `py-data-science` |
+| 10–12 | McClave ch 12 §12.5–12.12 (model building, residuals), ch 13 (categorical data) | `w4-*`, `w5-*`, `s14-classification` |
+| 13 | McClave ch 14 (nonparametric statistics, Spearman) | `w6-*`, `w7-spearman-and-choosing` |
+| 14–15 | Case Study workflow, Practical Connection, final review | `w7-case-study-workflow`, `w8-review-and-practical-connection` |
+
+The ethics track (PhDAI 832) is unchanged pending its syllabus. Course due dates in the portal are
+projected from an Oct 19 start until the bi-term is confirmed in iLearn.
+
 ## Cadence
 
 | Day | Time | Hours | Split |

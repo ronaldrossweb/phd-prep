@@ -152,7 +152,10 @@ export default function Dashboard() {
         </>
       )}
 
-      <h2 className="h-section">The five weeks</h2>
+      <div className="rowline" style={{ alignItems: "baseline" }}>
+        <h2 className="h-section">The five weeks</h2>
+        <Link to="/sessions" className="small" style={{ color: "var(--brass)", fontWeight: 650 }}>Full plan →</Link>
+      </div>
       <div className="card">
         {[1, 2, 3, 4, 5].map((w) => {
           const ws = SESSIONS.filter((s) => s.week === w);

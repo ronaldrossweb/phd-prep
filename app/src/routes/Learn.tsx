@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { currentSession, useStudy } from "../App";
 import { SESSIONS } from "../data/sessions";
-import { MODULES, moduleById, modulesForSession, stepsFor, type Module, type StepKind } from "../data/modules";
+import { ALL_MODULES, EXTRAS, MODULES, moduleById, modulesForSession, stepsFor, type Module, type StepKind } from "../data/modules";
 import { Practice } from "../components/Practice";
 import { Quiz } from "../components/Quiz";
 import { fmt } from "../lib/fmt";
@@ -72,31 +72,42 @@ function LearnIndex() {
               {isNow && <span style={{ color: "var(--brass)" }}>Up next</span>}
             </div>
             <div className="card card-tight">
-              {mods.map((m) => {
-                const doneSteps = new Set(mp[m.id] ?? []);
-                const total = stepsFor(m).length;
-                const complete = isComplete(m);
-                return (
-                  <Link key={m.id} to={`/learn/${m.id}`} className="sesslink">
-                    <Ring value={doneSteps.size / total} size={36} stroke={3.5} tone={complete ? "good" : doneSteps.size ? "brass" : "muted"}>
-                      {complete ? <IconCheck /> : doneSteps.size ? `${doneSteps.size}/${total}` : ""}
-                    </Ring>
-                    <span style={{ flex: 1, minWidth: 0 }}>
-                      <div className="sesstitle">{m.title}</div>
-                      <div className="sessdate">
-                        <span className={`pill ${m.track}`} style={{ marginRight: ".4rem" }}>{m.track === "both" ? "Both" : m.track === "stats" ? "Statistics" : "Ethics"}</span>
-                        {m.minutes} min · {stepsFor(m).map((k) => STEP_LABEL[k]).join(" · ")}
-                      </div>
-                    </span>
-                    <span className="chev"><IconChevronRight /></span>
-                  </Link>
-                );
-              })}
+              {mods.map((m) => <LessonRow key={m.id} m={m} mp={mp} isComplete={isComplete} />)}
             </div>
           </div>
         );
       })}
+
+      <div className="eyebrow" style={{ marginTop: "2rem" }}>Extras · foundations &amp; further Das chapters</div>
+      <p className="small muted" style={{ marginTop: ".2rem" }}>
+        Not scheduled in the fifteen sessions — open any of these when a lesson above assumes something you want more of,
+        or when the Course page lists one for the week you are in.
+      </p>
+      <div className="card card-tight">
+        {EXTRAS.map((m) => <LessonRow key={m.id} m={m} mp={mp} isComplete={isComplete} />)}
+      </div>
     </>
+  );
+}
+
+function LessonRow({ m, mp, isComplete }: { m: Module; mp: Record<string, string[]>; isComplete: (m: Module) => boolean }) {
+  const doneSteps = new Set(mp[m.id] ?? []);
+  const total = stepsFor(m).length;
+  const complete = isComplete(m);
+  return (
+    <Link to={`/learn/${m.id}`} className="sesslink">
+      <Ring value={doneSteps.size / total} size={36} stroke={3.5} tone={complete ? "good" : doneSteps.size ? "brass" : "muted"}>
+        {complete ? <IconCheck /> : doneSteps.size ? `${doneSteps.size}/${total}` : ""}
+      </Ring>
+      <span style={{ flex: 1, minWidth: 0 }}>
+        <div className="sesstitle">{m.title}</div>
+        <div className="sessdate">
+          <span className={`pill ${m.track}`} style={{ marginRight: ".4rem" }}>{m.track === "both" ? "Both" : m.track === "stats" ? "Statistics" : "Ethics"}</span>
+          {m.minutes} min · {stepsFor(m).map((k) => STEP_LABEL[k]).join(" · ")}
+        </div>
+      </span>
+      <span className="chev"><IconChevronRight /></span>
+    </Link>
   );
 }
 
@@ -116,8 +127,8 @@ function ModuleView({ id }: { id: string }) {
 
   const idx = steps.indexOf(step);
   const next = steps[idx + 1];
-  const prevMod = MODULES[MODULES.indexOf(m) - 1];
-  const nextMod = MODULES[MODULES.indexOf(m) + 1];
+  const prevMod = ALL_MODULES[ALL_MODULES.indexOf(m) - 1];
+  const nextMod = ALL_MODULES[ALL_MODULES.indexOf(m) + 1];
 
   const allDone = steps.every((s) => doneSteps.has(s));
 
@@ -130,7 +141,7 @@ function ModuleView({ id }: { id: string }) {
   return (
     <>
       <Link to="/learn" className="backlink"><IconChevronLeft /> All lessons</Link>
-      <div className="eyebrow">Session {m.session} · {m.minutes} min</div>
+      <div className="eyebrow">{m.session ? `Session ${m.session}` : "Extra"} · {m.minutes} min</div>
       <h2 className="h-section" style={{ margin: "0 0 .35rem" }}>{m.title}</h2>
       <p className="small muted" style={{ marginTop: 0 }}>{m.summary}</p>
 

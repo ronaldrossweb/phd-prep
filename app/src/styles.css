@@ -1718,3 +1718,12 @@ input:focus-visible, textarea:focus-visible { box-shadow: 0 0 0 4px var(--brass-
   .topmeta .days { font-size: .86rem; }
   .popover { width: min(288px, calc(100vw - 1.6rem)); }
 }
+
+/* ---------------------------------------------------------------- course */
+.course-cols { display: grid; grid-template-columns: 1fr; gap: .8rem; margin-top: .8rem; }
+@media (min-width: 640px) { .course-cols { grid-template-columns: 1.3fr 1fr; } }
+.readlist { list-style: none; padding: 0; margin: 0; }
+.readlist li { font-size: .84rem; margin: .3rem 0; display: flex; gap: .45rem; align-items: baseline; flex-wrap: wrap; }
+.readlist li .pill { flex-shrink: 0; }
+ol.readlist { list-style: decimal; }
+.card.continue { display: block; }

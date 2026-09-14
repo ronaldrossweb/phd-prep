@@ -267,7 +267,7 @@ plt.legend(); plt.title("Credit score by applicant group"); plt.show()
   /* ===================================================== Session 3 */
   {
     id: "s3-distribution-zoo",
-    session: 3, track: "stats", minutes: 60,
+    session: 0, track: "stats", minutes: 60,
     setup: `import numpy as np, pandas as pd
 import matplotlib.pyplot as plt`,
     title: "The distribution zoo",

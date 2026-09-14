@@ -148,6 +148,36 @@ export const NOTATION: NotationEntry[] = [
     "section": "Probability"
   },
   {
+    "symbol": "X ~ Bin(n, p)",
+    "readAloud": "\"X is binomial\"",
+    "meaning": "Number of successes in n independent trials with success probability p. E(X) = np, Var(X) = np(1−p).",
+    "section": "Probability"
+  },
+  {
+    "symbol": "X ~ Pois(λ)",
+    "readAloud": "\"X is Poisson\"",
+    "meaning": "Count of events in a fixed interval when they occur at average rate λ. E(X) = Var(X) = λ.",
+    "section": "Probability"
+  },
+  {
+    "symbol": "X ~ Exp(θ)",
+    "readAloud": "\"X is exponential\"",
+    "meaning": "Waiting time between Poisson events; mean θ, memoryless.",
+    "section": "Probability"
+  },
+  {
+    "symbol": "p(x) vs f(x)",
+    "readAloud": "\"p of x / f of x\"",
+    "meaning": "Probability *mass* (discrete: a probability at each value) vs probability *density* (continuous: area under the curve is the probability; a single point has probability 0).",
+    "section": "Probability"
+  },
+  {
+    "symbol": "continuity correction",
+    "readAloud": "",
+    "meaning": "Using the normal to approximate the binomial: P(X ≤ 7) becomes P(Y ≤ 7.5).",
+    "section": "Probability"
+  },
+  {
     "symbol": "H₀",
     "readAloud": "\"H-naught\" / \"H-zero\"",
     "meaning": "The null hypothesis: nothing is happening, the effect is zero.",
@@ -226,6 +256,78 @@ export const NOTATION: NotationEntry[] = [
     "section": "Regression and models"
   },
   {
+    "symbol": "SSE",
+    "readAloud": "\"S-S-E\"",
+    "meaning": "Sum of squared errors, Σ(y − ŷ)² — what least squares minimises.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "s",
+    "readAloud": "\"s\" (standard error of the estimate)",
+    "meaning": "√(SSE/(n−2)) — the typical size of a residual, in y's units. About 95% of points lie within 2s of the line.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "r",
+    "readAloud": "\"r\"",
+    "meaning": "Coefficient of correlation, −1 to 1: strength and direction of a *linear* relationship.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "R²_adj",
+    "readAloud": "\"adjusted R-squared\"",
+    "meaning": "R² penalised for the number of predictors; the one to compare models with, because plain R² never falls when a variable is added.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "k",
+    "readAloud": "\"k\"",
+    "meaning": "Number of predictors in a multiple regression; the model has k + 1 parameters.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "F",
+    "readAloud": "\"F\"",
+    "meaning": "The global test that *all* slopes are zero. Do it before reading any individual t-test.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "x₁x₂",
+    "readAloud": "\"x-one x-two\" (interaction)",
+    "meaning": "Lets the slope of x₁ depend on x₂: slope of x₁ = β₁ + β₃x₂.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "x²",
+    "readAloud": "\"x squared\" (quadratic term)",
+    "meaning": "Curvature. β₂ < 0 bends downward, β₂ > 0 upward.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "dummy variable",
+    "readAloud": "",
+    "meaning": "A 0/1 column standing for one level of a category. A category with c levels needs c − 1 dummies; the omitted level is the base.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "VIF",
+    "readAloud": "\"variance inflation factor\"",
+    "meaning": "How much a predictor is explained by the *other* predictors. Above 10 = multicollinearity; the coefficient is unstable.",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "CI for E(y) vs PI",
+    "readAloud": "",
+    "meaning": "Confidence interval for the mean y at x (narrow) vs prediction interval for one new y at x (much wider).",
+    "section": "Regression and models"
+  },
+  {
+    "symbol": "Cook's D",
+    "readAloud": "\"Cook's distance\"",
+    "meaning": "How much one observation pulls the fitted line. Large → investigate before deciding anything.",
+    "section": "Regression and models"
+  },
+  {
     "symbol": "Accuracy",
     "readAloud": "Fraction correct",
     "meaning": "\"How often am I right?\" — misleading on imbalanced data.",
@@ -266,5 +368,77 @@ export const NOTATION: NotationEntry[] = [
     "readAloud": "The 2×2 table of TP/FP/FN/TN",
     "meaning": "Everything above is computed from this.",
     "section": "Machine learning evaluation"
+  },
+  {
+    "symbol": "Eᵢ",
+    "readAloud": "\"expected count\"",
+    "meaning": "In a one-way table, n·pᵢ₀. Every Eᵢ must be ≥ 5 for the χ² approximation to hold.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "Êᵢⱼ",
+    "readAloud": "\"expected count in cell i, j\"",
+    "meaning": "In a two-way table, (row total × column total)/n — what independence would produce.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "(r − 1)(c − 1)",
+    "readAloud": "",
+    "meaning": "Degrees of freedom for a test of independence in an r × c table. One-way table: k − 1.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "multinomial",
+    "readAloud": "",
+    "meaning": "n independent trials, k possible outcomes each — the binomial with more than two categories.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "η",
+    "readAloud": "\"eta\"",
+    "meaning": "A population median. The sign test's hypothesis is about η, not µ.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "T₁",
+    "readAloud": "\"T-one\" (rank sum)",
+    "meaning": "Sum of the ranks of sample 1 after pooling and ranking both samples. Wilcoxon rank-sum = Mann–Whitney U.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "T₊, T₋",
+    "readAloud": "\"T-plus, T-minus\"",
+    "meaning": "In the signed-rank test: sums of the ranks of positive and negative paired differences.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "H",
+    "readAloud": "\"H\" (Kruskal–Wallis)",
+    "meaning": "12/(n(n+1)) · Σ Rⱼ²/nⱼ − 3(n+1) — rank-based one-way ANOVA. ~ χ²(k−1) when every nⱼ ≥ 5.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "F_r",
+    "readAloud": "\"F-r\" (Friedman)",
+    "meaning": "Rank-based randomised-block ANOVA: rank within each block, then 12/(bk(k+1)) · Σ Rⱼ² − 3b(k+1).",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "r_s",
+    "readAloud": "\"r-sub-s\" (Spearman)",
+    "meaning": "Rank correlation: Pearson's r on the ranks. No ties: 1 − 6Σd²/(n(n²−1)). Measures *monotonic* association; robust to outliers.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "Rⱼ",
+    "readAloud": "\"R-j\"",
+    "meaning": "Rank sum for group (or treatment) j.",
+    "section": "Categorical data and nonparametric tests"
+  },
+  {
+    "symbol": "nonparametric",
+    "readAloud": "\"distribution-free\"",
+    "meaning": "A test that works on ranks or signs and assumes no particular population shape. Less power than the t-test when data really are normal; much safer when they are not.",
+    "section": "Categorical data and nonparametric tests"
   }
 ];

@@ -22,7 +22,7 @@ import { AccountMenu } from "./components/AccountMenu";
 import { applyTheme, getTheme } from "./lib/theme";
 import { MODULES, stepsFor } from "./data/modules";
 import {
-  IconBars, IconBook, IconLayers, IconRows, IconSigma, IconSpark, IconSunrise,
+  IconBars, IconBook, IconGrad, IconLayers, IconSigma, IconSpark, IconSunrise,
 } from "./components/Icons";
 
 import Dashboard from "./routes/Dashboard";
@@ -32,6 +32,7 @@ import Notation from "./routes/Notation";
 import Tutor from "./routes/Tutor";
 import ProgressView from "./routes/Progress";
 import Learn from "./routes/Learn";
+import Course from "./routes/Course";
 
 type Ctx = {
   progress: Progress;
@@ -211,7 +212,7 @@ export default function App() {
         <nav className="tabs">
           <Tab to="/" icon={<IconSunrise />} label="Today" />
           <Tab to="/learn" icon={<IconBook />} label="Learn" />
-          <Tab to="/sessions" icon={<IconRows />} label="Plan" />
+          <Tab to="/course" icon={<IconGrad />} label="Course" />
           <Tab to="/cards" icon={<IconLayers />} label="Cards" badge={dueCount} />
           <Tab to="/notation" icon={<IconSigma />} label="Notation" />
           {tutorReady && <Tab to="/tutor" icon={<IconSpark />} label="Tutor" />}
@@ -224,6 +225,7 @@ export default function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/learn" element={<Learn />} />
             <Route path="/learn/:id" element={<Learn />} />
+            <Route path="/course" element={<Course />} />
             <Route path="/sessions" element={<SessionView />} />
             <Route path="/sessions/:n" element={<SessionView />} />
             <Route path="/cards" element={<Cards />} />

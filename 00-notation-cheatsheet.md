@@ -68,6 +68,12 @@ value, `ŷ` is your prediction. Any hat means "computed from data, therefore unc
 | `X ~ N(µ, σ²)` | "X is distributed normal with mean µ and variance σ²" | `~` means "is drawn from." |
 | `E[X]` | "expected value of X" | The long-run average of X. A weighted average, not a prediction. |
 | `Var(X)` | "variance of X" | How much X bounces around its expected value. |
+| `X ~ Bin(n, p)` | "X is binomial" | Number of successes in n independent trials with success probability p. `E(X) = np`, `Var(X) = np(1−p)`. |
+| `X ~ Pois(λ)` | "X is Poisson" | Count of events in a fixed interval when they occur at average rate λ. `E(X) = Var(X) = λ`. |
+| `X ~ N(µ, σ²)` | "X is normal" | The bell curve with mean µ and variance σ². `z = (x − µ)/σ` puts any normal on the standard one. |
+| `X ~ Exp(θ)` | "X is exponential" | Waiting time between Poisson events; mean θ, memoryless. |
+| `p(x)` vs `f(x)` | "p of x / f of x" | Probability *mass* (discrete: a probability at each value) vs probability *density* (continuous: area under the curve is the probability; a single point has probability 0). |
+| continuity correction | — | Using the normal to approximate the binomial: `P(X ≤ 7)` becomes `P(Y ≤ 7.5)`. |
 
 **The pipe `|` is the one to slow down on.** `P(fraud \| alert)` and `P(alert \| fraud)` are wildly
 different numbers, and swapping them is the base-rate fallacy — the thing you will simulate in Session 5.
@@ -110,6 +116,19 @@ fraud is rare. That single idea shows up in your ethics course too, as the techn
 | `ε` | epsilon | The residual — what your model missed. |
 | `R²` | "R-squared" | Share of the variation in y your model accounts for. 0 to 1. |
 | `ŷ = β₀ + β₁x + ε` | — | The whole of linear regression, in one line. |
+| `SSE` | "S-S-E" | Sum of squared errors, `Σ(y − ŷ)²` — what least squares minimises. |
+| `s` | "s" (standard error of the estimate) | `√(SSE/(n−2))` — the typical size of a residual, in y's units. About 95% of points lie within 2s of the line. |
+| `r` | "r" | Coefficient of correlation, −1 to 1: strength and direction of a *linear* relationship. |
+| `r²` | "r-squared" | Coefficient of determination — the share of variation in y explained by the line. `r = 0.7` → only 49% explained. |
+| `R²_adj` | "adjusted R-squared" | R² penalised for the number of predictors; the one to compare models with, because plain R² never falls when a variable is added. |
+| `k` | "k" | Number of predictors in a multiple regression; the model has `k + 1` parameters. |
+| `F` | "F" | The global test that *all* slopes are zero. Do it before reading any individual t-test. |
+| `x₁x₂` | "x-one x-two" (interaction) | Lets the slope of x₁ depend on x₂: slope of x₁ = `β₁ + β₃x₂`. |
+| `x²` | "x squared" (quadratic term) | Curvature. `β₂ < 0` bends downward, `β₂ > 0` upward. |
+| dummy variable | — | A 0/1 column standing for one level of a category. A category with c levels needs `c − 1` dummies; the omitted level is the **base**. |
+| `VIF` | "variance inflation factor" | How much a predictor is explained by the *other* predictors. Above 10 = multicollinearity; the coefficient is unstable. |
+| CI for E(y) vs PI | — | Confidence interval for the **mean** y at x (narrow) vs prediction interval for **one new** y at x (much wider). |
+| Cook's D | "Cook's distance" | How much one observation pulls the fitted line. Large → investigate before deciding anything. |
 
 `Σ(y − ŷ)²` — "add up the squared misses." Minimizing that quantity *is* what fitting a regression
 means. Everything else is bookkeeping.
@@ -132,6 +151,31 @@ means. Everything else is bookkeeping.
 **99% accurate** and completely worthless. This is why your statistics course teaches precision and
 recall, and it is the same arithmetic that makes fairness hard in PhDAI 832: precision and recall can
 be equalized across groups, or the overall error rate can be minimized, but generally not both.
+
+---
+
+## Categorical data and nonparametric tests
+
+| Symbol | Read aloud | Meaning |
+|---|---|---|
+| `χ²` | "chi-square" | The statistic `Σ(observed − expected)²/expected` — the squared gap between the counts you saw and the counts H₀ predicted, scaled by what you expected. Big χ² → reject. Upper tail only. |
+| `Eᵢ` | "expected count" | In a one-way table, `n·pᵢ₀`. Every `Eᵢ` must be ≥ 5 for the χ² approximation to hold. |
+| `Êᵢⱼ` | "expected count in cell i, j" | In a two-way table, `(row total × column total)/n` — what independence would produce. |
+| `(r − 1)(c − 1)` | — | Degrees of freedom for a test of independence in an r × c table. One-way table: `k − 1`. |
+| multinomial | — | n independent trials, k possible outcomes each — the binomial with more than two categories. |
+| `η` | "eta" | A population **median**. The sign test's hypothesis is about η, not µ. |
+| `S` | "S" (sign test) | Number of observations above the hypothesised median. Under H₀, `S ~ Binomial(n, ½)`. |
+| `T₁` | "T-one" (rank sum) | Sum of the ranks of sample 1 after pooling and ranking both samples. Wilcoxon rank-sum = Mann–Whitney U. |
+| `T₊`, `T₋` | "T-plus, T-minus" | In the signed-rank test: sums of the ranks of positive and negative paired differences. |
+| `H` | "H" (Kruskal–Wallis) | `12/(n(n+1)) · Σ Rⱼ²/nⱼ − 3(n+1)` — rank-based one-way ANOVA. `~ χ²(k−1)` when every nⱼ ≥ 5. |
+| `F_r` | "F-r" (Friedman) | Rank-based randomised-block ANOVA: rank within each block, then `12/(bk(k+1)) · Σ Rⱼ² − 3b(k+1)`. |
+| `r_s` | "r-sub-s" (Spearman) | Rank correlation: Pearson's r on the ranks. No ties: `1 − 6Σd²/(n(n²−1))`. Measures *monotonic* association; robust to outliers. |
+| `Rⱼ` | "R-j" | Rank sum for group (or treatment) j. |
+| nonparametric | "distribution-free" | A test that works on ranks or signs and assumes no particular population shape. Less power than the t-test when data really are normal; much safer when they are not. |
+
+**How to choose.** Counts in categories → χ². One median → sign test. Two independent samples → rank-sum.
+Paired → signed-rank. k independent groups → Kruskal–Wallis. k treatments within blocks → Friedman.
+Two rankings → Spearman. Each is the rank-based twin of a parametric test you already know.
 
 ---
 

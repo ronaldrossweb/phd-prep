@@ -8,7 +8,7 @@ export const WEEK3: Module[] = [
   /* ===================================================== Session 7 */
   {
     id: "s7-expectation-variance",
-    session: 7, track: "stats", minutes: 50, setup: NP,
+    session: 0, track: "stats", minutes: 50, setup: NP,
     title: "Expectation and variance",
     summary: "E[X] describes a portfolio, never an individual. Var(X) is the missing half of any honest summary. The four algebra rules, verified rather than asserted.",
     reading: {
@@ -94,7 +94,7 @@ for n in (1, 4, 25, 100):
   /* ===================================================== Session 8 */
   {
     id: "s8-normal",
-    session: 8, track: "stats", minutes: 40, setup: NP,
+    session: 0, track: "stats", minutes: 40, setup: NP,
     title: "The normal distribution, read aloud",
     summary: "X ~ N(µ, σ²) until it is automatic, the 68/95/99.7 ruler, and the standard error of the mean previewed by simulation.",
     video: {
@@ -194,7 +194,7 @@ print(f"σ of individuals {sd_individuals:.1f}   σ of sample means {sd_means:.1
   /* ===================================================== Session 9 */
   {
     id: "s9-clt",
-    session: 9, track: "stats", minutes: 75, setup: NP,
+    session: 5, track: "stats", minutes: 75, setup: NP,
     title: "The Central Limit Theorem — the centerpiece",
     summary: "Watch sample means turn normal from a violently skewed population, then separate σ from the standard error. Everything in inference is a consequence of what happens here.",
     video: {

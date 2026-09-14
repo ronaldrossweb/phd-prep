@@ -9,7 +9,7 @@ export const WEEK5: Module[] = [
   /* ===================================================== Session 13 */
   {
     id: "s13-regression",
-    session: 13, track: "stats", minutes: 55, setup: NP, packages: ["statsmodels"],
+    session: 0, track: "stats", minutes: 55, setup: NP, packages: ["statsmodels"],
     title: "Regression: the line, the coefficient, the residuals",
     summary: "Fit the line that minimises squared misses, say a coefficient aloud as a sentence, and see an R² of 0.9 hiding a plainly wrong model.",
     video: {
@@ -119,7 +119,7 @@ print(f"tellers -> complaints, controlling for branch size: {coef_controlled:+.2
   /* ===================================================== Session 14 */
   {
     id: "s14-classification",
-    session: 14, track: "stats", minutes: 50, setup: NP, packages: ["scikit-learn"],
+    session: 12, track: "stats", minutes: 50, setup: NP, packages: ["scikit-learn"],
     title: "Logistic regression and the accuracy trap",
     summary: "Predict a yes/no outcome, then discover a 91%-accurate model that catches zero defaults. Train/test split, overfitting, and why the threshold is a policy decision.",
     video: {
